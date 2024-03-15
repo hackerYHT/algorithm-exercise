@@ -1,6 +1,9 @@
 package lc
 
-import sort2 "sort"
+import (
+	"math"
+	sort2 "sort"
+)
 
 type Algorithm interface {
 	groupAnagrams(strs []string) [][]string
@@ -43,5 +46,25 @@ func (m MyImpl) groupAnagrams(strs []string) [][]string {
 }
 
 func (m MyImpl) longestConsecutive(nums []int) int {
-
+	myMap := make(map[int]int, 0)
+	res := 0
+	for _, num := range nums {
+		_, ok := myMap[num]
+		if !ok {
+			left, ok := myMap[num-1]
+			if !ok {
+				left = 0
+			}
+			right, ok := myMap[num+1]
+			if !ok {
+				right = 0
+			}
+			tmp := left + right + 1
+			myMap[num] = tmp
+			myMap[num-left] = tmp
+			myMap[num+right] = tmp
+			res = int(math.Max(float64(res), float64(tmp)))
+		}
+	}
+	return res
 }
