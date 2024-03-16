@@ -80,3 +80,21 @@ func (m MyImpl) moveZeroes(nums []int) {
 		}
 	}
 }
+
+func (m MyImpl) maxArea(height []int) int {
+	i, j := 0, len(height)-1
+	res := 0
+	for i < j {
+		a, b := 0, j-i
+		if height[i] < height[j] {
+			a = height[i]
+			i++
+		} else {
+			a = height[j]
+			j--
+		}
+		ans := a * b
+		res = int(math.Max(float64(res), float64(ans)))
+	}
+	return res
+}
