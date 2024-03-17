@@ -98,3 +98,27 @@ func (m MyImpl) maxArea(height []int) int {
 	}
 	return res
 }
+
+func (m MyImpl) threeSum(nums []int) [][]int {
+	return nil
+}
+
+func (m MyImpl) trap(height []int) int {
+	res := 0
+	dpLeft := make([]int, len(height))
+	dpRight := make([]int, len(height))
+	dpLeft[0], dpRight[len(dpRight)-1] = 0, 0
+	for i := 1; i < len(dpLeft); i++ {
+		dpLeft[i] = int(math.Max(float64(dpLeft[i-1]), float64(height[i-1])))
+	}
+	for i := len(dpRight) - 2; i >= 0; i-- {
+		dpRight[i] = int(math.Max(float64(dpRight[i+1]), float64(height[i+1])))
+	}
+	for i := 0; i < len(height); i++ {
+		tmp := int(math.Min(float64(dpLeft[i]), float64(dpRight[i])))
+		if tmp > height[i] {
+			res += tmp - height[i]
+		}
+	}
+	return res
+}
