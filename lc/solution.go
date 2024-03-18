@@ -100,7 +100,35 @@ func (m MyImpl) maxArea(height []int) int {
 }
 
 func (m MyImpl) threeSum(nums []int) [][]int {
-	return nil
+	res := make([][]int, 0)
+	if len(nums) < 3 {
+		return res
+	}
+	sort2.Ints(nums)
+	for i := 0; i < len(nums); i++ {
+		if nums[i] > 0 {
+			break
+		}
+		target := 0 - nums[i]
+		l, r := i+1, len(nums)-1
+		for l < r {
+			twoSum := nums[l] + nums[r]
+			if l < r && twoSum < target {
+				l++
+			} else if l < r && twoSum > target {
+				r--
+			} else {
+				res = append(res, []int{nums[i], nums[l], nums[r]})
+			}
+			for l < r && nums[l] == nums[l+1] {
+				l++
+			}
+			for l < r && nums[r] == nums[r-1] {
+				r--
+			}
+		}
+	}
+	return res
 }
 
 func (m MyImpl) trap(height []int) int {
