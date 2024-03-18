@@ -178,3 +178,10 @@ func (m MyImpl) lengthOfLongestSubstring(s string) int {
 	}
 	return res
 }
+func (m MyImpl) findAnagrams(s string, p string) []int {
+	return nil
+}
+
+func (m MyImpl) subarraySum(nums []int, k int) int {
+	return 0
+}
