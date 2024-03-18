@@ -2,7 +2,7 @@ package lc
 
 import (
 	"math"
-	sort2 "sort"
+	sort "sort"
 )
 
 type Algorithm interface {
@@ -16,17 +16,17 @@ type MyImpl struct {
 }
 
 func (m MyImpl) groupAnagrams(strs []string) [][]string {
-	var sort func(str string) string
-	sort = func(str string) string {
+	var sorts func(str string) string
+	sorts = func(str string) string {
 		s := []rune(str)
-		sort2.Slice(s, func(i, j int) bool {
+		sort.Slice(s, func(i, j int) bool {
 			return s[i] < s[j]
 		})
 		return string(s)
 	}
 	myMap := make(map[string][]string, 0)
 	for _, str := range strs {
-		s := sort(str)
+		s := sorts(str)
 		_, ok := myMap[s]
 		if ok {
 			myMap[s] = append(myMap[s], str)
@@ -104,26 +104,35 @@ func (m MyImpl) threeSum(nums []int) [][]int {
 	if len(nums) < 3 {
 		return res
 	}
-	sort2.Ints(nums)
+	if len(nums) == 3 && nums[0]+nums[1]+nums[2] == 0 {
+		res = append(res, nums)
+		return res
+	}
+	sort.Ints(nums)
 	for i := 0; i < len(nums); i++ {
 		if nums[i] > 0 {
 			break
+		}
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
 		}
 		target := 0 - nums[i]
 		l, r := i+1, len(nums)-1
 		for l < r {
 			twoSum := nums[l] + nums[r]
-			if l < r && twoSum < target {
+			if twoSum < target {
 				l++
-			} else if l < r && twoSum > target {
+			} else if twoSum > target {
 				r--
 			} else {
 				res = append(res, []int{nums[i], nums[l], nums[r]})
-			}
-			for l < r && nums[l] == nums[l+1] {
+				for l < r && nums[l] == nums[l+1] {
+					l++
+				}
+				for l < r && nums[r] == nums[r-1] {
+					r--
+				}
 				l++
-			}
-			for l < r && nums[r] == nums[r-1] {
 				r--
 			}
 		}
