@@ -150,3 +150,18 @@ func (m MyImpl) trap(height []int) int {
 	}
 	return res
 }
+
+func (m MyImpl) lengthOfLongestSubstring(s string) int {
+	i, j := 0, 0
+	res := 0
+	myMap := make(map[byte]int, 0)
+	for j < len(s) {
+		v, ok := myMap[s[j]]
+		if ok && v < i {
+			i = myMap[s[j]] + 1
+		}
+		myMap[s[j]] = j
+		res = int(math.Max(float64(res), float64(j-i+1)))
+	}
+	return res
+}
