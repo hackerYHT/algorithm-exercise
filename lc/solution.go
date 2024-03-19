@@ -197,5 +197,25 @@ func (m MyImpl) findAnagrams(s string, p string) []int {
 }
 
 func (m MyImpl) subarraySum(nums []int, k int) int {
-	return 0
+	dp := make([]int, 0)
+	res := 0
+	if len(nums) == 0 {
+		return 0
+	}
+	if nums[0] == k {
+		dp[0] = 1
+	} else {
+		dp[0] = 0
+	}
+	for i := 1; i < len(dp); i++ {
+		tmp := 0
+		for j := i; j >= 0; j-- {
+			tmp += nums[j]
+			if tmp == k {
+				dp[i]++
+			}
+		}
+		res += dp[i]
+	}
+	return res
 }
