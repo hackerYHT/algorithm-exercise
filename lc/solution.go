@@ -179,7 +179,21 @@ func (m MyImpl) lengthOfLongestSubstring(s string) int {
 	return res
 }
 func (m MyImpl) findAnagrams(s string, p string) []int {
-	return nil
+	l, r := 0, len(p)-1
+	res := make([]int, 0)
+	sort.Slice(p, func(i, j int) bool {
+		return p[i] < p[j]
+	})
+	for r < len(s) {
+		tmp := s[l : r+1]
+		sort.Slice(tmp, func(i, j int) bool { return tmp[i] < tmp[j] })
+		if tmp == p {
+			res = append(res, l)
+		}
+		l++
+		r++
+	}
+	return res
 }
 
 func (m MyImpl) subarraySum(nums []int, k int) int {
