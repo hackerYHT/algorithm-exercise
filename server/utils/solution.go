@@ -1,4 +1,4 @@
-package lc
+package utils
 
 import (
 	"math"
@@ -15,7 +15,7 @@ type MyImpl struct {
 	Name string
 }
 
-func (m MyImpl) groupAnagrams(strs []string) [][]string {
+func (m *MyImpl) GroupAnagrams(strs []string) [][]string {
 	var sorts func(str string) string
 	sorts = func(str string) string {
 		s := []rune(str)
@@ -45,7 +45,7 @@ func (m MyImpl) groupAnagrams(strs []string) [][]string {
 	return res
 }
 
-func (m MyImpl) longestConsecutive(nums []int) int {
+func (m *MyImpl) LongestConsecutive(nums []int) int {
 	myMap := make(map[int]int, 0)
 	res := 0
 	for _, num := range nums {
@@ -68,7 +68,7 @@ func (m MyImpl) longestConsecutive(nums []int) int {
 	}
 	return res
 }
-func (m MyImpl) moveZeroes(nums []int) {
+func (m *MyImpl) MoveZeroes(nums []int) {
 	for i := 0; i < len(nums); i++ {
 		if nums[i] == 0 {
 			for j := i + 1; j < len(nums); j++ {
@@ -81,7 +81,7 @@ func (m MyImpl) moveZeroes(nums []int) {
 	}
 }
 
-func (m MyImpl) maxArea(height []int) int {
+func (m *MyImpl) MaxArea(height []int) int {
 	i, j := 0, len(height)-1
 	res := 0
 	for i < j {
@@ -99,7 +99,7 @@ func (m MyImpl) maxArea(height []int) int {
 	return res
 }
 
-func (m MyImpl) threeSum(nums []int) [][]int {
+func (m *MyImpl) ThreeSum(nums []int) [][]int {
 	res := make([][]int, 0)
 	if len(nums) < 3 {
 		return res
@@ -140,7 +140,7 @@ func (m MyImpl) threeSum(nums []int) [][]int {
 	return res
 }
 
-func (m MyImpl) trap(height []int) int {
+func (m *MyImpl) Trap(height []int) int {
 	res := 0
 	dpLeft := make([]int, len(height))
 	dpRight := make([]int, len(height))
@@ -160,7 +160,7 @@ func (m MyImpl) trap(height []int) int {
 	return res
 }
 
-func (m MyImpl) lengthOfLongestSubstring(s string) int {
+func (m *MyImpl) LengthOfLongestSubstring(s string) int {
 	if len(s) < 2 {
 		return len(s)
 	}
@@ -178,7 +178,7 @@ func (m MyImpl) lengthOfLongestSubstring(s string) int {
 	}
 	return res
 }
-func (m MyImpl) findAnagrams(s string, p string) []int {
+func (m *MyImpl) FindAnagrams(s string, p string) []int {
 	l, r := 0, len(p)-1
 	res := make([]int, 0)
 	sort.Slice(p, func(i, j int) bool {
@@ -196,7 +196,7 @@ func (m MyImpl) findAnagrams(s string, p string) []int {
 	return res
 }
 
-func (m MyImpl) subarraySum(nums []int, k int) int {
+func (m *MyImpl) SubarraySum(nums []int, k int) int {
 	dp := make([]int, 0)
 	res := 0
 	if len(nums) == 0 {
