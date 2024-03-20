@@ -14,7 +14,7 @@ type AlgorithmImpl struct {
 
 func (s *ServiceGroup) Resolve(mb lc.MethodBody) any {
 	method := mb.Method
-	var impl AlgorithmImpl
+	var impl utils.MyImpl
 	// 使用反射遍历方法
 	methodValue := reflect.ValueOf(&impl).Elem()
 	for i := 0; i < methodValue.NumMethod(); i++ {
