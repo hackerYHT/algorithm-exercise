@@ -230,3 +230,14 @@ func (m MyImpl) SubarraySum(nums []int, k int) int {
 	}
 	return res
 }
+
+func (m MyImpl) maxSubArray(nums []int) int {
+	res := nums[0]
+	cur, pre := 0, nums[0]
+	for i := 1; i < len(nums); i++ {
+		cur = int(math.Max(float64(pre+nums[i]), float64(nums[i])))
+		res = int(math.Max(float64(res), float64(cur)))
+		pre = cur
+	}
+	return res
+}
