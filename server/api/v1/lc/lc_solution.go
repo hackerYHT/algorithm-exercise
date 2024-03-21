@@ -20,7 +20,7 @@ func (s *SolutionApi) Resolve(c *gin.Context) {
 		return
 	}
 	res := solutionService.Resolve(mb)
-	if res != nil {
+	if res == nil {
 		response.OkWithMessage("执行失败！", c)
 	} else {
 		response.OkWithDetailed(res, "执行成功！", c)

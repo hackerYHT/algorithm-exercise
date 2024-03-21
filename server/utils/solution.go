@@ -179,19 +179,29 @@ func (m MyImpl) LengthOfLongestSubstring(s string) int {
 	return res
 }
 func (m MyImpl) FindAnagrams(s string, p string) []int {
+	if len(s) < len(p) {
+		return nil
+	}
 	l, r := 0, len(p)-1
 	res := make([]int, 0)
-	sort.Slice(p, func(i, j int) bool {
-		return p[i] < p[j]
-	})
+	var sArr [26]int
+	var pArr [26]int
+	for i, c := range p {
+		pArr[c-'a'] += 1
+		sArr[s[i]-'a'] += 1
+	}
 	for r < len(s) {
-		tmp := s[l : r+1]
-		sort.Slice(tmp, func(i, j int) bool { return tmp[i] < tmp[j] })
-		if tmp == p {
+		if pArr == sArr {
 			res = append(res, l)
+		}
+		if r < len(s) {
+			sArr[s[l]-'a'] -= 1
 		}
 		l++
 		r++
+		if r < len(s) {
+			sArr[s[r]-'a'] += 1
+		}
 	}
 	return res
 }

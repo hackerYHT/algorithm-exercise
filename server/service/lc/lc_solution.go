@@ -13,5 +13,5 @@ type AlgorithmImpl struct {
 
 func (s *ServiceGroup) Resolve(mb lc.MethodBody) any {
 	var impl AlgorithmImpl
-	return impl.SubarraySum([]int{1, 2, 3}, 3)
+	return impl.FindAnagrams("cbaebabacd", "abc")
 }
