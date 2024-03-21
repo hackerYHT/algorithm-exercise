@@ -214,6 +214,7 @@ func (m MyImpl) SubarraySum(nums []int, k int) int {
 	}
 	if nums[0] == k {
 		dp[0] = 1
+		res += 1
 	} else {
 		dp[0] = 0
 	}
