@@ -207,7 +207,7 @@ func (m MyImpl) FindAnagrams(s string, p string) []int {
 }
 
 func (m MyImpl) SubarraySum(nums []int, k int) int {
-	dp := make([]int, 0)
+	dp := make([]int, len(nums))
 	res := 0
 	if len(nums) == 0 {
 		return 0
