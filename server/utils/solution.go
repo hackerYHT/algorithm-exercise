@@ -231,7 +231,7 @@ func (m MyImpl) SubarraySum(nums []int, k int) int {
 	return res
 }
 
-func (m MyImpl) maxSubArray(nums []int) int {
+func (m MyImpl) MaxSubArray(nums []int) int {
 	res := nums[0]
 	cur, pre := 0, nums[0]
 	for i := 1; i < len(nums); i++ {
@@ -239,5 +239,27 @@ func (m MyImpl) maxSubArray(nums []int) int {
 		res = int(math.Max(float64(res), float64(cur)))
 		pre = cur
 	}
+	return res
+}
+
+func (m MyImpl) Merge(intervals [][]int) [][]int {
+	res := make([][]int, 0)
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+	tmp := []int{-1, -1}
+	for i := 0; i < len(intervals); i++ {
+		if tmp[0] == -1 {
+			tmp = intervals[i]
+		} else {
+			if tmp[1] >= intervals[i][0] {
+				tmp[1] = int(math.Max(float64(intervals[i][1]), float64(tmp[1])))
+			} else {
+				res = append(res, tmp)
+				tmp = intervals[i]
+			}
+		}
+	}
+	res = append(res, tmp)
 	return res
 }
