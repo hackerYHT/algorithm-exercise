@@ -263,3 +263,12 @@ func (m MyImpl) Merge(intervals [][]int) [][]int {
 	res = append(res, tmp)
 	return res
 }
+
+func (m MyImpl) Rotate(nums []int, k int) {
+	lenth := len(nums)
+	tmp := make([]int, lenth)
+	copy(tmp, nums)
+	for i, t := range tmp {
+		nums[(i+k)%lenth] = t
+	}
+}
