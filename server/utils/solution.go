@@ -312,3 +312,39 @@ func (m MyImpl) SetZeroes(matrix [][]int) {
 		}
 	}
 }
+
+func (m MyImpl) SpiralOrder(matrix [][]int) []int {
+	res := make([]int, 0)
+	l, r, u, d := 0, len(matrix[0])-1, 0, len(matrix)-1
+	for {
+		for i := l; i <= r; i++ {
+			res = append(res, matrix[u][i])
+		}
+		u++
+		if u > d {
+			break
+		}
+		for i := u; i <= d; i++ {
+			res = append(res, matrix[i][r])
+		}
+		r--
+		if l > r {
+			break
+		}
+		for i := r; i >= l; i-- {
+			res = append(res, matrix[d][i])
+		}
+		d--
+		if u > d {
+			break
+		}
+		for i := d; i >= u; i-- {
+			res = append(res, matrix[i][l])
+		}
+		l++
+		if l > r {
+			break
+		}
+	}
+	return res
+}
