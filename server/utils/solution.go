@@ -272,3 +272,25 @@ func (m MyImpl) Rotate(nums []int, k int) {
 		nums[(i+k)%lenth] = t
 	}
 }
+
+func (m MyImpl) ProductExceptSelf(nums []int) []int {
+	dpLeft := make([]int, len(nums))
+	dpRight := make([]int, len(nums))
+	dpLeft[0] = 1
+	dpRight[len(nums)-1] = 1
+	for i := 1; i < len(dpLeft); i++ {
+		dpLeft[i] = dpLeft[i-1] * nums[i-1]
+	}
+	for i := len(dpRight) - 2; i >= 0; i-- {
+		dpRight[i] = dpRight[i+1] * nums[i+1]
+	}
+	res := make([]int, len(nums))
+	for i := 0; i < len(res); i++ {
+		res[i] = dpLeft[i] * dpRight[i]
+	}
+	return res
+}
+
+func (m MyImpl) SetZeroes(matrix [][]int) {
+
+}
