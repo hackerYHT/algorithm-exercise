@@ -292,5 +292,23 @@ func (m MyImpl) ProductExceptSelf(nums []int) []int {
 }
 
 func (m MyImpl) SetZeroes(matrix [][]int) {
-
+	rowMap := make(map[int]int, 0)
+	colmunMap := make(map[int]int, 0)
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[0]); j++ {
+			if matrix[i][j] == 0 {
+				rowMap[i] = 1
+				colmunMap[j] = 1
+			}
+		}
+	}
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[0]); j++ {
+			_, ok1 := rowMap[i]
+			_, ok2 := colmunMap[j]
+			if ok1 || ok2 {
+				matrix[i][j] = 0
+			}
+		}
+	}
 }
