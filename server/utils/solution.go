@@ -348,3 +348,15 @@ func (m MyImpl) SpiralOrder(matrix [][]int) []int {
 	}
 	return res
 }
+
+func (m MyImpl) rotate(matrix [][]int) {
+	for i := 0; i < len(matrix)/2; i++ {
+		for j := 0; j < len(matrix[0])-j-1; j++ {
+			tmp := matrix[i][j]
+			matrix[i][j] = matrix[i][len(matrix[0])-j-1]
+			matrix[len(matrix)-i-1][j] = matrix[len(matrix)-i-1][len(matrix[0])-j-1]
+			matrix[len(matrix)-i-1][len(matrix[0])-j-1] = matrix[i][len(matrix[0])-j-1]
+			matrix[i][len(matrix[0])-j-1] = tmp
+		}
+	}
+}
