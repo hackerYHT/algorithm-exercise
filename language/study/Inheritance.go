@@ -17,7 +17,7 @@ type Dog struct {
 	Breed  string
 }
 
-func main() {
+func (dog Dog) express() {
 	d := Dog{
 		Animal: Animal{Name: "Dog"},
 		Breed:  "Labrador",

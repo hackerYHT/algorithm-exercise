@@ -1,8 +1,6 @@
 package main
 
-import (
-	"github.com/hackerYHT/algorithm-exercise/server/core"
-)
+import "github.com/hackerYHT/algorithm-exercise/server/core"
 
 func main() {
 	//r := gin.Default()

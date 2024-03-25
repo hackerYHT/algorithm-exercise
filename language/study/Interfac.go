@@ -17,7 +17,7 @@ func (d Dog_1) Speak() {
 	fmt.Println("Dog barks")
 }
 
-func main() {
+func (d Dog_1) express() {
 	var a Animal_1
 	a = Dog_1{Name: "Max"}
 	a.Speak() // 输出："Dog barks"

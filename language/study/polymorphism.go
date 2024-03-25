@@ -28,7 +28,7 @@ func (c Circle) Area() float64 {
 	return math.Pi * math.Pow(c.Radius, 2)
 }
 
-func main() {
+func (c Circle) express() {
 	shapes := []Shape{
 		Rectangle{Width: 2, Height: 3},
 		Circle{Radius: 1},
