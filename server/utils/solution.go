@@ -361,3 +361,19 @@ func (m MyImpl) rotate(matrix [][]int) {
 		}
 	}
 }
+
+func (m MyImpl) searchMatrix(matrix [][]int, target int) bool {
+	i, j := len(matrix)-1, 0
+	for i >= 0 && j < len(matrix[0]) {
+		for i >= 0 && j < len(matrix[0]) && matrix[i][j] > target {
+			i--
+		}
+		for i >= 0 && j < len(matrix[0]) && matrix[i][j] < target {
+			j++
+		}
+		if i >= 0 && j < len(matrix[0]) && matrix[i][j] == target {
+			return true
+		}
+	}
+	return false
+}
