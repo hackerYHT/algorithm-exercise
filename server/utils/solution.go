@@ -15,6 +15,11 @@ type MyImpl struct {
 	Name string
 }
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 func (m MyImpl) GroupAnagrams(strs []string) [][]string {
 	var sorts func(str string) string
 	sorts = func(str string) string {
@@ -360,6 +365,24 @@ func (m MyImpl) rotate(matrix [][]int) {
 			matrix[j][n-1-i] = tmp
 		}
 	}
+}
+
+func (m MyImpl) getIntersectionNode(headA, headB *ListNode) *ListNode {
+	A, B := headA, headB
+	for A != nil && B != nil {
+		if A == B {
+			return A
+		}
+		A = A.Next
+		B = B.Next
+		if A == nil {
+			A = headB
+		}
+		if B == nil {
+			B = headA
+		}
+	}
+	return nil
 }
 
 func (m MyImpl) searchMatrix(matrix [][]int, target int) bool {
