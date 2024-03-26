@@ -400,3 +400,16 @@ func (m MyImpl) searchMatrix(matrix [][]int, target int) bool {
 	}
 	return false
 }
+
+func (m MyImpl) reverseList(head *ListNode) *ListNode {
+	var dfs func(cur, pre *ListNode) *ListNode
+	dfs = func(cur, pre *ListNode) *ListNode {
+		if cur == nil {
+			return pre
+		}
+		res := dfs(cur.Next, cur)
+		cur.Next = pre
+		return res
+	}
+	return dfs(head, nil)
+}
