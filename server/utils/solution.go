@@ -447,3 +447,26 @@ func (m MyImpl) detectCycle(head *ListNode) *ListNode {
 	}
 	return nil
 }
+
+func (m MyImpl) mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	A, B := list1, list2
+	pivot := &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+	cur := pivot
+	for A != nil || B != nil {
+		if A.Val < B.Val {
+			cur.Next = A
+			cur = cur.Next
+			cur.Next = nil
+			A = A.Next
+		}
+	}
+	if A != nil {
+		cur.Next = A
+	} else {
+		cur.Next = B
+	}
+	return pivot.Next
+}
