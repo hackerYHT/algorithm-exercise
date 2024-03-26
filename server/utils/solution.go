@@ -370,21 +370,22 @@ func (m MyImpl) RotateMatrix(matrix [][]int) {
 }
 
 func (m MyImpl) GetIntersectionNode(headA, headB *ListNode) *ListNode {
-	A, B := headA, headB
-	for A != nil && B != nil {
-		if A == B {
-			return A
-		}
-		A = A.Next
-		B = B.Next
-		if A == nil {
+	A := headA
+	B := headB
+	for A != B {
+		if A != nil {
+			A = A.Next
+		} else {
 			A = headB
 		}
-		if B == nil {
+
+		if B != nil {
+			B = B.Next
+		} else {
 			B = headA
 		}
 	}
-	return nil
+	return A
 }
 
 func (m MyImpl) SearchMatrix(matrix [][]int, target int) bool {
@@ -438,16 +439,40 @@ func (m MyImpl) IsPalindrome(head *ListNode) bool {
 	return true
 }
 
-func (m MyImpl) DetectCycle(head *ListNode) *ListNode {
+func (m MyImpl) hasCycle(head *ListNode) bool {
 	fast, slow := head, head
 	for fast != nil && fast.Next != nil {
 		fast = fast.Next.Next
 		slow = slow.Next
 		if fast == slow {
-			return fast
+			return true
 		}
 	}
-	return nil
+	return false
+}
+
+func (m MyImpl) detectCycle(head *ListNode) *ListNode {
+	fast, slow := head, head
+	for fast != nil {
+		if fast.Next != nil {
+			fast = fast.Next.Next
+		} else {
+			fast = nil
+		}
+		slow = slow.Next
+		if fast == slow {
+			break
+		}
+	}
+	if fast == nil {
+		return nil
+	}
+	fast = head
+	for fast != slow {
+		fast = fast.Next
+		slow = slow.Next
+	}
+	return fast
 }
 
 func (m MyImpl) MergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
@@ -457,13 +482,16 @@ func (m MyImpl) MergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 		Next: nil,
 	}
 	cur := pivot
-	for A != nil || B != nil {
+	for A != nil && B != nil {
 		if A.Val < B.Val {
 			cur.Next = A
-			cur = cur.Next
-			cur.Next = nil
 			A = A.Next
+		} else {
+			cur.Next = B
+			B = B.Next
 		}
+		cur = cur.Next
+		cur.Next = nil
 	}
 	if A != nil {
 		cur.Next = A
