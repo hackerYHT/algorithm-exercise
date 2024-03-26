@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"math"
 	sort "sort"
 )
@@ -354,7 +356,7 @@ func (m MyImpl) SpiralOrder(matrix [][]int) []int {
 	return res
 }
 
-func (m MyImpl) rotate(matrix [][]int) {
+func (m MyImpl) Rotate(matrix [][]int) {
 	n := len(matrix)
 	for i := 0; i < n/2; i++ {
 		for j := 0; j < (n+1)/2; j++ {
@@ -367,7 +369,7 @@ func (m MyImpl) rotate(matrix [][]int) {
 	}
 }
 
-func (m MyImpl) getIntersectionNode(headA, headB *ListNode) *ListNode {
+func (m MyImpl) GetIntersectionNode(headA, headB *ListNode) *ListNode {
 	A, B := headA, headB
 	for A != nil && B != nil {
 		if A == B {
@@ -385,7 +387,7 @@ func (m MyImpl) getIntersectionNode(headA, headB *ListNode) *ListNode {
 	return nil
 }
 
-func (m MyImpl) searchMatrix(matrix [][]int, target int) bool {
+func (m MyImpl) SearchMatrix(matrix [][]int, target int) bool {
 	i, j := len(matrix)-1, 0
 	for i >= 0 && j < len(matrix[0]) {
 		for i >= 0 && j < len(matrix[0]) && matrix[i][j] > target {
@@ -401,7 +403,7 @@ func (m MyImpl) searchMatrix(matrix [][]int, target int) bool {
 	return false
 }
 
-func (m MyImpl) reverseList(head *ListNode) *ListNode {
+func (m MyImpl) ReverseList(head *ListNode) *ListNode {
 	var dfs func(cur, pre *ListNode) *ListNode
 	dfs = func(cur, pre *ListNode) *ListNode {
 		if cur == nil {
@@ -414,7 +416,7 @@ func (m MyImpl) reverseList(head *ListNode) *ListNode {
 	return dfs(head, nil)
 }
 
-func (m MyImpl) isPalindrome(head *ListNode) bool {
+func (m MyImpl) IsPalindrome(head *ListNode) bool {
 	var dfs func(cur, pre *ListNode) *ListNode
 	dfs = func(cur, pre *ListNode) *ListNode {
 		if cur == nil {
@@ -436,7 +438,7 @@ func (m MyImpl) isPalindrome(head *ListNode) bool {
 	return true
 }
 
-func (m MyImpl) detectCycle(head *ListNode) *ListNode {
+func (m MyImpl) DetectCycle(head *ListNode) *ListNode {
 	fast, slow := head, head
 	for fast != nil && fast.Next != nil {
 		fast = fast.Next.Next
@@ -448,7 +450,7 @@ func (m MyImpl) detectCycle(head *ListNode) *ListNode {
 	return nil
 }
 
-func (m MyImpl) mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+func (m MyImpl) MergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	A, B := list1, list2
 	pivot := &ListNode{
 		Val:  -1,
@@ -469,4 +471,11 @@ func (m MyImpl) mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 		cur.Next = B
 	}
 	return pivot.Next
+}
+
+func (m MyImpl) Md5Encode(str string) string {
+	md5Ctx := md5.New()
+	md5Ctx.Write([]byte(str))
+	cipherStr := md5Ctx.Sum(nil)
+	return hex.EncodeToString(cipherStr)
 }
