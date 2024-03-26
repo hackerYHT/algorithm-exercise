@@ -413,3 +413,25 @@ func (m MyImpl) reverseList(head *ListNode) *ListNode {
 	}
 	return dfs(head, nil)
 }
+
+func (m MyImpl) isPalindrome(head *ListNode) bool {
+	var dfs func(cur, pre *ListNode) *ListNode
+	dfs = func(cur, pre *ListNode) *ListNode {
+		if cur == nil {
+			return pre
+		}
+		res := dfs(cur.Next, cur)
+		cur.Next = pre
+		return res
+	}
+	reverseList := dfs(head, nil)
+	A, B := head, reverseList
+	for A != nil || B != nil {
+		if A != B {
+			return false
+		}
+		A = A.Next
+		B = B.Next
+	}
+	return true
+}
