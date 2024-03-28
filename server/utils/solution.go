@@ -417,8 +417,12 @@ func (m MyImpl) ReverseList(head *ListNode) *ListNode {
 	return dfs(head, nil)
 }
 
-// 空间O(1)
+// 空间O(1) 先从中间拆开，再反转后半段，相同则是回文链表
+// 思路2，将链表拷贝到数组，然后双指针比较，空间O(n)
 func (m MyImpl) IsPalindrome(head *ListNode) bool {
+	if head.Next == nil {
+		return true
+	}
 	var dfs func(cur, pre *ListNode) *ListNode
 	dfs = func(cur, pre *ListNode) *ListNode {
 		if cur == nil {
@@ -430,7 +434,7 @@ func (m MyImpl) IsPalindrome(head *ListNode) bool {
 	}
 	mid := head
 	fast := head
-	for fast != nil || fast.Next != nil {
+	for fast != nil && fast.Next != nil {
 		mid = mid.Next
 		fast = fast.Next.Next
 	}
@@ -442,11 +446,14 @@ func (m MyImpl) IsPalindrome(head *ListNode) bool {
 	reverseList := dfs(mid, nil)
 	A, B := head, reverseList
 	for A.Next != nil && B.Next != nil {
-		if A != B {
+		if A.Val != B.Val {
 			return false
 		}
 		A = A.Next
 		B = B.Next
+	}
+	if A.Val != B.Val {
+		return false
 	}
 	return true
 }
@@ -528,10 +535,12 @@ func (m MyImpl) findContentChildren(g []int, s []int) int {
 	sort.Ints(s)
 	for i, j := 0, 0; i < k; i++ {
 		for j < n && s[j] < g[i] {
+			j++
 		}
 		if j < n {
 			res++
 		}
+		j++
 	}
 	return res
 }
@@ -546,4 +555,20 @@ func (m MyImpl) canJump(nums []int) bool {
 		k = int(math.Max(float64(k), float64(i+nums[i])))
 	}
 	return true
+}
+
+// 贪心，局部最优，每一跳的小区间最优，最后全局最优
+func (m MyImpl) jump(nums []int) int {
+	end, k := 0, 0
+	res := 0
+	for i := 0; i < len(nums); i++ {
+		k = int(math.Max(float64(k), float64(i+nums[i])))
+		if i == end {
+			if end != len(nums)-1 {
+				end = k
+				res++
+			}
+		}
+	}
+	return res
 }
