@@ -417,6 +417,7 @@ func (m MyImpl) ReverseList(head *ListNode) *ListNode {
 	return dfs(head, nil)
 }
 
+// 空间O(1)
 func (m MyImpl) IsPalindrome(head *ListNode) bool {
 	var dfs func(cur, pre *ListNode) *ListNode
 	dfs = func(cur, pre *ListNode) *ListNode {
@@ -427,9 +428,20 @@ func (m MyImpl) IsPalindrome(head *ListNode) bool {
 		cur.Next = pre
 		return res
 	}
-	reverseList := dfs(head, nil)
+	mid := head
+	fast := head
+	for fast != nil || fast.Next != nil {
+		mid = mid.Next
+		fast = fast.Next.Next
+	}
+	cur := head
+	for cur.Next != mid {
+		cur = cur.Next
+	}
+	cur.Next = nil
+	reverseList := dfs(mid, nil)
 	A, B := head, reverseList
-	for A != nil || B != nil {
+	for A.Next != nil && B.Next != nil {
 		if A != B {
 			return false
 		}
