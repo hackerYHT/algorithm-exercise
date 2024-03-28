@@ -535,3 +535,15 @@ func (m MyImpl) findContentChildren(g []int, s []int) int {
 	}
 	return res
 }
+
+// 贪心，局部最优，每一个节点能跳的最远的位置，最后一个节点能跳的最远的位置理解为全局最优
+func (m MyImpl) canJump(nums []int) bool {
+	k := 0
+	for i := 0; i < len(nums); i++ {
+		if i > k {
+			return false
+		}
+		k = int(math.Max(float64(k), float64(i+nums[i])))
+	}
+	return true
+}
