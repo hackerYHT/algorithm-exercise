@@ -519,3 +519,19 @@ func (m MyImpl) Md5Encode(str string) string {
 	cipherStr := md5Ctx.Sum(nil)
 	return hex.EncodeToString(cipherStr)
 }
+
+// 贪心
+func (m MyImpl) findContentChildren(g []int, s []int) int {
+	k, n := len(g), len(s)
+	res := 0
+	sort.Ints(g)
+	sort.Ints(s)
+	for i, j := 0, 0; i < k; i++ {
+		for j < n && s[j] < g[i] {
+		}
+		if j < n {
+			res++
+		}
+	}
+	return res
+}
