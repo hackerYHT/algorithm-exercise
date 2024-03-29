@@ -528,7 +528,7 @@ func (m MyImpl) Md5Encode(str string) string {
 }
 
 // 贪心
-func (m MyImpl) findContentChildren(g []int, s []int) int {
+func (m MyImpl) FindContentChildren(g []int, s []int) int {
 	k, n := len(g), len(s)
 	res := 0
 	sort.Ints(g)
@@ -546,7 +546,7 @@ func (m MyImpl) findContentChildren(g []int, s []int) int {
 }
 
 // 贪心，局部最优，每一个节点能跳的最远的位置，最后一个节点能跳的最远的位置理解为全局最优
-func (m MyImpl) canJump(nums []int) bool {
+func (m MyImpl) CanJump(nums []int) bool {
 	k := 0
 	for i := 0; i < len(nums); i++ {
 		if i > k {
@@ -558,7 +558,7 @@ func (m MyImpl) canJump(nums []int) bool {
 }
 
 // 贪心，局部最优，每一跳的小区间最优，最后全局最优
-func (m MyImpl) jump(nums []int) int {
+func (m MyImpl) Jump(nums []int) int {
 	end, k := 0, 0
 	res := 0
 	for i := 0; i < len(nums); i++ {
@@ -573,7 +573,7 @@ func (m MyImpl) jump(nums []int) int {
 	return res
 }
 
-func (m MyImpl) fib(n int) int {
+func (m MyImpl) Fib(n int) int {
 	if n < 3 {
 		return n - 1
 	}
@@ -584,4 +584,12 @@ func (m MyImpl) fib(n int) int {
 		x = tmp
 	}
 	return y
+}
+func (m MyImpl) MinCostClimbingStairs(cost []int) int {
+	dp := make([]int, len(cost)+1)
+	dp[0], dp[1] = 0, 0
+	for i := 2; i < len(dp); i++ {
+		dp[i] = int(math.Min(float64(dp[i-2]+cost[i-2]), float64(dp[i-1]+cost[i-1])))
+	}
+	return dp[len(dp)-1]
 }
