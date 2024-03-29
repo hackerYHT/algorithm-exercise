@@ -572,3 +572,16 @@ func (m MyImpl) jump(nums []int) int {
 	}
 	return res
 }
+
+func (m MyImpl) fib(n int) int {
+	if n < 3 {
+		return n - 1
+	}
+	x, y := 0, 1
+	for i := 3; i <= n; i++ {
+		tmp := y
+		y = x + y
+		x = tmp
+	}
+	return y
+}
