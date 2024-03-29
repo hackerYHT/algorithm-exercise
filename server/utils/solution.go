@@ -593,3 +593,19 @@ func (m MyImpl) MinCostClimbingStairs(cost []int) int {
 	}
 	return dp[len(dp)-1]
 }
+
+func (m MyImpl) CanPartition(nums []int) bool {
+	sum := 0
+	for i := 0; i < len(nums); i++ {
+		sum += nums[i]
+	}
+	leftSum, rightSum := 0, 0
+	for i := 0; i < len(nums); i++ {
+		leftSum += nums[i]
+		rightSum = sum - leftSum
+		if leftSum == rightSum {
+			return true
+		}
+	}
+	return false
+}
