@@ -574,14 +574,13 @@ func (m MyImpl) Jump(nums []int) int {
 }
 
 func (m MyImpl) Fib(n int) int {
-	if n < 3 {
-		return n - 1
+	if n < 2 {
+		return n
 	}
 	x, y := 0, 1
-	for i := 3; i <= n; i++ {
+	for i := 2; i <= n; i++ {
 		tmp := y
-		y = x + y
-		x = tmp
+		y, x = x+y, tmp
 	}
 	return y
 }
@@ -608,4 +607,31 @@ func (m MyImpl) CanPartition(nums []int) bool {
 		}
 	}
 	return false
+}
+func (m MyImpl) change(amount int, coins []int) int {
+	dp := make([]int, amount+1)
+	dp[0] = 0
+	for _, coin := range coins {
+		for i := coin; i < len(dp); i++ {
+			dp[i] += dp[i-coin]
+		}
+	}
+	return dp[len(dp)-1]
+}
+
+func (m MyImpl) countSubstrings(s string) int {
+	dp := make([][]bool, len(s))
+	res := 0
+	for i := 0; i < len(dp); i++ {
+		dp[i] = make([]bool, len(s))
+	}
+	for j := 0; j < len(dp); j++ {
+		for i := 0; i <= j; i++ {
+			if s[i] == s[j] && (j-i < 2 || dp[i+1][j-1]) {
+				dp[i][j] = true
+				res++
+			}
+		}
+	}
+	return res
 }
