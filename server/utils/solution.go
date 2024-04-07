@@ -608,7 +608,7 @@ func (m MyImpl) CanPartition(nums []int) bool {
 	}
 	return false
 }
-func (m MyImpl) change(amount int, coins []int) int {
+func (m MyImpl) Change(amount int, coins []int) int {
 	dp := make([]int, amount+1)
 	dp[0] = 0
 	for _, coin := range coins {
@@ -619,7 +619,7 @@ func (m MyImpl) change(amount int, coins []int) int {
 	return dp[len(dp)-1]
 }
 
-func (m MyImpl) countSubstrings(s string) int {
+func (m MyImpl) CountSubstrings(s string) int {
 	dp := make([][]bool, len(s))
 	res := 0
 	for i := 0; i < len(dp); i++ {
@@ -636,7 +636,7 @@ func (m MyImpl) countSubstrings(s string) int {
 	return res
 }
 
-func (m MyImpl) longestPalindromeSubseq(s string) int {
+func (m MyImpl) LongestPalindromeSubseq(s string) int {
 	dp := make([][]int, len(s))
 	for i := 0; i < len(dp); i++ {
 		dp[i] = make([]int, len(s))
@@ -652,4 +652,27 @@ func (m MyImpl) longestPalindromeSubseq(s string) int {
 		}
 	}
 	return dp[0][len(dp)-1]
+}
+
+func (m MyImpl) Combine(n int, k int) [][]int {
+	res := make([][]int, 0)
+	var dfs func(n, k int, ans []int)
+	dfs = func(n, k int, ans []int) {
+		if len(ans) >= k {
+			tmp := make([]int, len(ans))
+			copy(tmp, ans)
+			res = append(res, tmp)
+			return
+		}
+		for i := 1; i < n+1; i++ {
+			if len(ans) >= 1 && ans[len(ans)-1] >= i {
+				continue
+			}
+			ans = append(ans, i)
+			dfs(n, k, ans)
+			ans = ans[:len(ans)-1]
+		}
+	}
+	dfs(n, k, make([]int, 0))
+	return res
 }
