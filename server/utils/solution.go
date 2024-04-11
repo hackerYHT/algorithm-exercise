@@ -676,3 +676,56 @@ func (m MyImpl) Combine(n int, k int) [][]int {
 	dfs(n, k, make([]int, 0))
 	return res
 }
+func (m MyImpl) CombinationSum(candidates []int, target int) [][]int {
+	res := make([][]int, 0)
+	var dfs func(target int, ans []int, pre int)
+	dfs = func(target int, ans []int, pre int) {
+		if target <= 0 {
+			if target == 0 {
+				tmp := make([]int, len(ans))
+				copy(tmp, ans)
+				res = append(res, tmp)
+			}
+			return
+		}
+		for i := 0; i < len(candidates); i++ {
+			if candidates[i] < pre {
+				continue
+			}
+			ans = append(ans, candidates[i])
+			dfs(target-candidates[i], ans, candidates[i])
+			ans = ans[:len(ans)-1]
+		}
+	}
+	sort.Ints(candidates)
+	dfs(target, make([]int, 0), -1)
+	return res
+}
+
+func (m MyImpl) CombinationSum2(candidates []int, target int) [][]int {
+	res := make([][]int, 0)
+	var dfs func(target int, ans []int, start int)
+	dfs = func(target int, ans []int, start int) {
+		if target <= 0 {
+			if target == 0 {
+				tmp := make([]int, len(ans))
+				copy(tmp, ans)
+				res = append(res, tmp)
+			}
+		}
+		for i := start; i < len(candidates); i++ {
+			if target < candidates[i] {
+				break
+			}
+			if i > start && candidates[i] == candidates[i-1] {
+				continue
+			}
+			ans = append(ans, candidates[i])
+			dfs(target-candidates[i], ans, i+1)
+			ans = ans[:len(ans)-1]
+		}
+	}
+	sort.Ints(candidates)
+	dfs(target, make([]int, 0), 0)
+	return res
+}
