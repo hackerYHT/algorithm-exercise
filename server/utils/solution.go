@@ -22,6 +22,12 @@ type ListNode struct {
 	Next *ListNode
 }
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 func (m MyImpl) GroupAnagrams(strs []string) [][]string {
 	var sorts func(str string) string
 	sorts = func(str string) string {
@@ -728,4 +734,18 @@ func (m MyImpl) CombinationSum2(candidates []int, target int) [][]int {
 	sort.Ints(candidates)
 	dfs(target, make([]int, 0), 0)
 	return res
+}
+
+func (m MyImpl) SortedArrayToBST(nums []int) *TreeNode {
+	if len(nums) < 1 {
+		return nil
+	}
+	mid := len(nums) / 2
+	left := m.SortedArrayToBST(nums[:mid])
+	right := m.SortedArrayToBST(nums[mid+1:])
+	return &TreeNode{
+		Val:   nums[mid],
+		Left:  left,
+		Right: right,
+	}
 }
