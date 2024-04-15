@@ -762,3 +762,7 @@ func (m MyImpl) SortList(head *ListNode) *ListNode {
 	}
 	return dfs(head, nil)
 }
+
+func (m MyImpl) SolveNQueens(n int) [][]string {
+
+}
