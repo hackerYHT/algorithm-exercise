@@ -749,3 +749,16 @@ func (m MyImpl) SortedArrayToBST(nums []int) *TreeNode {
 		Right: right,
 	}
 }
+
+func (m MyImpl) SortList(head *ListNode) *ListNode {
+	var dfs func(cur *ListNode, pre *ListNode) *ListNode
+	dfs = func(cur *ListNode, pre *ListNode) *ListNode {
+		if cur == nil {
+			return pre
+		}
+		res := dfs(cur, cur.Next)
+		cur.Next = pre
+		return res
+	}
+	return dfs(head, nil)
+}
