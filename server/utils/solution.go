@@ -798,9 +798,9 @@ func (m MyImpl) SolveNQueens(n int) [][]string {
 	}
 	dfs = func(ans [][]byte, depth int) {
 		if depth >= n {
-			tmp := strings.Builder{}
-			ans_tmp := make([]string, n)
+			ans_tmp := make([]string, 0)
 			for i := 0; i < len(ans); i++ {
+				tmp := strings.Builder{}
 				tmp.Write(ans[i])
 				ans_tmp = append(ans_tmp, tmp.String())
 			}
@@ -818,7 +818,10 @@ func (m MyImpl) SolveNQueens(n int) [][]string {
 	}
 	ans := make([][]byte, n)
 	for i := 0; i < len(ans); i++ {
-		ans[i] = []byte{'.', '.', '.', '.'}
+		ans[i] = make([]byte, 0)
+		for j := 0; j < len(ans); j++ {
+			ans[i] = append(ans[i], '.')
+		}
 	}
 	dfs(ans, 0)
 	return res
