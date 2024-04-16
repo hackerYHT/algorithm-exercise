@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"math"
 	sort "sort"
+	"strings"
 )
 
 type Algorithm interface {
@@ -764,5 +765,61 @@ func (m MyImpl) SortList(head *ListNode) *ListNode {
 }
 
 func (m MyImpl) SolveNQueens(n int) [][]string {
-
+	res := make([][]string, 0)
+	var dfs func(ans [][]byte, depth int)
+	check := func(ans [][]byte, row, column int) bool {
+		for r := row - 1; r >= 0; {
+			if ans[r][column] == 'Q' {
+				return false
+			}
+			r--
+		}
+		for c := column - 1; c >= 0; {
+			if ans[row][c] == 'Q' {
+				return false
+			}
+			c--
+		}
+		for r, c := row-1, column-1; r >= 0 && c >= 0; {
+			if ans[r][c] == 'Q' {
+				return false
+			}
+			r--
+			c--
+		}
+		for r, c := row-1, column+1; r >= 0 && c < len(ans[0]); {
+			if ans[r][c] == 'Q' {
+				return false
+			}
+			r--
+			c++
+		}
+		return true
+	}
+	dfs = func(ans [][]byte, depth int) {
+		if depth >= n {
+			tmp := strings.Builder{}
+			ans_tmp := make([]string, n)
+			for i := 0; i < len(ans); i++ {
+				tmp.Write(ans[i])
+				ans_tmp = append(ans_tmp, tmp.String())
+			}
+			res = append(res, ans_tmp)
+			return
+		}
+		for j := 0; j < n; j++ {
+			if !check(ans, depth, j) {
+				continue
+			}
+			ans[depth][j] = 'Q'
+			dfs(ans, depth+1)
+			ans[depth][j] = '.'
+		}
+	}
+	ans := make([][]byte, n)
+	for i := 0; i < len(ans); i++ {
+		ans[i] = []byte{'.', '.', '.', '.'}
+	}
+	dfs(ans, 0)
+	return res
 }
