@@ -826,3 +826,41 @@ func (m MyImpl) SolveNQueens(n int) [][]string {
 	dfs(ans, 0)
 	return res
 }
+
+func (m MyImpl) sortList(head *ListNode) *ListNode {
+	if head.Next == nil {
+		return head
+	}
+	slow, fast := head, head.Next
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	headT := slow.Next
+	slow.Next = nil
+	left := m.sortList(head)
+	right := m.sortList(headT)
+	A, B := left, right
+	pivot := &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+	cur := pivot
+	for A != nil && B != nil {
+		if A.Val < B.Val {
+			cur.Next = A
+			A = A.Next
+		} else {
+			cur.Next = B
+			B = B.Next
+		}
+		cur = cur.Next
+		cur.Next = nil
+	}
+	if A != nil {
+		cur.Next = A
+	} else {
+		cur.Next = B
+	}
+	return pivot.Next
+}
