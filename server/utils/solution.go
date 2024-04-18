@@ -864,3 +864,35 @@ func (m MyImpl) sortList(head *ListNode) *ListNode {
 	}
 	return pivot.Next
 }
+
+func (m MyImpl) MergeKLists(lists []*ListNode) *ListNode {
+	if len(lists) < 2 {
+		return lists[0]
+	}
+	mid := len(lists) / 2
+	left, right := lists[:mid], lists[mid:]
+	A := m.MergeKLists(left)
+	B := m.MergeKLists(right)
+	pivot := &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+	cur := pivot
+	for A != nil && B != nil {
+		if A.Val < B.Val {
+			cur.Next = A
+			A = A.Next
+		} else {
+			cur.Next = B
+			B = B.Next
+		}
+		cur = cur.Next
+		cur.Next = nil
+	}
+	if A != nil {
+		cur.Next = A
+	} else {
+		cur.Next = B
+	}
+	return pivot.Next
+}
