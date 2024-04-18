@@ -866,8 +866,11 @@ func (m MyImpl) sortList(head *ListNode) *ListNode {
 }
 
 func (m MyImpl) MergeKLists(lists []*ListNode) *ListNode {
-	if len(lists) < 2 {
+	if len(lists) == 1 {
 		return lists[0]
+	}
+	if len(lists) == 0 {
+		return nil
 	}
 	mid := len(lists) / 2
 	left, right := lists[:mid], lists[mid:]
