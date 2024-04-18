@@ -901,23 +901,16 @@ func (m MyImpl) MergeKLists(lists []*ListNode) *ListNode {
 }
 
 func (m MyImpl) AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	var reverseList func(cur, pre *ListNode) *ListNode
-	reverseList = func(cur, pre *ListNode) *ListNode {
-		if cur == nil {
-			return pre
-		}
-		res := reverseList(cur.Next, cur)
-		cur.Next = pre
-		return res
-	}
-	A := reverseList(l1, nil)
-	B := reverseList(l2, nil)
+
+	A := l1
+	B := l2
 	pivot := &ListNode{
 		Val:  -1,
 		Next: nil,
 	}
 	cur := pivot
 	a, b := 0, 0
+	carry, sum := 0, 0
 	for A != nil || B != nil {
 		if A != nil {
 			a = A.Val
@@ -931,12 +924,20 @@ func (m MyImpl) AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		} else {
 			b = 0
 		}
+		sum = a + b + carry
+		carry = sum / 10
 		cur.Next = &ListNode{
-			Val:  a + b,
+			Val:  sum % 10,
 			Next: nil,
 		}
 		cur = cur.Next
 	}
+	if carry != 0 {
+		cur.Next = &ListNode{
+			Val:  carry,
+			Next: nil,
+		}
+	}
 	r := pivot.Next
-	return reverseList(r, nil)
+	return r
 }
