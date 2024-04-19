@@ -941,3 +941,22 @@ func (m MyImpl) AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	r := pivot.Next
 	return r
 }
+
+func (m MyImpl) RemoveNthFromEnd(head *ListNode, n int) *ListNode {
+	pivot := &ListNode{
+		Val:  -1,
+		Next: head,
+	}
+	A, B := pivot, pivot
+	for i := 0; i < n; i++ {
+		B = B.Next
+	}
+	for B != nil && B.Next != nil {
+		A = A.Next
+		B = B.Next
+	}
+	tmp := A.Next
+	A.Next = tmp.Next
+	tmp.Next = nil
+	return pivot.Next
+}
