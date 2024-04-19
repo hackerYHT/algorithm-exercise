@@ -960,3 +960,21 @@ func (m MyImpl) RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 	tmp.Next = nil
 	return pivot.Next
 }
+
+func (m MyImpl) SwapPairs(head *ListNode) *ListNode {
+	pivot := &ListNode{
+		Val:  -1,
+		Next: head,
+	}
+	cur := head
+	pre := pivot
+	for cur != nil && cur.Next != nil {
+		tmp := cur.Next
+		cur.Next = tmp.Next
+		tmp.Next = cur
+		pre.Next = tmp
+		cur = cur.Next
+		pre = pre.Next.Next
+	}
+	return pivot.Next
+}
