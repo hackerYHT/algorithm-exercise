@@ -978,3 +978,18 @@ func (m MyImpl) SwapPairs(head *ListNode) *ListNode {
 	}
 	return pivot.Next
 }
+
+func (m MyImpl) InorderTraversal(root *TreeNode) []int {
+	res := make([]int, 0)
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		dfs(node.Left)
+		res = append(res, node.Val)
+		dfs(node.Right)
+	}
+	dfs(root)
+	return res
+}
