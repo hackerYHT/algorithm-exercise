@@ -993,3 +993,18 @@ func (m MyImpl) InorderTraversal(root *TreeNode) []int {
 	dfs(root)
 	return res
 }
+
+func (m MyImpl) MaxDepth(root *TreeNode) int {
+	res := 0
+	var dfs func(node *TreeNode, depth int)
+	dfs = func(node *TreeNode, depth int) {
+		if node == nil {
+			res = int(math.Max(float64(res), float64(depth)))
+			return
+		}
+		dfs(node.Left, depth+1)
+		dfs(node.Right, depth+1)
+	}
+	dfs(root, 0)
+	return res
+}
