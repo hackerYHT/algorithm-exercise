@@ -1008,3 +1008,14 @@ func (m MyImpl) MaxDepth(root *TreeNode) int {
 	dfs(root, 0)
 	return res
 }
+
+func (m MyImpl) InvertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	l := m.InvertTree(root.Left)
+	r := m.InvertTree(root.Right)
+	root.Left = r
+	root.Right = l
+	return root
+}
