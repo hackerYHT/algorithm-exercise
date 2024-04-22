@@ -1019,3 +1019,16 @@ func (m MyImpl) InvertTree(root *TreeNode) *TreeNode {
 	root.Right = l
 	return root
 }
+func (m MyImpl) IsSymmetric(root *TreeNode) bool {
+	var dfs func(l, r *TreeNode) bool
+	dfs = func(l, r *TreeNode) bool {
+		if l == nil && r == nil {
+			return true
+		}
+		if l == nil || r == nil || l.Val != r.Val {
+			return false
+		}
+		return dfs(l.Left, r.Right) && dfs(l.Right, r.Left)
+	}
+	return dfs(root.Left, root.Right)
+}
