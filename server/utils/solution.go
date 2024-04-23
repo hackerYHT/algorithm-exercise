@@ -1042,8 +1042,9 @@ func diameterOfBinaryTree(root *TreeNode) int {
 		}
 		leftDepth := dfs(node.Left)
 		rightDepth := dfs(node.Right)
-		res = int(math.Max(float64(res), float64(leftDepth+rightDepth+1)))
+		res = int(math.Max(float64(res), float64(leftDepth+rightDepth)))
 		return int(math.Max(float64(leftDepth), float64(rightDepth))) + 1
 	}
+	dfs(root)
 	return res
 }
