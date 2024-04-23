@@ -1032,3 +1032,18 @@ func (m MyImpl) IsSymmetric(root *TreeNode) bool {
 	}
 	return dfs(root.Left, root.Right)
 }
+
+func diameterOfBinaryTree(root *TreeNode) int {
+	res := -1
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		leftDepth := dfs(node.Left)
+		rightDepth := dfs(node.Right)
+		res = int(math.Max(float64(res), float64(leftDepth+rightDepth+1)))
+		return int(math.Max(float64(leftDepth), float64(rightDepth))) + 1
+	}
+	return res
+}
