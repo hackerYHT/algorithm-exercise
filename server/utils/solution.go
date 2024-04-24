@@ -1050,6 +1050,9 @@ func (m MyImpl) DiameterOfBinaryTree(root *TreeNode) int {
 }
 
 func (m MyImpl) LevelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
+	}
 	q := make([]*TreeNode, 0)
 	q = append(q, root)
 	res := make([][]int, 0)
@@ -1057,8 +1060,8 @@ func (m MyImpl) LevelOrder(root *TreeNode) [][]int {
 		ans := make([]int, 0)
 		size := len(q)
 		for i := 0; i < size; i++ {
-			node := q[len(q)-1]
-			q = q[:len(q)-1]
+			node := q[0]
+			q = q[1:]
 			ans = append(ans, node.Val)
 			if node.Left != nil {
 				q = append(q, node.Left)
