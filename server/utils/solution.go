@@ -1033,7 +1033,7 @@ func (m MyImpl) IsSymmetric(root *TreeNode) bool {
 	return dfs(root.Left, root.Right)
 }
 
-func diameterOfBinaryTree(root *TreeNode) int {
+func (m MyImpl) DiameterOfBinaryTree(root *TreeNode) int {
 	res := -1
 	var dfs func(node *TreeNode) int
 	dfs = func(node *TreeNode) int {
@@ -1046,5 +1046,28 @@ func diameterOfBinaryTree(root *TreeNode) int {
 		return int(math.Max(float64(leftDepth), float64(rightDepth))) + 1
 	}
 	dfs(root)
+	return res
+}
+
+func (m MyImpl) LevelOrder(root *TreeNode) [][]int {
+	q := make([]*TreeNode, 0)
+	q = append(q, root)
+	res := make([][]int, 0)
+	for len(q) != 0 {
+		ans := make([]int, 0)
+		size := len(q)
+		for i := 0; i < size; i++ {
+			node := q[len(q)-1]
+			q = q[:len(q)-1]
+			ans = append(ans, node.Val)
+			if node.Left != nil {
+				q = append(q, node.Left)
+			}
+			if node.Right != nil {
+				q = append(q, node.Right)
+			}
+		}
+		res = append(res, ans)
+	}
 	return res
 }
