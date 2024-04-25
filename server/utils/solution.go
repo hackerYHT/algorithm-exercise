@@ -737,19 +737,19 @@ func (m MyImpl) CombinationSum2(candidates []int, target int) [][]int {
 	return res
 }
 
-func (m MyImpl) SortedArrayToBST(nums []int) *TreeNode {
-	if len(nums) < 1 {
-		return nil
-	}
-	mid := len(nums) / 2
-	left := m.SortedArrayToBST(nums[:mid])
-	right := m.SortedArrayToBST(nums[mid+1:])
-	return &TreeNode{
-		Val:   nums[mid],
-		Left:  left,
-		Right: right,
-	}
-}
+//func (m MyImpl) SortedArrayToBST(nums []int) *TreeNode {
+//	if len(nums) < 1 {
+//		return nil
+//	}
+//	mid := len(nums) / 2
+//	left := m.SortedArrayToBST(nums[:mid])
+//	right := m.SortedArrayToBST(nums[mid+1:])
+//	return &TreeNode{
+//		Val:   nums[mid],
+//		Left:  left,
+//		Right: right,
+//	}
+//}
 
 func (m MyImpl) SortList(head *ListNode) *ListNode {
 	var dfs func(cur *ListNode, pre *ListNode) *ListNode
@@ -1073,4 +1073,18 @@ func (m MyImpl) LevelOrder(root *TreeNode) [][]int {
 		res = append(res, ans)
 	}
 	return res
+}
+
+func (m MyImpl) SortedArrayToBST(nums []int) *TreeNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	midIdx := len(nums) / 2
+	l := m.SortedArrayToBST(nums[:midIdx])
+	r := m.SortedArrayToBST(nums[midIdx+1:])
+	return &TreeNode{
+		Val:   nums[midIdx],
+		Left:  l,
+		Right: r,
+	}
 }
