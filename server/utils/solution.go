@@ -1101,3 +1101,15 @@ func (m MyImpl) IsValidBST(root *TreeNode) bool {
 	}
 	return m.IsValidBST(root.Left) && m.IsValidBST(root.Right)
 }
+
+func (m MyImpl) KthSmallest(root *TreeNode, k int) int {
+	ans := make([]int, 0)
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
+		dfs(node.Left)
+		ans = append(ans, node.Val)
+		dfs(node.Right)
+	}
+	dfs(root)
+	return ans[k-1]
+}
