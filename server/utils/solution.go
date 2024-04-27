@@ -1106,6 +1106,9 @@ func (m MyImpl) KthSmallest(root *TreeNode, k int) int {
 	ans := make([]int, 0)
 	var dfs func(node *TreeNode)
 	dfs = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
 		dfs(node.Left)
 		ans = append(ans, node.Val)
 		dfs(node.Right)
