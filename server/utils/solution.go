@@ -1116,3 +1116,25 @@ func (m MyImpl) KthSmallest(root *TreeNode, k int) int {
 	dfs(root)
 	return ans[k-1]
 }
+func (m MyImpl) RightSideView(root *TreeNode) []int {
+	q := make([]*TreeNode, 0)
+	q = append(q, root)
+	res := make([]int, 0)
+	for len(q) != 0 {
+		size := len(q)
+		for i := 0; i < size; i++ {
+			node := q[len(q)-1]
+			q = q[1:]
+			if i == size-1 {
+				res = append(res, node.Val)
+			}
+			if node.Left != nil {
+				q = append(q, node.Left)
+			}
+			if node.Right != nil {
+				q = append(q, node.Right)
+			}
+		}
+	}
+	return res
+}
