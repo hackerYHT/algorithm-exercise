@@ -1161,3 +1161,7 @@ func (m MyImpl) flatten(root *TreeNode) {
 	}
 	dfs(root)
 }
+
+func (m MyImpl) buildTree(preorder []int, inorder []int) *TreeNode {
+
+}
