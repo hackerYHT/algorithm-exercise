@@ -1141,3 +1141,23 @@ func (m MyImpl) RightSideView(root *TreeNode) []int {
 	}
 	return res
 }
+
+func (m MyImpl) flatten(root *TreeNode) {
+	var dfs func(node *TreeNode) *TreeNode
+	dfs = func(node *TreeNode) *TreeNode {
+		if node == nil {
+			return nil
+		}
+		tmp := node.Right
+		node.Right = dfs(node.Left)
+		node.Left = nil
+		r := dfs(tmp)
+		cur := node
+		for cur.Right != nil {
+			cur = cur.Right
+		}
+		cur.Right = r
+		return node
+	}
+	dfs(root)
+}
