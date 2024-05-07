@@ -1163,5 +1163,23 @@ func (m MyImpl) flatten(root *TreeNode) {
 }
 
 func (m MyImpl) buildTree(preorder []int, inorder []int) *TreeNode {
-
+	var dfs func(prearr []int, pre_l, pre_r int, inarr []int, in_l, in_r int) *TreeNode
+	dfs = func(prearr []int, pre_l, pre_r int, inarr []int, in_l, in_r int) *TreeNode {
+		if pre_l > pre_r {
+			return nil
+		}
+		i := 0
+		for prearr[pre_l] != inarr[i] {
+			i++
+		}
+		i -= in_l
+		l := dfs(prearr, pre_l+1, pre_l+i, inarr, in_l, in_l+i)
+		r := dfs(prearr, pre_l+i+1, pre_r, inarr, in_l+i+1, in_r)
+		return &TreeNode{
+			Val:   prearr[pre_l],
+			Left:  l,
+			Right: r,
+		}
+	}
+	return dfs(preorder, 0, len(preorder)-1, inorder, 0, len(inorder)-1)
 }
