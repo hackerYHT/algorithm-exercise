@@ -1183,3 +1183,39 @@ func (m MyImpl) buildTree(preorder []int, inorder []int) *TreeNode {
 	}
 	return dfs(preorder, 0, len(preorder)-1, inorder, 0, len(inorder)-1)
 }
+
+func (m MyImpl) pathSum(root *TreeNode, targetSum int) int {
+	res := 0
+	check := func(arr []int) int {
+		i, j := 0, 0
+		sum := 0
+		ans := 0
+		for j < len(arr)-1 && i <= j {
+			if sum < targetSum {
+				j++
+				sum += arr[j]
+			} else if sum > targetSum {
+				sum -= arr[i]
+				i++
+			} else {
+				ans++
+				sum -= arr[i]
+				i++
+				j++
+				sum += arr[j]
+			}
+		}
+		return ans
+	}
+	var dfs func(node *TreeNode, arr []int)
+	dfs = func(node *TreeNode, arr []int) {
+		if node == nil {
+			res += check(arr)
+		}
+		arr = append(arr, node.Val)
+		dfs(node.Left, arr)
+		dfs(node.Right, arr)
+	}
+	dfs(root, make([]int, 0))
+	return res
+}
