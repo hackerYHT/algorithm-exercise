@@ -1219,3 +1219,21 @@ func (m MyImpl) pathSum(root *TreeNode, targetSum int) int {
 	dfs(root, make([]int, 0))
 	return res
 }
+
+func (m MyImpl) lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	if root == nil || root == p || root == q {
+		return root
+	}
+	P := m.lowestCommonAncestor(root.Left, p, q)
+	Q := m.lowestCommonAncestor(root.Right, p, q)
+	if P != nil && Q != nil {
+		return root
+	}
+	if P != nil {
+		return P
+	}
+	if Q != nil {
+		return Q
+	}
+	return nil
+}
