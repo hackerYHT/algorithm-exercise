@@ -1185,39 +1185,23 @@ func (m MyImpl) buildTree(preorder []int, inorder []int) *TreeNode {
 }
 
 func (m MyImpl) pathSum(root *TreeNode, targetSum int) int {
-	res := 0
-	check := func(arr []int) int {
-		i, j := 0, 0
-		sum := 0
-		ans := 0
-		for j < len(arr)-1 && i <= j {
-			if sum < targetSum {
-				j++
-				sum += arr[j]
-			} else if sum > targetSum {
-				sum -= arr[i]
-				i++
-			} else {
-				ans++
-				sum -= arr[i]
-				i++
-				j++
-				sum += arr[j]
-			}
-		}
-		return ans
-	}
-	var dfs func(node *TreeNode, arr []int)
-	dfs = func(node *TreeNode, arr []int) {
+	preSumMap := make(map[int]int, 0)
+	preSumMap[0] = 1
+	ans := 0
+	var dfs func(node *TreeNode, preSum int)
+	dfs = func(node *TreeNode, preSum int) {
 		if node == nil {
-			res += check(arr)
+			return
 		}
-		arr = append(arr, node.Val)
-		dfs(node.Left, arr)
-		dfs(node.Right, arr)
+		preSum += node.Val
+		ans += preSumMap[preSum-targetSum]
+		preSumMap[preSum] += 1
+		dfs(node.Left, preSum)
+		dfs(node.Right, preSum)
+		preSumMap[preSum] -= 1
 	}
-	dfs(root, make([]int, 0))
-	return res
+	dfs(root, 0)
+	return ans
 }
 
 func (m MyImpl) lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
