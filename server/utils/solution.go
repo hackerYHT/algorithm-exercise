@@ -1221,3 +1221,12 @@ func (m MyImpl) lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	}
 	return nil
 }
+
+func (m MyImpl) MaxPathSum(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	lm := int(math.Max(float64(m.MaxPathSum(root.Left)), float64(0)))
+	rm := int(math.Max(float64(m.MaxPathSum(root.Right)), float64(0)))
+	return root.Val + int(math.Max(float64(lm), float64(rm)))
+}
