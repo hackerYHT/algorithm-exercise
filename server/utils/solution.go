@@ -1223,22 +1223,29 @@ func (m MyImpl) lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 }
 
 func (m MyImpl) MaxPathSum(root *TreeNode) int {
-	if root == nil {
-		return 0
+	res := 0
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		lm := int(math.Max(float64(m.MaxPathSum(node.Left)), float64(0)))
+		rm := int(math.Max(float64(m.MaxPathSum(node.Right)), float64(0)))
+		res = int(math.Max(float64(res), float64(node.Val+lm+rm)))
+		return node.Val + int(math.Max(float64(lm), float64(rm)))
 	}
-	lm := int(math.Max(float64(m.MaxPathSum(root.Left)), float64(0)))
-	rm := int(math.Max(float64(m.MaxPathSum(root.Right)), float64(0)))
-	return root.Val + int(math.Max(float64(lm), float64(rm)))
+	dfs(root)
+	return res
 }
 
 func (m MyImpl) NumIslands(grid [][]byte) int {
 	var dfs func(grid [][]byte, row, column int)
 	dfs = func(grid [][]byte, row, column int) {
-		if row < 0 || row > len(grid)-1 || column < 0 || column > len(grid[0]) || grid[row][column] == 0 {
+		if row < 0 || row > len(grid)-1 || column < 0 || column > len(grid[0])-1 || grid[row][column] == '0' {
 			return
 		}
-		if grid[row][column] == 1 {
-			grid[row][column] = 0
+		if grid[row][column] == '1' {
+			grid[row][column] = '0'
 		}
 		dfs(grid, row-1, column)
 		dfs(grid, row+1, column)
@@ -1248,7 +1255,7 @@ func (m MyImpl) NumIslands(grid [][]byte) int {
 	res := 0
 	for i := 0; i < len(grid); i++ {
 		for j := 0; j < len(grid[0]); j++ {
-			if grid[i][j] == 1 {
+			if grid[i][j] == '1' {
 				res++
 				dfs(grid, i, j)
 			}
