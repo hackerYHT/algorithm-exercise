@@ -1263,3 +1263,59 @@ func (m MyImpl) NumIslands(grid [][]byte) int {
 	}
 	return res
 }
+
+func (m MyImpl) OrangesRotting(grid [][]int) int {
+	type Node struct {
+		X int
+		Y int
+	}
+	q := make([]*Node, 0)
+	cnt := 0
+	for i := 0; i < len(grid); i++ {
+		for j := 0; j < len(grid[0]); j++ {
+			if grid[i][j] == 2 {
+				grid[i][j] = 0
+				q = append(q, &Node{
+					X: i,
+					Y: j,
+				})
+			}
+			if grid[i][j] == 1 {
+				cnt++
+			}
+		}
+	}
+	var checkAndAdd func(x, y int)
+	checkAndAdd = func(x, y int) {
+		if x < 0 || x >= len(grid) || y < 0 || y >= len(grid[0]) || grid[x][y] == 0 {
+			return
+		}
+		grid[x][y] = 0
+		cnt--
+		q = append(q, &Node{
+			X: x,
+			Y: y,
+		})
+	}
+	res := 0
+	for len(q) != 0 {
+		size := len(q)
+		res++
+		for i := 0; i < size; i++ {
+			node := q[0]
+			q = q[1:]
+			checkAndAdd(node.X+1, node.Y)
+			checkAndAdd(node.X-1, node.Y)
+			checkAndAdd(node.X, node.Y+1)
+			checkAndAdd(node.X, node.Y-1)
+		}
+	}
+	if cnt > 0 {
+		return -1
+	}
+	if res == 0 {
+		return res
+	} else {
+		return res - 1
+	}
+}
