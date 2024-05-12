@@ -1319,3 +1319,7 @@ func (m MyImpl) OrangesRotting(grid [][]int) int {
 		return res - 1
 	}
 }
+
+func (m MyImpl) CanFinish(numCourses int, prerequisites [][]int) bool {
+
+}
