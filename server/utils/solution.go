@@ -1321,5 +1321,59 @@ func (m MyImpl) OrangesRotting(grid [][]int) int {
 }
 
 func (m MyImpl) CanFinish(numCourses int, prerequisites [][]int) bool {
-
+	type Node struct {
+		Val    int
+		Next   *Node
+		degree int
+	}
+	nodeMap := make(map[int]*Node, 0)
+	for i := 0; i < len(prerequisites); i++ {
+		_, ok := nodeMap[prerequisites[i][1]]
+		if !ok {
+			nodeMap[prerequisites[i][1]] = &Node{
+				Val:    prerequisites[i][1],
+				Next:   nodeMap[prerequisites[i][0]],
+				degree: 0,
+			}
+		} else {
+			nodeMap[prerequisites[i][1]].Next = nodeMap[prerequisites[i][0]]
+		}
+		_, ok1 := nodeMap[prerequisites[i][0]]
+		if !ok1 {
+			nodeMap[prerequisites[i][0]] = &Node{
+				Val:    prerequisites[i][0],
+				Next:   nil,
+				degree: 1,
+			}
+		} else {
+			nodeMap[prerequisites[i][0]].degree++
+		}
+	}
+	q := make([]*Node, 0)
+	cnt := 0
+	for _, node := range nodeMap {
+		if node.degree == 0 {
+			q = append(q, node)
+			cnt++
+		}
+	}
+	for len(q) != 0 {
+		size := len(q)
+		for i := 0; i < size; i++ {
+			tmp := q[0]
+			q = q[1:]
+			if tmp.Next.degree > 0 {
+				tmp.Next.degree--
+			}
+			if tmp.Next.degree == 0 {
+				q = append(q, tmp.Next)
+				cnt++
+			}
+		}
+	}
+	if cnt >= numCourses {
+		return true
+	} else {
+		return false
+	}
 }
