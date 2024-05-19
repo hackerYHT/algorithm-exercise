@@ -1321,6 +1321,9 @@ func (m MyImpl) OrangesRotting(grid [][]int) int {
 }
 
 func (m MyImpl) CanFinish(numCourses int, prerequisites [][]int) bool {
+	if len(prerequisites) == 0 {
+		return true
+	}
 	type Node struct {
 		Val    int
 		Next   *Node
@@ -1328,16 +1331,6 @@ func (m MyImpl) CanFinish(numCourses int, prerequisites [][]int) bool {
 	}
 	nodeMap := make(map[int]*Node, 0)
 	for i := 0; i < len(prerequisites); i++ {
-		_, ok := nodeMap[prerequisites[i][1]]
-		if !ok {
-			nodeMap[prerequisites[i][1]] = &Node{
-				Val:    prerequisites[i][1],
-				Next:   nodeMap[prerequisites[i][0]],
-				degree: 0,
-			}
-		} else {
-			nodeMap[prerequisites[i][1]].Next = nodeMap[prerequisites[i][0]]
-		}
 		_, ok1 := nodeMap[prerequisites[i][0]]
 		if !ok1 {
 			nodeMap[prerequisites[i][0]] = &Node{
@@ -1347,6 +1340,16 @@ func (m MyImpl) CanFinish(numCourses int, prerequisites [][]int) bool {
 			}
 		} else {
 			nodeMap[prerequisites[i][0]].degree++
+		}
+		_, ok := nodeMap[prerequisites[i][1]]
+		if !ok {
+			nodeMap[prerequisites[i][1]] = &Node{
+				Val:    prerequisites[i][1],
+				Next:   nodeMap[prerequisites[i][0]],
+				degree: 0,
+			}
+		} else {
+			nodeMap[prerequisites[i][1]].Next = nodeMap[prerequisites[i][0]]
 		}
 	}
 	q := make([]*Node, 0)
@@ -1362,6 +1365,9 @@ func (m MyImpl) CanFinish(numCourses int, prerequisites [][]int) bool {
 		for i := 0; i < size; i++ {
 			tmp := q[0]
 			q = q[1:]
+			if tmp.Next == nil {
+				continue
+			}
 			if tmp.Next.degree > 0 {
 				tmp.Next.degree--
 			}
@@ -1371,7 +1377,7 @@ func (m MyImpl) CanFinish(numCourses int, prerequisites [][]int) bool {
 			}
 		}
 	}
-	if cnt >= numCourses {
+	if cnt >= numCourses || cnt == len(nodeMap) {
 		return true
 	} else {
 		return false
