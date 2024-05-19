@@ -1383,3 +1383,63 @@ func (m MyImpl) CanFinish(numCourses int, prerequisites [][]int) bool {
 		return false
 	}
 }
+
+type Trie struct {
+	root *TrieNode
+}
+
+type TrieNode struct {
+	children [26]*TrieNode
+	isEnd    bool
+}
+
+func Constructor() Trie {
+	root := &TrieNode{
+		children: [26]*TrieNode{},
+		isEnd:    false,
+	}
+	return Trie{
+		root: root,
+	}
+}
+
+func (this *Trie) Insert(word string) {
+	node := this.root
+	for _, c := range word {
+		if node.children[c-'a'] == nil {
+			node.children[c-'a'] = &TrieNode{
+				children: [26]*TrieNode{},
+				isEnd:    false,
+			}
+		}
+		node = node.children[c-'a']
+	}
+	node.isEnd = true
+}
+
+func (this *Trie) Search(word string) bool {
+	node := this.root
+	for _, c := range word {
+		if node.children[c-'a'] == nil {
+			return false
+		} else {
+			node = node.children[c-'a']
+		}
+	}
+	if node.isEnd {
+		return true
+	}
+	return false
+}
+
+func (this *Trie) StartsWith(prefix string) bool {
+	node := this.root
+	for _, c := range prefix {
+		if node.children[c-'a'] == nil {
+			return false
+		} else {
+			node = node.children[c-'a']
+		}
+	}
+	return true
+}
