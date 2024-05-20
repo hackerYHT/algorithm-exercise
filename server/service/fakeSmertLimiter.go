@@ -1,4 +1,4 @@
-package utils
+package service
 
 import (
 	"bufio"
@@ -6,7 +6,11 @@ import (
 	"os"
 )
 
-func Mock() {
+type sm struct {
+	Val int
+}
+
+func (*sm) fake() {
 	file, err := os.OpenFile("/Users/yehaitao/Desktop/workspace/fake_smartlimiter_config/sl.yml", os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件失败", err)
