@@ -1443,3 +1443,27 @@ func (this *Trie) StartsWith(prefix string) bool {
 	}
 	return true
 }
+
+func (m MyImpl) permute(nums []int) [][]int {
+	res := make([][]int, 0)
+	var dfs func(nums []int, ans []int, visited []bool)
+	dfs = func(nums []int, ans []int, visited []bool) {
+		if len(ans) == len(nums) {
+			tmp := make([]int, len(ans))
+			copy(tmp, ans)
+			res = append(res, tmp)
+		}
+		for i := 0; i < len(nums); i++ {
+			if visited[i] {
+				continue
+			}
+			ans = append(ans, nums[i])
+			visited[i] = true
+			dfs(nums, ans, visited)
+			ans = ans[:len(ans)-1]
+			visited[i] = false
+		}
+	}
+	dfs(nums, make([]int, 0), make([]bool, len(nums)))
+	return res
+}
