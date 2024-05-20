@@ -1467,3 +1467,20 @@ func (m MyImpl) permute(nums []int) [][]int {
 	dfs(nums, make([]int, 0), make([]bool, len(nums)))
 	return res
 }
+
+func (m MyImpl) subsets(nums []int) [][]int {
+	res := make([][]int, 0)
+	var dfs func(ans []int, start int)
+	dfs = func(ans []int, start int) {
+		tmp := make([]int, len(ans))
+		copy(tmp, ans)
+		res = append(res, tmp)
+		for i := start; i < len(nums); i++ {
+			ans = append(ans, nums[i])
+			dfs(ans, i+1)
+			ans = ans[:len(ans)-1]
+		}
+	}
+	dfs(make([]int, 0), 0)
+	return res
+}
