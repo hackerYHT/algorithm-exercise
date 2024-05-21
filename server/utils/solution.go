@@ -1484,3 +1484,33 @@ func (m MyImpl) subsets(nums []int) [][]int {
 	dfs(make([]int, 0), 0)
 	return res
 }
+
+func (m MyImpl) letterCombinations(digits string) []string {
+	digitMap := make(map[byte][]byte)
+	digitMap['2'] = []byte{'a', 'b', 'c'}
+	digitMap['3'] = []byte{'d', 'e', 'f'}
+	digitMap['4'] = []byte{'g', 'h', 'i'}
+	digitMap['5'] = []byte{'j', 'k', 'l'}
+	digitMap['6'] = []byte{'m', 'n', 'o'}
+	digitMap['7'] = []byte{'p', 'q', 'r', 's'}
+	digitMap['8'] = []byte{'t', 'u', 'v'}
+	digitMap['9'] = []byte{'w', 'x', 'y', 'z'}
+	var dfs func(index int, ans []byte)
+	res := make([]string, 0)
+	dfs = func(index int, ans []byte) {
+		if index >= len(digits) {
+			res = append(res, string(ans))
+			return
+		}
+		for i := 0; i < len(digitMap[digits[index]]); i++ {
+			ans = append(ans, digitMap[digits[index]][i])
+			dfs(index+1, ans)
+			ans = ans[:len(ans)-1]
+		}
+	}
+	if len(digits) == 0 {
+		return []string{}
+	}
+	dfs(0, make([]byte, 0))
+	return res
+}

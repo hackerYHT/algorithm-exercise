@@ -24,3 +24,7 @@ func TestSubset(t *testing.T) {
 	res := myimpl.subsets([]int{1, 2, 3})
 	fmt.Printf("res: %v", res)
 }
+func TestLetterCombinations(t *testing.T) {
+	res := myimpl.letterCombinations("23")
+	fmt.Printf("res: %v", res)
+}
