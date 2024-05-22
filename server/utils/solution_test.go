@@ -28,3 +28,7 @@ func TestLetterCombinations(t *testing.T) {
 	res := myimpl.letterCombinations("23")
 	fmt.Printf("res: %v", res)
 }
+func TestCombinationSum(t *testing.T) {
+	res := myimpl.combinationSum([]int{2, 3, 6, 7}, 7)
+	fmt.Printf("res: %v", res)
+}

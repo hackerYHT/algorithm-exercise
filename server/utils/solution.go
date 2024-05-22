@@ -1514,3 +1514,25 @@ func (m MyImpl) letterCombinations(digits string) []string {
 	dfs(0, make([]byte, 0))
 	return res
 }
+func (m MyImpl) combinationSum(candidates []int, target int) [][]int {
+	res := make([][]int, 0)
+	var dfs func(ans []int, sum int, start int)
+	dfs = func(ans []int, sum int, start int) {
+		if sum < 0 {
+			return
+		}
+		if sum == 0 {
+			tmp := make([]int, len(ans))
+			copy(tmp, ans)
+			res = append(res, tmp)
+			return
+		}
+		for i := start; i < len(candidates); i++ {
+			ans = append(ans, candidates[i])
+			dfs(ans, sum-candidates[i], i)
+			ans = ans[:len(ans)-1]
+		}
+	}
+	dfs(make([]int, 0), target, 0)
+	return res
+}
