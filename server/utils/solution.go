@@ -1554,3 +1554,31 @@ func (m MyImpl) generateParenthesis(n int) []string {
 	dfs(make([]byte, 0), 0, 0)
 	return res
 }
+func (m MyImpl) exist(board [][]byte, word string) bool {
+	var dfs func(ans []byte, row, column int) bool
+	dfs = func(ans []byte, row, column int) bool {
+		if row < 0 || row >= len(board) || column < 0 || column >= len(board[0]) || board[row][column] == '0' {
+			return false
+		}
+		ans = append(ans, board[row][column])
+		if len(ans) >= len(word) {
+			if string(ans) == word {
+				return true
+			}
+			return false
+		}
+		tmp := board[row][column]
+		board[row][column] = '0'
+		res := dfs(ans, row+1, column) || dfs(ans, row-1, column) || dfs(ans, row, column+1) || dfs(ans, row, column-1)
+		board[row][column] = tmp
+		return res
+	}
+	for i := 0; i < len(board); i++ {
+		for j := 0; j < len(board[0]); j++ {
+			if dfs(make([]byte, 0), i, j) {
+				return true
+			}
+		}
+	}
+	return false
+}
