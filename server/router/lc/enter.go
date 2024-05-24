@@ -14,6 +14,7 @@ func (g LcGroup) InitBaseRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	solutionApi := v1.ApiGroupApp.LcApiGroup.SolutionApi
 	{
 		baseRouter.POST("algorithm", solutionApi.Resolve)
+		baseRouter.POST("convert", solutionApi.Convert)
 	}
 	return baseRouter
 

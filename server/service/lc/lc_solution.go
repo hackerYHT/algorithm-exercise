@@ -15,3 +15,7 @@ func (s *ServiceGroup) Resolve(mb lc.MethodBody) any {
 	var impl AlgorithmImpl
 	return impl.SolveNQueens(4)
 }
+
+func (s *ServiceGroup) Convert(request lc.ConvertRequest) any {
+	return request.Result[0].Content
+}
