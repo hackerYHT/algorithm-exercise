@@ -1536,3 +1536,21 @@ func (m MyImpl) combinationSum(candidates []int, target int) [][]int {
 	dfs(make([]int, 0), target, 0)
 	return res
 }
+func (m MyImpl) generateParenthesis(n int) []string {
+	res := make([]string, 0)
+	var dfs func(ans []byte, l, r int)
+	dfs = func(ans []byte, l, r int) {
+		if len(ans) >= 2*n {
+			res = append(res, string(ans))
+			return
+		}
+		if l < n {
+			dfs(append(ans, '('), l+1, r)
+		}
+		if r < l && r < n {
+			dfs(append(ans, ')'), l, r+1)
+		}
+	}
+	dfs(make([]byte, 0), 0, 0)
+	return res
+}
