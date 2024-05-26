@@ -32,3 +32,8 @@ func TestCombinationSum(t *testing.T) {
 	res := myimpl.combinationSum([]int{2, 3, 6, 7}, 7)
 	fmt.Printf("res: %v", res)
 }
+
+func TestPartition(t *testing.T) {
+	res := myimpl.partition("a")
+	fmt.Printf("res: %v", res)
+}

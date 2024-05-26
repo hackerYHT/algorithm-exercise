@@ -1536,6 +1536,37 @@ func (m MyImpl) combinationSum(candidates []int, target int) [][]int {
 	dfs(make([]int, 0), target, 0)
 	return res
 }
+func (m MyImpl) partition(s string) [][]string {
+	var check func(string) bool
+	check = func(s string) bool {
+		sb := strings.Builder{}
+		for i := len(s) - 1; i >= 0; i-- {
+			sb.WriteByte(s[i])
+		}
+		if sb.String() == s {
+			return true
+		} else {
+			return false
+		}
+	}
+	res := make([][]string, 0)
+	var dfs func(ans []string, start, end int)
+	dfs = func(ans []string, start, end int) {
+		if start >= len(s) {
+			res = append(res, ans)
+			return
+		}
+		for i := end + 1; i < len(s)+1; i++ {
+			if check(s[start:i]) {
+				ans = append(ans, s[start:i])
+				dfs(ans, i, i)
+				ans = ans[:len(ans)-1]
+			}
+		}
+	}
+	dfs(make([]string, 0), 0, 0)
+	return res
+}
 func (m MyImpl) generateParenthesis(n int) []string {
 	res := make([]string, 0)
 	var dfs func(ans []byte, l, r int)
