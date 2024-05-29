@@ -34,6 +34,11 @@ func TestCombinationSum(t *testing.T) {
 }
 
 func TestPartition(t *testing.T) {
-	res := myimpl.partition("a")
+	res := myimpl.partition("cbbbcc")
+	fmt.Printf("res: %v", res)
+}
+
+func TestSolveNQueens(t *testing.T) {
+	res := myimpl.solveNQueens(4)
 	fmt.Printf("res: %v", res)
 }

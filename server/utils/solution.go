@@ -1553,7 +1553,9 @@ func (m MyImpl) partition(s string) [][]string {
 	var dfs func(ans []string, start, end int)
 	dfs = func(ans []string, start, end int) {
 		if start >= len(s) {
-			res = append(res, ans)
+			tmp := make([]string, len(ans))
+			copy(tmp, ans)
+			res = append(res, tmp)
 			return
 		}
 		for i := end + 1; i < len(s)+1; i++ {
@@ -1612,4 +1614,49 @@ func (m MyImpl) exist(board [][]byte, word string) bool {
 		}
 	}
 	return false
+}
+
+func (m MyImpl) solveNQueens(n int) [][]string {
+	type Node struct {
+		X int
+		Y int
+	}
+	res := make([][]string, 0)
+	var check = func(r, c int, nodeList []*Node) bool {
+		for _, node := range nodeList {
+			diffX := node.X - r
+			diffY := node.Y - c
+			if diffX == 0 || diffY == 0 || math.Abs(float64(diffY)) == math.Abs(float64(diffX)) {
+				return false
+			}
+		}
+		return true
+	}
+	var dfs func(ans []string, row int, nodeList []*Node)
+	dfs = func(ans []string, row int, nodeList []*Node) {
+		if row >= n {
+			res = append(res, ans)
+			return
+		}
+		for i := 0; i < n; i++ {
+			if !check(row, i, nodeList) {
+				continue
+			}
+			str := make([]byte, n)
+			for j := 0; j < n; j++ {
+				str[j] = '.'
+			}
+			str[i] = 'Q'
+			ans = append(ans, string(str))
+			nodeList = append(nodeList, &Node{
+				X: row,
+				Y: i,
+			})
+			dfs(ans, row+1, nodeList)
+			ans = ans[:len(ans)-1]
+			nodeList = nodeList[:len(nodeList)-1]
+		}
+	}
+	dfs(make([]string, 0), 0, make([]*Node, 0))
+	return res
 }
