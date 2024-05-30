@@ -39,6 +39,6 @@ func TestPartition(t *testing.T) {
 }
 
 func TestSolveNQueens(t *testing.T) {
-	res := myimpl.solveNQueens(4)
+	res := myimpl.solveNQueens(6)
 	fmt.Printf("res: %v", res)
 }

@@ -1635,7 +1635,9 @@ func (m MyImpl) solveNQueens(n int) [][]string {
 	var dfs func(ans []string, row int, nodeList []*Node)
 	dfs = func(ans []string, row int, nodeList []*Node) {
 		if row >= n {
-			res = append(res, ans)
+			tmp := make([]string, len(ans))
+			copy(tmp, ans)
+			res = append(res, tmp)
 			return
 		}
 		for i := 0; i < n; i++ {
