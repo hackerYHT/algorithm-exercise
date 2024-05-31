@@ -42,3 +42,8 @@ func TestSolveNQueens(t *testing.T) {
 	res := myimpl.solveNQueens(6)
 	fmt.Printf("res: %v", res)
 }
+
+func TestSearchInsert(t *testing.T) {
+	res := myimpl.searchInsert([]int{1, 3, 5, 6}, 7)
+	fmt.Printf("res: %v", res)
+}
