@@ -47,3 +47,8 @@ func TestSearchInsert(t *testing.T) {
 	res := myimpl.searchInsert([]int{1, 3, 5, 6}, 7)
 	fmt.Printf("res: %v", res)
 }
+
+func TestSearchMatrix(t *testing.T) {
+	res := myimpl.searchMatrix([][]int{{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}}, 3)
+	fmt.Printf("res: %v", res)
+}

@@ -1677,3 +1677,37 @@ func (m MyImpl) searchInsert(nums []int, target int) int {
 	}
 	return i
 }
+
+func (m MyImpl) searchMatrix(matrix [][]int, target int) bool {
+	l, r := 0, len(matrix)-1
+	row := -1
+	for l <= r {
+		mid := (l + r) >> 1
+		if matrix[mid][0] == target {
+			row = mid
+			break
+		} else if matrix[mid][0] < target {
+			l = mid + 1
+		} else {
+			r = mid - 1
+		}
+	}
+	if row == -1 {
+		row = r
+	}
+	if row == -1 {
+		return false
+	}
+	l, r = 0, len(matrix[0])-1
+	for l <= r {
+		mid := (l + r) >> 1
+		if matrix[row][mid] == target {
+			return true
+		} else if matrix[row][mid] < target {
+			l = mid + 1
+		} else {
+			r = mid - 1
+		}
+	}
+	return false
+}
