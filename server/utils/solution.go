@@ -1751,3 +1751,28 @@ func (m MyImpl) findMin(nums []int) int {
 	}
 	return min
 }
+
+func (m MyImpl) findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
+	k := len(nums1) + len(nums2)
+	res := 0.0
+	var dfs func(start1, end1, start2, end2, m int)
+	dfs = func(start1, end1, start2, end2, m int) {
+		if m <= 0 {
+			return
+		}
+		mid := m / 2
+		if nums1[mid] <= nums2[mid] {
+			if mid == 1 {
+				res = float64(nums1[mid])
+			}
+			dfs(start1+mid, end1+mid, start2, end2, m-mid)
+		} else {
+			if mid == 1 {
+				res = float64(nums2[mid])
+			}
+			dfs(start1, end1, start2+mid, end2+mid, m-mid)
+		}
+	}
+	dfs(0, len(nums1)-1, 0, len(nums2)-1, k)
+	return res
+}
