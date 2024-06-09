@@ -1776,3 +1776,22 @@ func (m MyImpl) findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	dfs(0, len(nums1)-1, 0, len(nums2)-1, k)
 	return res
 }
+func (m MyImpl) isValid(s string) bool {
+	q := make([]rune, 0)
+	for _, c := range s {
+		if c == '(' || c == '{' || c == '[' {
+			q = append(q, c)
+		} else {
+			if len(q) == 0 {
+				return false
+			}
+			top := q[len(q)-1]
+			if (c == ')' && top == '(') || (c == ']' && top == '[') || (c == '}' && top == '{') {
+				q = q[:len(q)-1]
+			} else {
+				return false
+			}
+		}
+	}
+	return len(q) == 0
+}
