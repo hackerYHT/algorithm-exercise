@@ -1795,3 +1795,33 @@ func (m MyImpl) isValid(s string) bool {
 	}
 	return len(q) == 0
 }
+
+func (m MyImpl) decodeString(s string) string {
+	type Node struct {
+		BeforeStr string
+		Cnt       int
+	}
+	var res string
+	var str string
+	q := make([]*Node, 0)
+	for _, c := range s {
+		if c == '[' {
+
+		}
+		if '0' <= c || c <= '9' {
+			q = append(q, &Node{
+				BeforeStr: res,
+				Cnt:       int(c - '0'),
+			})
+		}
+		if c == ']' {
+			node := q[len(q)-1]
+			q = q[:len(q)-1]
+			res = node.BeforeStr
+			for i := 0; i < node.Cnt; i++ {
+				res += str
+			}
+		}
+	}
+	return res
+}
