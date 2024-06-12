@@ -62,3 +62,7 @@ func TestFindMin(t *testing.T) {
 	res := myimpl.findMin([]int{11, 13, 15, 17})
 	fmt.Printf("res: %v", res)
 }
+func TestDecodeString(t *testing.T) {
+	res := myimpl.decodeString("3[a]2[bc]")
+	fmt.Printf("res: %v", res)
+}

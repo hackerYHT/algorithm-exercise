@@ -1802,25 +1802,28 @@ func (m MyImpl) decodeString(s string) string {
 		Cnt       int
 	}
 	var res string
-	var str string
 	q := make([]*Node, 0)
+	count := 0
 	for _, c := range s {
 		if c == '[' {
-
-		}
-		if '0' <= c || c <= '9' {
 			q = append(q, &Node{
 				BeforeStr: res,
-				Cnt:       int(c - '0'),
+				Cnt:       count,
 			})
-		}
-		if c == ']' {
+			res = ""
+			count = 0
+		} else if '0' <= c && c <= '9' {
+			count = count*10 + int(c-'0')
+		} else if c == ']' {
 			node := q[len(q)-1]
 			q = q[:len(q)-1]
-			res = node.BeforeStr
+			tmp := node.BeforeStr
 			for i := 0; i < node.Cnt; i++ {
-				res += str
+				tmp += res
 			}
+			res = tmp
+		} else {
+			res += string(c)
 		}
 	}
 	return res
