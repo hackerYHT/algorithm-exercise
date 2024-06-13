@@ -62,6 +62,11 @@ func TestFindMin(t *testing.T) {
 	res := myimpl.findMin([]int{11, 13, 15, 17})
 	fmt.Printf("res: %v", res)
 }
+
+func TestDailyTemperatures(t *testing.T) {
+	res := myimpl.dailyTemperatures([]int{73, 74, 75, 71, 69, 72, 76, 73})
+	fmt.Printf("res: %v", res)
+}
 func TestDecodeString(t *testing.T) {
 	res := myimpl.decodeString("3[a]2[bc]")
 	fmt.Printf("res: %v", res)
