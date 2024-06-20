@@ -1844,3 +1844,66 @@ func (m MyImpl) dailyTemperatures(temperatures []int) []int {
 	}
 	return res
 }
+
+func (m MyImpl) topKFrequent(nums []int, k int) []int {
+	cntMap := make(map[int]int, 0)
+	for i := 0; i < len(nums); i++ {
+		_, ok := cntMap[nums[i]]
+		if ok {
+			cntMap[nums[i]]++
+		} else {
+			cntMap[nums[i]] = 1
+		}
+	}
+	type Entry struct {
+		Val int
+		Cnt int
+	}
+	var heapify func(arr []*Entry, x, n int)
+	heapify = func(arr []*Entry, x, n int) {
+		if x >= n {
+			return
+		}
+		left := (x >> 1) + 1
+		right := (x >> 1) + 2
+		max := x
+		if left < n && arr[left].Cnt < arr[max].Cnt {
+			max = left
+		}
+		if right < n && arr[right].Cnt < arr[max].Cnt {
+			max = right
+		}
+		if x != max {
+			arr[x], arr[max] = arr[max], arr[x]
+			heapify(arr, max, n)
+		}
+	}
+	buildMinStack := func(arr []*Entry) {
+		for i := (len(arr) >> 1) - 2; i >= 0; i-- {
+			heapify(arr, i, len(arr))
+		}
+	}
+	res := make([]*Entry, 0)
+	for key, value := range cntMap {
+		if len(res) < k {
+			res = append(res, &Entry{
+				Val: key,
+				Cnt: value,
+			})
+		} else if len(res) == k {
+			buildMinStack(res)
+		} else {
+			if value < res[0].Cnt {
+				res[0] = &Entry{
+					Val: key,
+					Cnt: value,
+				}
+			}
+		}
+	}
+	result := make([]int, 0)
+	for i := 0; i < len(res); i++ {
+		result = append(result, res[i].Val)
+	}
+	return result
+}
