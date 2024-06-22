@@ -1911,3 +1911,12 @@ func (m MyImpl) topKFrequent(nums []int, k int) []int {
 	}
 	return result
 }
+
+func (m MyImpl) maxProfit(prices []int) int {
+	min, res := prices[0], 0
+	for i := 0; i < len(prices); i++ {
+		res = int(math.Max(float64(res), float64(prices[i]-min)))
+		min = int(math.Min(float64(min), float64(prices[i])))
+	}
+	return res
+}
