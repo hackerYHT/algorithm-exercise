@@ -1933,3 +1933,17 @@ func (m MyImpl) canJump(nums []int) bool {
 	}
 	return nextSkipIndex >= len(nums)-1
 }
+func (m MyImpl) jump(nums []int) int {
+	l, r := 0, 0
+	count := 0
+	nextSkipIndex := 0
+	for l <= r && r < len(nums)-1 {
+		for i := l; i <= r; i++ {
+			nextSkipIndex = int(math.Max(float64(nextSkipIndex), float64(i+nums[i])))
+		}
+		l = r + 1
+		r = nextSkipIndex
+		count++
+	}
+	return count
+}
