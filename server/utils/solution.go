@@ -1884,22 +1884,26 @@ func (m MyImpl) topKFrequent(nums []int, k int) []int {
 		}
 	}
 	res := make([]*Entry, 0)
+	count := 0
 	for key, value := range cntMap {
-		if len(res) < k {
+		if count < k {
 			res = append(res, &Entry{
 				Val: key,
 				Cnt: value,
 			})
-		} else if len(res) == k {
-			buildMinStack(res)
 		} else {
-			if value < res[0].Cnt {
+			if count == k {
+				buildMinStack(res)
+			}
+			if value > res[0].Cnt {
 				res[0] = &Entry{
 					Val: key,
 					Cnt: value,
 				}
+				heapify(res, 0, len(res))
 			}
 		}
+		count++
 	}
 	result := make([]int, 0)
 	for i := 0; i < len(res); i++ {
