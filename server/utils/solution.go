@@ -1924,7 +1924,7 @@ func (m MyImpl) maxProfit(prices []int) int {
 func (m MyImpl) canJump(nums []int) bool {
 	l, r := 0, 0
 	nextSkipIndex := 0
-	for l <= r && r <= len(nums)-1 {
+	for l <= r && r < len(nums)-1 {
 		for i := l; i <= r; i++ {
 			nextSkipIndex = int(math.Max(float64(nextSkipIndex), float64(i+nums[i])))
 		}
