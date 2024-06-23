@@ -1947,3 +1947,20 @@ func (m MyImpl) jump(nums []int) int {
 	}
 	return count
 }
+
+func (m MyImpl) partitionLabels(s string) []int {
+	l, r := 0, 0
+	a := make([]int, 26)
+	res := make([]int, 0)
+	for i := 0; i < len(s); i++ {
+		a[s[i]-'a'] = int(math.Max(float64(a[s[i]-'a']), float64(i)))
+	}
+	for l <= r && r < len(s) {
+		for i := l; i <= r; i++ {
+			r = int(math.Max(float64(r), float64(a[s[i]-'a'])))
+		}
+		res = append(res, r-l+1)
+		l, r = r+1, r+1
+	}
+	return res
+}
