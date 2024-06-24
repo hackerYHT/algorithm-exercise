@@ -79,3 +79,8 @@ func TestTopKFrequent(t *testing.T) {
 	res := myimpl.topKFrequent([]int{5, 3, 1, 1, 1, 3, 73, 1}, 2)
 	fmt.Printf("res: %v", res)
 }
+
+func TestClimbStairs(t *testing.T) {
+	res := myimpl.climbStairs(5)
+	fmt.Printf("res: %v", res)
+}
