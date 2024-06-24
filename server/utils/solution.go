@@ -2023,3 +2023,7 @@ func (m MyImpl) generate(numRows int) [][]int {
 	}
 	return res
 }
+
+func (m MyImpl) rob(nums []int) int {
+
+}
