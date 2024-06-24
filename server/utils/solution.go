@@ -2007,3 +2007,19 @@ func (m MyImpl) climbStairs(n int) int {
 	}
 	return dp[len(dp)-1]
 }
+func (m MyImpl) generate(numRows int) [][]int {
+	res := make([][]int, 0)
+	for i := 0; i < numRows; i++ {
+		row := make([]int, i+1)
+		for j := 0; j < len(row); j++ {
+			row[j] = 1
+		}
+		res = append(res, row)
+	}
+	for i := 2; i < numRows; i++ {
+		for j := 1; j < len(res[i])-1; j++ {
+			res[i][j] = res[i-1][j-1] + res[i-1][j]
+		}
+	}
+	return res
+}
