@@ -71,6 +71,10 @@ func TestDecodeString(t *testing.T) {
 	res := myimpl.decodeString("3[a]2[bc]")
 	fmt.Printf("res: %v", res)
 }
+func TestFindKthLargest(t *testing.T) {
+	res := myimpl.findKthLargest([]int{3, 2, 1, 5, 6, 4}, 2)
+	fmt.Printf("res: %v", res)
+}
 func TestTopKFrequent(t *testing.T) {
 	res := myimpl.topKFrequent([]int{5, 3, 1, 1, 1, 3, 73, 1}, 2)
 	fmt.Printf("res: %v", res)

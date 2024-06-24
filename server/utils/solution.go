@@ -1828,6 +1828,41 @@ func (m MyImpl) decodeString(s string) string {
 	}
 	return res
 }
+func (m MyImpl) findKthLargest(nums []int, k int) int {
+	var heapify func(nums []int, x, n int)
+	heapify = func(nums []int, x, n int) {
+		if x >= n {
+			return
+		}
+		max := x
+		left := (x << 1) + 1
+		right := (x << 1) + 2
+		if left < n && nums[left] > nums[max] {
+			max = left
+		}
+		if right < n && nums[right] > nums[max] {
+			max = right
+		}
+		if max != x {
+			nums[x], nums[max] = nums[max], nums[x]
+			heapify(nums, max, n)
+		}
+	}
+	buildHeap := func(nums []int) {
+		for i := (len(nums) - 2) >> 1; i >= 0; i-- {
+			heapify(nums, i, len(nums))
+		}
+	}
+	if len(nums) == 1 {
+		return nums[0]
+	}
+	buildHeap(nums)
+	for i := 0; i < k; i++ {
+		heapify(nums, 0, len(nums)-i)
+		nums[0], nums[len(nums)-i-1] = nums[len(nums)-i-1], nums[0]
+	}
+	return nums[len(nums)-k]
+}
 
 func (m MyImpl) dailyTemperatures(temperatures []int) []int {
 	res := make([]int, len(temperatures))
