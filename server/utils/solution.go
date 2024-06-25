@@ -2025,5 +2025,14 @@ func (m MyImpl) generate(numRows int) [][]int {
 }
 
 func (m MyImpl) rob(nums []int) int {
+	dp := make([]int, len(nums)+1)
+	dp[0] = 0
+	dp[1] = nums[0]
+	for i := 2; i < len(dp); i++ {
+		dp[i] = int(math.Max(float64(dp[i-1]), float64(dp[i-2]+nums[i-1])))
+	}
+	return dp[len(dp)-1]
+}
+func (m MyImpl) numSquares(n int) int {
 
 }
