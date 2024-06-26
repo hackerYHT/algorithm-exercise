@@ -2034,5 +2034,12 @@ func (m MyImpl) rob(nums []int) int {
 	return dp[len(dp)-1]
 }
 func (m MyImpl) numSquares(n int) int {
-
+	dp := make([]int, n+1)
+	for i := 1; i < len(dp); i++ {
+		dp[i] = i
+		for j := 1; i-j*j >= 0; j++ {
+			dp[i] = int(math.Min(float64(dp[i]), float64(dp[i-j*j]+1)))
+		}
+	}
+	return dp[len(dp)-1]
 }
