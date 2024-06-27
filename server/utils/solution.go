@@ -2043,3 +2043,13 @@ func (m MyImpl) numSquares(n int) int {
 	}
 	return dp[len(dp)-1]
 }
+func (m MyImpl) coinChange(coins []int, amount int) int {
+	dp := make([]int, amount+1)
+	dp[0] = 0
+	for i := 0; i < len(dp); i++ {
+		for j := len(coins) - 1; i-coins[j] >= 0; j-- {
+			dp[i] = int(math.Min(float64(dp[i]), float64(dp[i-coins[j]])))
+		}
+	}
+	return dp[len(dp)-1]
+}
