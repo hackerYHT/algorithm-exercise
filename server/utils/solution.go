@@ -2053,3 +2053,21 @@ func (m MyImpl) coinChange(coins []int, amount int) int {
 	}
 	return dp[len(dp)-1]
 }
+func (m MyImpl) wordBreak(s string, wordDict []string) bool {
+	dict := make(map[string]struct{})
+	for _, c := range wordDict {
+		dict[c] = struct{}{}
+	}
+	dp := make([]bool, len(s)+1)
+	dp[0] = false
+	for i := 1; i < len(dp); i++ {
+		for j := i + 1; j < len(dp); j++ {
+			_, ok := dict[s[j:]]
+			dp[j] = dp[i] && ok
+			if dp[len(dp)-1] {
+				return true
+			}
+		}
+	}
+	return false
+}
