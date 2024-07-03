@@ -2073,3 +2073,6 @@ func (m MyImpl) wordBreak(s string, wordDict []string) bool {
 	}
 	return false
 }
+func (m MyImpl) lengthOfLIS(nums []int) int {
+
+}
