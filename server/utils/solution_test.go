@@ -84,3 +84,8 @@ func TestClimbStairs(t *testing.T) {
 	res := myimpl.climbStairs(5)
 	fmt.Printf("res: %v", res)
 }
+
+func TestWordBreak(t *testing.T) {
+	res := myimpl.wordBreak("applepenapple", []string{"apple", "pen"})
+	fmt.Printf("res: %v", res)
+}

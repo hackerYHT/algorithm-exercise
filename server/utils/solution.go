@@ -2059,11 +2059,13 @@ func (m MyImpl) wordBreak(s string, wordDict []string) bool {
 		dict[c] = struct{}{}
 	}
 	dp := make([]bool, len(s)+1)
-	dp[0] = false
-	for i := 1; i < len(dp); i++ {
+	dp[0] = true
+	for i := 0; i < len(s); i++ {
 		for j := i + 1; j < len(dp); j++ {
-			_, ok := dict[s[j:]]
-			dp[j] = dp[i] && ok
+			_, ok := dict[s[i:j]]
+			if dp[i] && ok {
+				dp[j] = dp[i] && ok
+			}
 			if dp[len(dp)-1] {
 				return true
 			}
