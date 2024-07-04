@@ -2087,3 +2087,7 @@ func (m MyImpl) lengthOfLIS(nums []int) int {
 	}
 	return res
 }
+
+func (m MyImpl) maxProduct(nums []int) int {
+
+}
