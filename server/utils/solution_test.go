@@ -89,3 +89,8 @@ func TestWordBreak(t *testing.T) {
 	res := myimpl.wordBreak("applepenapple", []string{"apple", "pen"})
 	fmt.Printf("res: %v", res)
 }
+
+func TestLengthOfLISk(t *testing.T) {
+	res := myimpl.lengthOfLIS([]int{1, 3, 6, 7, 9, 4, 10, 5, 6})
+	fmt.Printf("res: %v", res)
+}

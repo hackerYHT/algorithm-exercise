@@ -2074,5 +2074,16 @@ func (m MyImpl) wordBreak(s string, wordDict []string) bool {
 	return false
 }
 func (m MyImpl) lengthOfLIS(nums []int) int {
-
+	dp := make([]int, len(nums))
+	res := 0
+	for i := 0; i < len(dp); i++ {
+		dp[i] = 1
+		for j := i - 1; j >= 0; j-- {
+			if nums[j] < nums[i] {
+				dp[i] = int(math.Max(float64(dp[i]), float64(dp[j]+1)))
+			}
+		}
+		res = int(math.Max(float64(res), float64(dp[i])))
+	}
+	return res
 }
