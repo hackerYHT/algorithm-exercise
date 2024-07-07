@@ -2089,5 +2089,14 @@ func (m MyImpl) lengthOfLIS(nums []int) int {
 }
 
 func (m MyImpl) maxProduct(nums []int) int {
-
+	dpMax := make([]int, len(nums))
+	dpMin := make([]int, len(nums))
+	dpMax[0], dpMin[0] = nums[0], nums[0]
+	res := nums[0]
+	for i := 1; i < len(nums); i++ {
+		dpMax[i] = int(math.Max(math.Max(float64(dpMax[i-1]*nums[i]), float64(dpMin[i-1]*nums[i])), float64(nums[i])))
+		dpMin[i] = int(math.Min(math.Min(float64(dpMax[i-1]*nums[i]), float64(dpMin[i-1]*nums[i])), float64(nums[i])))
+		res = int(math.Max(float64(dpMax[i]), float64(res)))
+	}
+	return res
 }
