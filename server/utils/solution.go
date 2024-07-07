@@ -2100,3 +2100,29 @@ func (m MyImpl) maxProduct(nums []int) int {
 	}
 	return res
 }
+
+func (m MyImpl) canPartition(nums []int) bool {
+	pack := func(N, W int, arr []int) int {
+		dp := make([][]int, N+1)
+		for i := 0; i < len(dp); i++ {
+			dp[i] = make([]int, W+1)
+		}
+		for i := 1; i <= N; i++ {
+			for j := 1; j <= W; j++ {
+				dp[i][j] = dp[i-1][j]
+				if j >= nums[i-1] {
+					dp[i][j] = int(math.Max(float64(dp[i-1][j]), float64(dp[i-1][j-nums[i-1]]+nums[i-1])))
+				}
+			}
+		}
+		return dp[N][W]
+	}
+	sum := 0
+	for i := 0; i < len(nums); i++ {
+		sum += nums[i]
+	}
+	if sum%2 != 0 {
+		return false
+	}
+	return pack(len(nums), sum>>1, nums) == sum>>1
+}

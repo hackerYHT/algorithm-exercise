@@ -99,3 +99,8 @@ func TestMaxProduct(t *testing.T) {
 	res := myimpl.maxProduct([]int{-2, 3, -4})
 	fmt.Printf("res: %v", res)
 }
+
+func TestCanPartition(t *testing.T) {
+	res := myimpl.canPartition([]int{1, 5, 11, 5})
+	fmt.Printf("res: %v", res)
+}
