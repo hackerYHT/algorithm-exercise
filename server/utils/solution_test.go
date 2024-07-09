@@ -102,5 +102,15 @@ func TestMaxProduct(t *testing.T) {
 
 func TestCanPartition(t *testing.T) {
 	res := myimpl.canPartition([]int{1, 5, 11, 5})
-	fmt.Printf("res: %v", res)
+	fmt.Printf("res: %#v", res)
+}
+
+func TestFindTargetSumWays(t *testing.T) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("捕获异常", err)
+		}
+	}()
+	res := myimpl.findTargetSumWays([]int{1, 1, 1, 1, 1}, 3)
+	fmt.Printf("res: %+v", res)
 }

@@ -2126,3 +2126,21 @@ func (m MyImpl) canPartition(nums []int) bool {
 	}
 	return pack(len(nums), sum>>1, nums) == sum>>1
 }
+
+func (m MyImpl) findTargetSumWays(nums []int, target int) int {
+	pack := func(N, W int, arr []int) int {
+		dp := make([][]int, N+1)
+		for i := 0; i < N+1; i++ {
+			dp[i] = make([]int, W+1)
+		}
+		for i := 1; i < N+1; i++ {
+			for j := 1; j < W+1; j++ {
+				if j-nums[i-1] > 0 && j+nums[i-1] > 0 && j-nums[i-1] < W+1 && j+nums[i-1] < W+1 {
+					dp[i][j] = int(math.Max(float64(dp[i-1][j-nums[i-1]]), float64(dp[i-1][j+nums[i-1]])))
+				}
+			}
+		}
+		return dp[N][W]
+	}
+	return pack(len(nums), target, nums)
+}
