@@ -106,11 +106,6 @@ func TestCanPartition(t *testing.T) {
 }
 
 func TestFindTargetSumWays(t *testing.T) {
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Println("捕获异常", err)
-		}
-	}()
 	res := myimpl.findTargetSumWays([]int{1, 1, 1, 1, 1}, 3)
 	fmt.Printf("res: %+v", res)
 }
