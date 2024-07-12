@@ -109,3 +109,8 @@ func TestFindTargetSumWays(t *testing.T) {
 	res := myimpl.findTargetSumWays([]int{1, 1, 1, 1, 1}, 3)
 	fmt.Printf("res: %+v", res)
 }
+
+func TestFindMaxForm(t *testing.T) {
+	res := myimpl.findMaxForm([]string{"10", "0001", "111001", "1", "0"}, 5, 3)
+	fmt.Printf("res: %+v", res)
+}

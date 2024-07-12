@@ -2150,5 +2150,30 @@ func (m MyImpl) findTargetSumWays(nums []int, target int) int {
 }
 
 func (ml MyImpl) findMaxForm(strs []string, m int, n int) int {
-
+	dp := make([][][]int, len(strs)+1)
+	for i := 0; i < len(dp); i++ {
+		dp[i] = make([][]int, m+1)
+		for j := 0; j < len(dp[i]); j++ {
+			dp[i][j] = make([]int, n+1)
+		}
+	}
+	for i := 1; i < len(strs)+1; i++ {
+		zeros, ones := 0, 0
+		for _, c := range strs[i-1] {
+			if c == '0' {
+				zeros++
+			} else {
+				ones++
+			}
+		}
+		for j := 0; j < m+1; j++ {
+			for k := 0; k < n+1; k++ {
+				dp[i][j][k] = dp[i-1][j][k]
+				if j >= zeros && k >= ones && dp[i][j][k] < dp[i-1][j-zeros][k-ones]+1 {
+					dp[i][j][k] = dp[i-1][j-zeros][k-ones]
+				}
+			}
+		}
+	}
+	return dp[len(strs)][m][n]
 }
