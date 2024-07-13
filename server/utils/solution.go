@@ -2170,7 +2170,7 @@ func (ml MyImpl) findMaxForm(strs []string, m int, n int) int {
 			for k := 0; k < n+1; k++ {
 				dp[i][j][k] = dp[i-1][j][k]
 				if j >= zeros && k >= ones && dp[i][j][k] < dp[i-1][j-zeros][k-ones]+1 {
-					dp[i][j][k] = dp[i-1][j-zeros][k-ones]
+					dp[i][j][k] = dp[i-1][j-zeros][k-ones] + 1
 				}
 			}
 		}
