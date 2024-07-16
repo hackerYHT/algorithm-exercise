@@ -2256,3 +2256,7 @@ func (m MyImpl) longestCommonSubsequence(text1 string, text2 string) int {
 	}
 	return dp[len(dp)-1][len(dp[0])-1]
 }
+
+func (m MyImpl) minDistance(word1 string, word2 string) int {
+
+}
