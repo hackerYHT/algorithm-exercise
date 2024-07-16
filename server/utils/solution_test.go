@@ -114,3 +114,13 @@ func TestFindMaxForm(t *testing.T) {
 	res := myimpl.findMaxForm([]string{"10", "0001", "111001", "1", "0"}, 5, 3)
 	fmt.Printf("res: %+v", res)
 }
+
+func TestUniquePaths(t *testing.T) {
+	res := myimpl.uniquePaths(3, 2)
+	fmt.Printf("res: %+v", res)
+}
+
+func TestMinPathSum(t *testing.T) {
+	res := myimpl.minPathSum([][]int{{1, 3, 1}, {1, 5, 1}, {4, 2, 1}})
+	fmt.Printf("res: %+v", res)
+}
