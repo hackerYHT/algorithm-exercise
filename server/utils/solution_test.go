@@ -124,3 +124,8 @@ func TestMinPathSum(t *testing.T) {
 	res := myimpl.minPathSum([][]int{{1, 3, 1}, {1, 5, 1}, {4, 2, 1}})
 	fmt.Printf("res: %+v", res)
 }
+
+func TestMinDistance(t *testing.T) {
+	res := myimpl.minDistance("horse", "ros")
+	fmt.Printf("res: %+v", res)
+}
