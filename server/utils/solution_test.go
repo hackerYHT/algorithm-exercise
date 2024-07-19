@@ -134,3 +134,8 @@ func TestSingleNumber(t *testing.T) {
 	res := myimpl.singleNumber([]int{1, 6, 6, 8, 8, 1, 7, 9, 9, 3, 3})
 	fmt.Printf("res: %+v", res)
 }
+
+func TestMajorityElement(t *testing.T) {
+	res := myimpl.majorityElement([]int{2, 2, 1, 1, 1, 2, 2})
+	fmt.Printf("res: %+v", res)
+}

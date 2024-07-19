@@ -2285,3 +2285,19 @@ func (m MyImpl) singleNumber(nums []int) int {
 	}
 	return res
 }
+
+func (m MyImpl) majorityElement(nums []int) int {
+	res, cnt := nums[0], 1
+	for i := 1; i < len(nums); i++ {
+		if res != nums[i] {
+			cnt--
+			if cnt == 0 {
+				res = nums[i]
+				cnt = 1
+			}
+		} else {
+			cnt++
+		}
+	}
+	return res
+}
