@@ -2301,3 +2301,22 @@ func (m MyImpl) majorityElement(nums []int) int {
 	}
 	return res
 }
+func (m MyImpl) sortColors(nums []int) {
+	cnt_0, cnt_1 := 0, 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i] == 0 {
+			cnt_0++
+		} else if nums[i] == 1 {
+			cnt_1++
+		}
+	}
+	for i := 0; i < len(nums); i++ {
+		if i < cnt_0 {
+			nums[i] = 0
+		} else if i < cnt_0+cnt_1 {
+			nums[i] = 1
+		} else {
+			nums[i] = 2
+		}
+	}
+}
