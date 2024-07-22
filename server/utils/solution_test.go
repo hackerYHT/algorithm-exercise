@@ -143,3 +143,14 @@ func TestMajorityElement(t *testing.T) {
 func TestSortColors(t *testing.T) {
 	myimpl.sortColors([]int{2, 2, 1, 1, 0, 0, 0, 1, 2, 2})
 }
+
+func TestNextPermutation(t *testing.T) {
+	res := []int{1, 2, 3}
+	myimpl.nextPermutation(res)
+	fmt.Printf("res: %+v", res)
+}
+
+func TestFindDuplicate(t *testing.T) {
+	res := myimpl.findDuplicate([]int{1, 3, 4, 2, 2})
+	fmt.Printf("res: %+v", res)
+}

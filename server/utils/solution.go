@@ -3,6 +3,7 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"fmt"
 	"math"
 	sort "sort"
 	"strings"
@@ -2320,9 +2321,37 @@ func (m MyImpl) sortColors(nums []int) {
 		}
 	}
 }
+func (m MyImpl) nextPermutation(nums []int) {
+	sortNums := func(arr []int, x int) {
+		y := len(arr) - 1
+		for x <= y {
+			nums[x], nums[y] = nums[y], nums[x]
+			x++
+			y--
+		}
+	}
+	x := len(nums) - 1
+	for ; x >= 0; x-- {
+		if x == 0 {
+			sortNums(nums, x)
+			return
+		}
+		if nums[x] > nums[x-1] {
+			break
+		}
+	}
+	for i := len(nums) - 1; i >= x; i-- {
+		if nums[i] > nums[x-1] {
+			nums[i], nums[x-1] = nums[x-1], nums[i]
+			break
+		}
+	}
+	sortNums(nums, x)
+	fmt.Printf("res: %+v", nums)
+}
 
 func (m MyImpl) findDuplicate(nums []int) int {
-	fast, slow := nums[0], nums[nums[0]]
+	fast, slow := nums[nums[0]], nums[0]
 	for fast != slow {
 		slow = nums[slow]
 		fast = nums[nums[fast]]
