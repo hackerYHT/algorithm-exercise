@@ -2320,3 +2320,17 @@ func (m MyImpl) sortColors(nums []int) {
 		}
 	}
 }
+
+func (m MyImpl) findDuplicate(nums []int) int {
+	fast, slow := nums[0], nums[nums[0]]
+	for fast != slow {
+		slow = nums[slow]
+		fast = nums[nums[fast]]
+	}
+	sw1, sw2 := 0, slow
+	for sw1 != sw2 {
+		sw1 = nums[sw1]
+		sw2 = nums[sw2]
+	}
+	return sw1
+}
