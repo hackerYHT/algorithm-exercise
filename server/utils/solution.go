@@ -2350,6 +2350,7 @@ func (m MyImpl) nextPermutation(nums []int) {
 	fmt.Printf("res: %+v", nums)
 }
 
+// 将数组映射成李链表
 func (m MyImpl) findDuplicate(nums []int) int {
 	fast, slow := nums[nums[0]], nums[0]
 	for fast != slow {
