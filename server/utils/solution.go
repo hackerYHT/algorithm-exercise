@@ -2380,3 +2380,13 @@ func (m MyImpl) lengthOfLongestSubstring(s string) int {
 	}
 	return res
 }
+func (m MyImpl) maxSubArray(nums []int) int {
+	pre, cur := nums[0], 0
+	res := nums[0]
+	for i := 1; i < len(nums); i++ {
+		cur = int(math.Max(float64(nums[i]), float64(nums[i]+pre)))
+		res = int(math.Max(float64(res), float64(cur)))
+		pre = cur
+	}
+	return res
+}
