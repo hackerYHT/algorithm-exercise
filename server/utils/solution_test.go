@@ -154,3 +154,8 @@ func TestFindDuplicate(t *testing.T) {
 	res := myimpl.findDuplicate([]int{1, 3, 4, 2, 2})
 	fmt.Printf("res: %+v", res)
 }
+
+func TestLengthOfLongestSubstring(t *testing.T) {
+	res := myimpl.lengthOfLongestSubstring("abba")
+	fmt.Printf("res: %+v", res)
+}

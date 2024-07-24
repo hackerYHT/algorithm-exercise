@@ -2364,3 +2364,19 @@ func (m MyImpl) findDuplicate(nums []int) int {
 	}
 	return sw1
 }
+
+func (m MyImpl) lengthOfLongestSubstring(s string) int {
+	l, r := 0, 0
+	res := 0
+	mp := make(map[byte]int, 0)
+	for r < len(s) {
+		v, ok := mp[s[r]]
+		if ok && v >= l {
+			l = v + 1
+		}
+		mp[s[r]] = r
+		res = int(math.Max(float64(res), float64(r-l+1)))
+		r++
+	}
+	return res
+}
