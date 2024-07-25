@@ -159,3 +159,8 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 	res := myimpl.lengthOfLongestSubstring("abba")
 	fmt.Printf("res: %+v", res)
 }
+
+func TestSpiralOrder(t *testing.T) {
+	res := myimpl.spiralOrder([][]int{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}})
+	fmt.Printf("res: %+v", res)
+}

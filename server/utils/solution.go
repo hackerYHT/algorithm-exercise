@@ -2391,5 +2391,37 @@ func (m MyImpl) maxSubArray(nums []int) int {
 	return res
 }
 func (m MyImpl) spiralOrder(matrix [][]int) []int {
-
+	l, r, t, b := 0, len(matrix[0])-1, 0, len(matrix)-1
+	res := make([]int, 0)
+	for t <= b && l <= r {
+		for i := l; i <= r; i++ {
+			res = append(res, matrix[t][i])
+		}
+		t++
+		if t > b {
+			break
+		}
+		for i := t; i <= b; i++ {
+			res = append(res, matrix[i][r])
+		}
+		r--
+		if l > r {
+			break
+		}
+		for i := r; i >= l; i-- {
+			res = append(res, matrix[b][i])
+		}
+		b--
+		if t > b {
+			break
+		}
+		for i := b; i >= t; i-- {
+			res = append(res, matrix[i][l])
+		}
+		l++
+		if l > r {
+			break
+		}
+	}
+	return res
 }
