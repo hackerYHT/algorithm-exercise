@@ -2,7 +2,7 @@ package utils
 
 import "container/list"
 
-type LRUCatch struct {
+type LRUCache struct {
 	cap     int
 	linkLst *list.List
 	lruMap  map[int]*list.Element
@@ -13,14 +13,14 @@ type entry struct {
 	value int
 }
 
-func Constructer(cap int) LRUCatch {
-	return LRUCatch{
+func Constructor(cap int) LRUCache {
+	return LRUCache{
 		cap:     cap,
 		linkLst: list.New(),
 		lruMap:  map[int]*list.Element{},
 	}
 }
-func (c *LRUCatch) Get(key int) int {
+func (c *LRUCache) Get(key int) int {
 	node, ok := c.lruMap[key]
 	if ok {
 		c.linkLst.MoveToFront(node)
@@ -30,13 +30,13 @@ func (c *LRUCatch) Get(key int) int {
 	}
 }
 
-func (c *LRUCatch) Put(key, value int) {
+func (c *LRUCache) Put(key, value int) {
 	node, ok := c.lruMap[key]
-	node.Value = entry{key, value}
 	if ok {
+		node.Value = entry{key, value}
 		c.linkLst.MoveToFront(node)
 	} else {
-		c.linkLst.PushFront(node)
+		c.lruMap[key] = c.linkLst.PushFront(entry{key, value})
 		if len(c.lruMap) > c.cap {
 			delete(c.lruMap, c.linkLst.Remove(c.linkLst.Back()).(entry).key)
 		}
