@@ -1,6 +1,10 @@
 package utils
 
-import "container/list"
+import (
+	"container/list"
+	"math"
+	"sort"
+)
 
 type LRUCache struct {
 	cap     int
@@ -41,4 +45,21 @@ func (c *LRUCache) Put(key, value int) {
 			delete(c.lruMap, c.linkLst.Remove(c.linkLst.Back()).(entry).key)
 		}
 	}
+}
+func (m MyImpl) merge(intervals [][]int) [][]int {
+	res := make([][]int, 0)
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+	max := intervals[0][1]
+	for x, y := 0, 0; y < len(intervals); {
+		max = int(math.Max(float64(max), float64(intervals[y][1])))
+		if y == len(intervals)-1 || max < intervals[y+1][0] {
+			res = append(res, []int{intervals[x][0], max})
+			x, y = y+1, y+1
+		} else {
+			y++
+		}
+	}
+	return res
 }
