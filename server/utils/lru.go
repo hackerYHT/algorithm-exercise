@@ -17,7 +17,7 @@ type entry struct {
 	value int
 }
 
-func Constructor(cap int) LRUCache {
+func Construct(cap int) LRUCache {
 	return LRUCache{
 		cap:     cap,
 		linkLst: list.New(),

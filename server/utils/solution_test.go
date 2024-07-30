@@ -11,6 +11,11 @@ var myimpl = MyImpl{
 	Name:      "test",
 }
 
+var myimplOne = MyImplOne{
+	Algorithm: nil,
+	Name:      "test",
+}
+
 func TestPermute(t *testing.T) {
 	str := "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"
 	res := myimpl.permute([]int{1, 2, 3})
@@ -163,4 +168,8 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 func TestSpiralOrder(t *testing.T) {
 	res := myimpl.spiralOrder([][]int{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}})
 	fmt.Printf("res: %+v", res)
+}
+func TestFindKthLargest_1(t *testing.T) {
+	res := myimplOne.findKthLargest([]int{3, 2, 1, 5, 6, 4}, 2)
+	fmt.Printf("res: %v", res)
 }
