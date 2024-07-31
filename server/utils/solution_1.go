@@ -35,3 +35,20 @@ func (m MyImplOne) findKthLargest(nums []int, k int) int {
 	}
 	return nums[len(nums)-k]
 }
+
+func (m MyImpl) reverseBetween(head *ListNode, left int, right int) *ListNode {
+	pre, cur := head, head
+	for i := 0; i < left-1; i++ {
+		pre = pre.Next
+	}
+	for i := 0; i < right; i++ {
+		cur = cur.Next
+	}
+	for pre.Next != cur {
+		tmp := pre.Next
+		cur.Next = tmp.Next
+		tmp.Next = cur.Next
+		cur.Next = tmp
+	}
+	return head
+}
