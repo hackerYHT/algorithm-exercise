@@ -173,3 +173,35 @@ func TestFindKthLargest_1(t *testing.T) {
 	res := myimplOne.findKthLargest([]int{3, 2, 1, 5, 6, 4}, 2)
 	fmt.Printf("res: %v", res)
 }
+
+// 将整数数组转换为单向链表
+func (n ListNode) ArrayToLinkedList(nums []int) *ListNode {
+	if len(nums) == 0 {
+		return nil
+	}
+
+	dummy := &ListNode{} // 创建一个哑节点作为链表的头节点
+	prev := dummy
+
+	for _, val := range nums {
+		prev.Next = &ListNode{Val: val}
+		prev = prev.Next
+	}
+
+	return dummy.Next // 返回链表的第一个节点
+}
+
+func TestReverseBetween(t *testing.T) {
+	node := &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+	head := node.ArrayToLinkedList([]int{1, 2, 3, 4, 5})
+	res := myimpl.reverseBetween(head, 2, 4)
+	//head := node.ArrayToLinkedList([]int{5})
+	//res := myimpl.reverseBetween(head, 1, 1)
+	for res != nil {
+		fmt.Printf("%v ", res.Val)
+		res = res.Next
+	}
+}
