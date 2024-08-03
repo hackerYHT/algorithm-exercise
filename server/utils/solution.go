@@ -2443,3 +2443,15 @@ func (m MyImpl) reverseBetween(head *ListNode, left int, right int) *ListNode {
 	}
 	return pivot.Next
 }
+func (m MyImpl) reverseList(head *ListNode) *ListNode {
+	var dfs func(cur, pre *ListNode) *ListNode
+	dfs = func(cur, pre *ListNode) *ListNode {
+		if cur == nil {
+			return pre
+		}
+		res := dfs(cur.Next, cur)
+		cur.Next = pre
+		return res
+	}
+	return dfs(head, nil)
+}
