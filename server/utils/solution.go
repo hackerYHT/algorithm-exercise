@@ -2426,4 +2426,20 @@ func (m MyImpl) spiralOrder(matrix [][]int) []int {
 	return res
 }
 func (m MyImpl) reverseBetween(head *ListNode, left int, right int) *ListNode {
+	pivot := &ListNode{
+		Val:  -1,
+		Next: head,
+	}
+	pre, cur := pivot, pivot.Next
+	for i := 0; i < left-1; i++ {
+		pre = pre.Next
+		cur = cur.Next
+	}
+	for i := 0; i < right-left; i++ {
+		tmp := cur.Next
+		cur.Next = tmp.Next
+		tmp.Next = pre.Next
+		pre.Next = tmp
+	}
+	return pivot.Next
 }
