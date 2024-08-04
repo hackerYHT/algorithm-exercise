@@ -1,5 +1,7 @@
 package utils
 
+import "math"
+
 type MyImplOne struct {
 	Algorithm
 	Name string
@@ -34,4 +36,13 @@ func (m MyImplOne) findKthLargest(nums []int, k int) int {
 		nums[0], nums[len(nums)-i-1] = nums[len(nums)-i-1], nums[0]
 	}
 	return nums[len(nums)-k]
+}
+
+func (m MyImplOne) maxProfit(prices []int) int {
+	res, min := 0, prices[0]
+	for i := 0; i < len(prices); i++ {
+		min = int(math.Min(float64(min), float64(prices[i])))
+		res = int(math.Max(float64(prices[i]-min), float64(res)))
+	}
+	return res
 }
