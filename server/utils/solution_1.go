@@ -46,3 +46,7 @@ func (m MyImplOne) maxProfit(prices []int) int {
 	}
 	return res
 }
+
+func (m MyImpl) longestValidParentheses(s string) int {
+	return 1
+}
