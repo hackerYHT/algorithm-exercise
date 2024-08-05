@@ -71,3 +71,6 @@ func (m MyImplOne) minDistance(word1 string, word2 string) int {
 	}
 	return dp[len(dp)-1][len(dp[0])-1]
 }
+func (m MyImplOne) permute(nums []int) [][]int {
+	return nil
+}
