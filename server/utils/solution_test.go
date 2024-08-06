@@ -205,3 +205,7 @@ func TestReverseBetween(t *testing.T) {
 		res = res.Next
 	}
 }
+func TestPermute1(t *testing.T) {
+	res := myimplOne.permute([]int{1, 2, 3})
+	fmt.Printf("res: %v", res)
+}

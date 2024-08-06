@@ -72,5 +72,25 @@ func (m MyImplOne) minDistance(word1 string, word2 string) int {
 	return dp[len(dp)-1][len(dp[0])-1]
 }
 func (m MyImplOne) permute(nums []int) [][]int {
-	return nil
+	res := make([][]int, 0)
+	var dfs func(arr, ans []int, visited []bool)
+	dfs = func(arr, ans []int, visited []bool) {
+		if len(ans) == len(arr) {
+			tmp := make([]int, len(arr))
+			copy(tmp, ans)
+			res = append(res, tmp)
+		}
+		for i := 0; i < len(arr); i++ {
+			if visited[i] {
+				continue
+			}
+			ans = append(ans, arr[i])
+			visited[i] = true
+			dfs(arr, ans, visited)
+			ans = ans[:len(ans)-1]
+			visited[i] = false
+		}
+	}
+	dfs(nums, make([]int, 0), make([]bool, len(nums)))
+	return res
 }
