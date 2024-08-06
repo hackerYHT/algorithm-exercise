@@ -2443,6 +2443,7 @@ func (m MyImpl) reverseBetween(head *ListNode, left int, right int) *ListNode {
 	}
 	return pivot.Next
 }
+
 func (m MyImpl) reverseList(head *ListNode) *ListNode {
 	var dfs func(cur, pre *ListNode) *ListNode
 	dfs = func(cur, pre *ListNode) *ListNode {
@@ -2455,6 +2456,11 @@ func (m MyImpl) reverseList(head *ListNode) *ListNode {
 	}
 	return dfs(head, nil)
 }
+
 func (m MyImpl) multiply(num1 string, num2 string) string {
 	return ""
+}
+
+func (m MyImpl) getKthElement(nums1, nums2 []int, k int) int {
+
 }
