@@ -2460,7 +2460,3 @@ func (m MyImpl) reverseList(head *ListNode) *ListNode {
 func (m MyImpl) multiply(num1 string, num2 string) string {
 	return ""
 }
-
-func (m MyImpl) getKthElement(nums1, nums2 []int, k int) int {
-
-}

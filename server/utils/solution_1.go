@@ -94,3 +94,37 @@ func (m MyImplOne) permute(nums []int) [][]int {
 	dfs(nums, make([]int, 0), make([]bool, len(nums)))
 	return res
 }
+
+func (m MyImplOne) findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
+	getKthElement := func(nums1, nums2 []int, k int) int {
+		i1, i2 := 0, 0 // 当前开始下标
+		for {
+			//边界
+			if i1 == len(nums1) {
+				return nums2[i2+k-1]
+			}
+			if i2 == len(nums2) {
+				return nums1[i1+k-1]
+			}
+			if k == 1 {
+				return int(math.Min(float64(nums1[i1]), float64(nums2[i2])))
+			}
+			half := k >> 1
+			newI1 := int(math.Min(float64(i1+half), float64(len(nums1)))) - 1
+			newI2 := int(math.Min(float64(i2+half), float64(len(nums2)))) - 1
+			if nums1[newI1] <= nums2[newI2] { // 不断舍弃小的那一半，永远不符合条件
+				k -= newI1 - i1 + 1
+				i1 = newI1 + 1
+			} else {
+				k -= newI2 - i2 + 1
+				i2 = newI2 + 1
+			}
+		}
+	}
+	n := len(nums1) + len(nums2)
+	if n%2 != 0 { // 奇
+		return float64(getKthElement(nums1, nums2, n/2+1))
+	} else { // 偶
+		return float64(getKthElement(nums1, nums2, n/2)+getKthElement(nums1, nums2, n/2+1)) / 2
+	}
+}
