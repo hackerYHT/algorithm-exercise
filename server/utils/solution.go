@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math"
 	sort "sort"
+	"strconv"
 	"strings"
 )
 
@@ -2459,4 +2460,28 @@ func (m MyImpl) reverseList(head *ListNode) *ListNode {
 
 func (m MyImpl) multiply(num1 string, num2 string) string {
 	return ""
+}
+func (m MyImpl) restoreIpAddresses(s string) []string {
+	res := make([]string, 0)
+	var dfs func(ans []string, l, r int)
+	dfs = func(ans []string, l, r int) {
+		if r >= len(s) {
+			if len(ans) == 4 && strings.Join(ans, "") == s {
+				res = append(res, strings.Join(ans, "."))
+			}
+			return
+		}
+		if r-l > 0 && s[l] == '0' {
+			return
+		}
+		str := s[l : r+1]
+		num, _ := strconv.Atoi(str)
+		if num > 255 || num < 0 {
+			return
+		}
+		dfs(ans, l, r+1)
+		dfs(append(ans, s[l:r+1]), r+1, r+1)
+	}
+	dfs(make([]string, 0), 0, 0)
+	return res
 }
