@@ -2485,3 +2485,17 @@ func (m MyImpl) restoreIpAddresses(s string) []string {
 	dfs(make([]string, 0), 0, 0)
 	return res
 }
+func (m MyImpl) inorderTraversal(root *TreeNode) []int {
+	var dfs func(node *TreeNode)
+	res := make([]int, 0)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		dfs(node.Left)
+		res = append(res, node.Val)
+		dfs(node.Right)
+	}
+	dfs(root)
+	return res
+}
