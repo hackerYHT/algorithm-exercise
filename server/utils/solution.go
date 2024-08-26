@@ -2504,13 +2504,15 @@ func (m MyImpl) maxSlidingWindow(nums []int, k int) []int {
 	res := make([]int, 0)
 	i, j := 0, 0
 	for j < len(nums) {
-		if deque[0] < i {
+		if len(deque) > 0 && deque[0] < i {
 			deque = deque[1:]
 		}
-		l := len(deque)
-		for nums[deque[l]] < nums[j] {
+		idx := len(deque) - 1
+		for idx >= 0 && nums[deque[idx]] < nums[j] {
 			deque = deque[:len(deque)-1]
+			idx--
 		}
+		deque = append(deque, j)
 		if j-i+1 == k {
 			res = append(res, nums[deque[0]])
 			i++

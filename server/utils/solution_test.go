@@ -209,3 +209,8 @@ func TestPermute1(t *testing.T) {
 	res := myimplOne.permute([]int{1, 2, 3})
 	fmt.Printf("res: %v", res)
 }
+
+func TestMaxSlidingWindow(t *testing.T) {
+	res := myimpl.maxSlidingWindow([]int{1, 3, -1, -3, 5, 3, 6, 7}, 3)
+	fmt.Printf("res: %v", res)
+}
