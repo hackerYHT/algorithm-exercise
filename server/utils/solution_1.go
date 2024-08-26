@@ -128,3 +128,6 @@ func (m MyImplOne) findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 		return float64(getKthElement(nums1, nums2, n/2)+getKthElement(nums1, nums2, n/2+1)) / 2
 	}
 }
+func (m MyImplOne) generateParenthesis(n int) []string {
+
+}
