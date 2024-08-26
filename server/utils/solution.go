@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"math"
-	sort "sort"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -2497,5 +2497,25 @@ func (m MyImpl) inorderTraversal(root *TreeNode) []int {
 		dfs(node.Right)
 	}
 	dfs(root)
+	return res
+}
+func (m MyImpl) maxSlidingWindow(nums []int, k int) []int {
+	deque := make([]int, 0)
+	res := make([]int, 0)
+	i, j := 0, 0
+	for j < len(nums) {
+		if deque[0] < i {
+			deque = deque[1:]
+		}
+		l := len(deque)
+		for nums[deque[l]] < nums[j] {
+			deque = deque[:len(deque)-1]
+		}
+		if j-i+1 == k {
+			res = append(res, nums[deque[0]])
+			i++
+		}
+		j++
+	}
 	return res
 }
