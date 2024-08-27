@@ -129,5 +129,24 @@ func (m MyImplOne) findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	}
 }
 func (m MyImplOne) generateParenthesis(n int) []string {
-
+	var dfs func(ans []byte, l, r int)
+	res := make([]string, 0)
+	dfs = func(ans []byte, l, r int) {
+		if l <= 0 && r <= 0 && len(ans) == 2*n {
+			res = append(res, string(ans))
+			return
+		}
+		if l > 0 {
+			ans = append(ans, '(')
+			dfs(ans, l-1, r)
+			ans = ans[:len(ans)-1]
+		}
+		if r > 0 && r > l {
+			ans = append(ans, ')')
+			dfs(ans, l, r-1)
+			ans = ans[:len(ans)-1]
+		}
+	}
+	dfs(make([]byte, 0), n, n)
+	return res
 }
