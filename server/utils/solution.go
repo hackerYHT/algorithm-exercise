@@ -2521,6 +2521,65 @@ func (m MyImpl) maxSlidingWindow(nums []int, k int) []int {
 	}
 	return res
 }
-func (m MyImpl) findWords(board [][]byte, words []string) []string {
 
+type PreTree struct {
+	children [26]*PreTree
+	word     string
+}
+
+func (t *PreTree) Insert(word string) {
+	if t == nil {
+		t = &PreTree{
+			children: [26]*PreTree{},
+			word:     "",
+		}
+	}
+	for i := 0; i < len(word); i++ {
+		idx := word[i] - 'a'
+		if t.children[idx] == nil {
+			t.children[idx] = &PreTree{
+				children: [26]*PreTree{},
+				word:     "",
+			}
+		}
+		t = t.children[idx]
+	}
+}
+func (m MyImpl) findWords(board [][]byte, words []string) []string {
+	res := make([]string, 0)
+	root := &PreTree{
+		children: [26]*PreTree{},
+		word:     "",
+	}
+	wordMap := make(map[string]struct{}, 0)
+	for i := 0; i < len(words); i++ {
+		root.Insert(words[i])
+		wordMap[words[i]] = struct{}{}
+	}
+	var dfs func(i, j int, ans []byte, visited [][]bool)
+	dfs = func(i, j int, ans []byte, visited [][]bool) {
+		if i < 0 || i > len(board) || j < 0 || j > len(board[0]) {
+			return
+		}
+		if _, ok := wordMap[string(ans)]; ok {
+			res = append(res, string(ans))
+			return
+		}
+		visited[i][j] = true
+		ans = append(ans, board[i][j])
+		dfs(i+1, j, ans, visited)
+		dfs(i, j+1, ans, visited)
+		dfs(i-1, j, ans, visited)
+		dfs(i, j-1, ans, visited)
+	}
+	for i := 0; i < len(board); i++ {
+		for j := 0; j < len(board[0]); j++ {
+			visited := make([][]bool, len(board))
+			for k := 0; k < len(board); k++ {
+				visited[i] = make([]bool, len(board[0]))
+			}
+			dfs(i, j, make([]byte, 0), visited)
+		}
+	}
+	return res
 }
