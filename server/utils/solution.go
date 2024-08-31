@@ -2544,6 +2544,7 @@ func (t *PreTree) Insert(word string) {
 		}
 		t = t.children[idx]
 	}
+	t.word = word
 }
 func (m MyImpl) findWords(board [][]byte, words []string) []string {
 	res := make([]string, 0)
@@ -2556,29 +2557,30 @@ func (m MyImpl) findWords(board [][]byte, words []string) []string {
 		root.Insert(words[i])
 		wordMap[words[i]] = struct{}{}
 	}
-	var dfs func(i, j int, ans []byte, visited [][]bool)
-	dfs = func(i, j int, ans []byte, visited [][]bool) {
-		if i < 0 || i > len(board) || j < 0 || j > len(board[0]) {
+	var dfs func(i, j int, visited [][]bool, node *PreTree)
+	dfs = func(i, j int, visited [][]bool, node *PreTree) {
+		if i < 0 || i >= len(board) || j < 0 || j >= len(board[0]) || visited[i][j] || node.children[board[i][j]-'a'] == nil {
 			return
 		}
-		if _, ok := wordMap[string(ans)]; ok {
-			res = append(res, string(ans))
+		if _, ok := wordMap[node.children[board[i][j]-'a'].word]; ok {
+			res = append(res, node.children[board[i][j]-'a'].word)
+			delete(wordMap, node.children[board[i][j]-'a'].word)
 			return
 		}
 		visited[i][j] = true
-		ans = append(ans, board[i][j])
-		dfs(i+1, j, ans, visited)
-		dfs(i, j+1, ans, visited)
-		dfs(i-1, j, ans, visited)
-		dfs(i, j-1, ans, visited)
+		dfs(i+1, j, visited, node.children[board[i][j]-'a'])
+		dfs(i, j+1, visited, node.children[board[i][j]-'a'])
+		dfs(i-1, j, visited, node.children[board[i][j]-'a'])
+		dfs(i, j-1, visited, node.children[board[i][j]-'a'])
+		visited[i][j] = false
+	}
+	visited := make([][]bool, len(board))
+	for k := 0; k < len(board); k++ {
+		visited[k] = make([]bool, len(board[0]))
 	}
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[0]); j++ {
-			visited := make([][]bool, len(board))
-			for k := 0; k < len(board); k++ {
-				visited[i] = make([]bool, len(board[0]))
-			}
-			dfs(i, j, make([]byte, 0), visited)
+			dfs(i, j, visited, root)
 		}
 	}
 	return res

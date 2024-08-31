@@ -214,3 +214,8 @@ func TestMaxSlidingWindow(t *testing.T) {
 	res := myimpl.maxSlidingWindow([]int{1, 3, -1, -3, 5, 3, 6, 7}, 3)
 	fmt.Printf("res: %v", res)
 }
+
+func TestFindWords(t *testing.T) {
+	res := myimpl.findWords([][]byte{{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}}, []string{"oath", "pea", "eat", "rain"})
+	fmt.Printf("res: %v", res)
+}
