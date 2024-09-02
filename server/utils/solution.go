@@ -2585,3 +2585,34 @@ func (m MyImpl) findWords(board [][]byte, words []string) []string {
 	}
 	return res
 }
+func (m MyImpl) generateMatrix(n int) [][]int {
+	res := make([][]int, n)
+	for i := 0; i < n; i++ {
+		res[i] = make([]int, n)
+	}
+	cnt := 1
+	top, bottom, left, right := 0, n-1, 0, n-1
+	for top <= bottom || left <= right {
+		for i := left; i <= right; i++ {
+			res[top][i] = cnt
+			cnt++
+		}
+		top++
+		for i := top; i <= bottom; i++ {
+			res[i][right] = cnt
+			cnt++
+		}
+		right--
+		for i := right; i >= left; i-- {
+			res[bottom][i] = cnt
+			cnt++
+		}
+		bottom--
+		for i := bottom; i >= top; i-- {
+			res[i][left] = cnt
+			cnt++
+		}
+		left++
+	}
+	return res
+}
