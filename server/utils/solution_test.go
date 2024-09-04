@@ -219,3 +219,8 @@ func TestFindWords(t *testing.T) {
 	res := myimpl.findWords([][]byte{{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}}, []string{"oath", "pea", "eat", "rain"})
 	fmt.Printf("res: %v", res)
 }
+
+func TestCombinationSum1(t *testing.T) {
+	res := myimplOne.combinationSum([]int{2, 3, 6, 7}, 7)
+	fmt.Printf("res: %v", res)
+}

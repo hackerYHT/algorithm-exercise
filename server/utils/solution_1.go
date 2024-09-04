@@ -1,6 +1,9 @@
 package utils
 
-import "math"
+import (
+	"math"
+	"sort"
+)
 
 type MyImplOne struct {
 	Algorithm
@@ -148,5 +151,31 @@ func (m MyImplOne) generateParenthesis(n int) []string {
 		}
 	}
 	dfs(make([]byte, 0), n, n)
+	return res
+}
+
+func (m MyImplOne) combinationSum(candidates []int, target int) [][]int {
+	res := make([][]int, 0)
+	var dfs func(target int, ans []int, pre int)
+	dfs = func(target int, ans []int, pre int) {
+		if target <= 0 {
+			if target == 0 {
+				tmp := make([]int, len(ans))
+				copy(tmp, ans)
+				res = append(res, tmp)
+			}
+			return
+		}
+		for i := 0; i < len(candidates); i++ {
+			if candidates[i] < pre {
+				continue
+			}
+			ans = append(ans, candidates[i])
+			dfs(target-candidates[i], ans, candidates[i])
+			ans = ans[:len(ans)-1]
+		}
+	}
+	sort.Ints(candidates)
+	dfs(target, make([]int, 0), -1)
 	return res
 }
