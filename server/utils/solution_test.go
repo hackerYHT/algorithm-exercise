@@ -233,3 +233,7 @@ func TestSortList(t *testing.T) {
 		res = res.Next
 	}
 }
+func TestMyAtoi(t *testing.T) {
+	res := myimpl.myAtoi("9223372036854775808")
+	fmt.Printf("res: %v", res)
+}

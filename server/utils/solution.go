@@ -2616,3 +2616,45 @@ func (m MyImpl) generateMatrix(n int) [][]int {
 	}
 	return res
 }
+
+func (m MyImpl) myAtoi(s string) int {
+	res := 0
+	sign := 1
+	spaceCnt := 0
+	for i, c := range s {
+		if c >= '0' && c <= '9' {
+			res = res*10 + int(c-'0')
+		} else if c == '-' || c == '+' {
+			if i == 0 || spaceCnt == i {
+				if c == '-' {
+					sign *= -1
+				}
+			} else {
+				return res * sign
+			}
+		} else if c == ' ' {
+			if spaceCnt == i {
+				spaceCnt++
+			} else {
+				return res * sign
+			}
+		} else {
+			if i > 0 {
+				return res * sign
+			} else {
+				return 0
+			}
+		}
+	}
+	res = int(math.Abs(float64(res)))
+	if sign == -1 {
+		if res > math.MaxInt32 {
+			return -1 * (math.MaxInt32 + 1)
+		}
+	} else {
+		if res > math.MaxInt32-1 {
+			return math.MaxInt32
+		}
+	}
+	return res * sign
+}
