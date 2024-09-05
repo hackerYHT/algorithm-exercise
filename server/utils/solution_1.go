@@ -179,3 +179,44 @@ func (m MyImplOne) combinationSum(candidates []int, target int) [][]int {
 	dfs(target, make([]int, 0), -1)
 	return res
 }
+
+func (m MyImplOne) sortList(head *ListNode) *ListNode {
+	var dfs func(h *ListNode) *ListNode
+	dfs = func(h *ListNode) *ListNode {
+		if h == nil || h.Next == nil {
+			return h
+		}
+		l, r := h, h.Next
+		for r != nil && r.Next != nil {
+			l = l.Next
+			r = r.Next.Next
+		}
+		r = l.Next
+		l.Next = nil
+		h1 := dfs(h)
+		h2 := dfs(r)
+		a, b := h1, h2
+		pivot := &ListNode{
+			Val:  -1,
+			Next: nil,
+		}
+		cur := pivot
+		for a != nil && b != nil {
+			if a.Val < b.Val {
+				cur.Next = a
+				a = a.Next
+			} else {
+				cur.Next = b
+				b = b.Next
+			}
+			cur = cur.Next
+		}
+		if a != nil {
+			cur.Next = a
+		} else {
+			cur.Next = b
+		}
+		return pivot.Next
+	}
+	return dfs(head)
+}

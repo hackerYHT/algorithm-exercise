@@ -224,3 +224,12 @@ func TestCombinationSum1(t *testing.T) {
 	res := myimplOne.combinationSum([]int{2, 3, 6, 7}, 7)
 	fmt.Printf("res: %v", res)
 }
+
+func TestSortList(t *testing.T) {
+	res := myimplOne.sortList(intArr2ListNode([]int{4, 2, 1, 3}))
+	fmt.Printf("res: \n")
+	for res != nil {
+		fmt.Printf("%v\n", res.Val)
+		res = res.Next
+	}
+}

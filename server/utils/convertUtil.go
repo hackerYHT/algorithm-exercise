@@ -18,3 +18,19 @@ func str2IntArr(arrStr string) any {
 	}
 	return arr
 }
+
+func intArr2ListNode(arr []int) *ListNode {
+	pivot := &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+	cur := pivot
+	for i := 0; i < len(arr); i++ {
+		cur.Next = &ListNode{
+			Val:  arr[i],
+			Next: nil,
+		}
+		cur = cur.Next
+	}
+	return pivot.Next
+}
