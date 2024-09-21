@@ -237,3 +237,9 @@ func TestMyAtoi(t *testing.T) {
 	res := myimpl.myAtoi("9223372036854775808")
 	fmt.Printf("res: %v", res)
 }
+
+func TestWidthOfBinaryTree(t *testing.T) {
+	root := arrayToBST([]interface{}{1, 3, 2, 5, 3, nil, 9})
+	res := myimplOne.widthOfBinaryTree(root)
+	fmt.Printf("res: %v", res)
+}

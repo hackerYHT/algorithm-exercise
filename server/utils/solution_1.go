@@ -240,3 +240,27 @@ func (m MyImplOne) coinChange(coins []int, amount int) int {
 		return -1
 	}
 }
+func (m MyImplOne) widthOfBinaryTree(root *TreeNode) int {
+	q := make([]*TreeNode, 0)
+	root.Val = 0
+	q = append(q, root)
+	res := 0
+	for len(q) != 0 {
+		size := len(q)
+		wide := q[len(q)-1].Val - q[0].Val + 1
+		for i := 0; i < size; i++ {
+			node := q[0]
+			q = q[1:]
+			if node.Left != nil {
+				node.Left.Val = 2*node.Val + 1
+				q = append(q, node.Left)
+			}
+			if node.Right != nil {
+				node.Right.Val = 2*node.Val + 2
+				q = append(q, node.Right)
+			}
+		}
+		res = int(math.Max(float64(res), float64(wide)))
+	}
+	return res
+}
