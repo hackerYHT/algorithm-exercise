@@ -264,3 +264,24 @@ func (m MyImplOne) widthOfBinaryTree(root *TreeNode) int {
 	}
 	return res
 }
+func (m MyImplOne) reverseBetween(head *ListNode, left int, right int) *ListNode {
+	pivot := &ListNode{
+		Val:  -1,
+		Next: head,
+	}
+	pre, cur, tar := pivot, head, head
+	for i := 0; i < right; i++ {
+		if i < left-1 {
+			pre = pre.Next
+			cur = cur.Next
+		}
+		tar = tar.Next
+	}
+	for cur.Next != tar {
+		tmp := cur.Next
+		cur.Next = tmp.Next
+		tmp.Next = pre.Next
+		pre.Next = tmp
+	}
+	return pivot.Next
+}
