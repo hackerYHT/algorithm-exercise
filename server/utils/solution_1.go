@@ -287,5 +287,27 @@ func (m MyImplOne) reverseBetween(head *ListNode, left int, right int) *ListNode
 }
 
 func (m MyImplOne) levelOrder(root *TreeNode) [][]int {
-
+	q := make([]*TreeNode, 0)
+	q = append(q, root)
+	res := make([][]int, 0)
+	if root == nil {
+		return res
+	}
+	for len(q) != 0 {
+		size := len(q)
+		row := make([]int, size)
+		for i := 0; i < size; i++ {
+			node := q[0]
+			row[i] = node.Val
+			q = q[1:]
+			if node.Left != nil {
+				q = append(q, node.Left)
+			}
+			if node.Right != nil {
+				q = append(q, node.Right)
+			}
+		}
+		res = append(res, row)
+	}
+	return res
 }
