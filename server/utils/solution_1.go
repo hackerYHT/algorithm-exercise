@@ -311,3 +311,15 @@ func (m MyImplOne) levelOrder(root *TreeNode) [][]int {
 	}
 	return res
 }
+
+func (m MyImplOne) singleNonDuplicate(nums []int) int {
+	res := nums[0]
+	for i := 1; i < len(nums); i++ {
+		res ^= nums[i]
+	}
+	return res
+}
+
+func (m MyImplOne) zigzagLevelOrder(root *TreeNode) [][]int {
+
+}
