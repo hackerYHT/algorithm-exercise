@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"container/list"
 	"math"
 	"sort"
 )
@@ -321,5 +322,41 @@ func (m MyImplOne) singleNonDuplicate(nums []int) int {
 }
 
 func (m MyImplOne) zigzagLevelOrder(root *TreeNode) [][]int {
-
+	q := list.New()
+	q.PushBack(root)
+	res := make([][]int, 0)
+	if root == nil {
+		return res
+	}
+	order := true
+	for q.Len() != 0 {
+		size := q.Len()
+		row := make([]int, 0)
+		for i := 0; i < size; i++ {
+			if order {
+				node := q.Front().Value.(*TreeNode)
+				row = append(row, node.Val)
+				q.Remove(q.Front())
+				if node.Left != nil {
+					q.PushBack(node.Left)
+				}
+				if node.Right != nil {
+					q.PushBack(node.Right)
+				}
+			} else {
+				node := q.Back().Value.(*TreeNode)
+				row = append(row, node.Val)
+				q.Remove(q.Back())
+				if node.Right != nil {
+					q.PushFront(node.Right)
+				}
+				if node.Left != nil {
+					q.PushFront(node.Left)
+				}
+			}
+		}
+		order = !order
+		res = append(res, row)
+	}
+	return res
 }
