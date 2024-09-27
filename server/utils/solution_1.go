@@ -360,3 +360,38 @@ func (m MyImplOne) zigzagLevelOrder(root *TreeNode) [][]int {
 	}
 	return res
 }
+
+func (m MyImplOne) findCircleNum(isConnected [][]int) int {
+	res := 0
+	var dfs func(row, column int)
+	dfs = func(row, column int) {
+		for i := 0; i < len(isConnected[row]); i++ {
+			if i == column {
+				continue
+			}
+			if isConnected[row][i] == 1 {
+				isConnected[row][i] = 0
+				dfs(row, i)
+			}
+		}
+		for i := 0; i < len(isConnected); i++ {
+			if i == row {
+				continue
+			}
+			if isConnected[i][column] == 1 {
+				isConnected[i][column] = 0
+				dfs(i, column)
+			}
+		}
+	}
+	for i := 0; i < len(isConnected); i++ {
+		for j := 0; j < len(isConnected[i]); j++ {
+			if isConnected[i][j] == 1 {
+				isConnected[i][j] = 0
+				dfs(i, j)
+				res++
+			}
+		}
+	}
+	return res
+}
