@@ -395,3 +395,22 @@ func (m MyImplOne) findCircleNum(isConnected [][]int) int {
 	}
 	return res
 }
+
+func (m MyImplOne) sumNumbers(root *TreeNode) int {
+	var dfs func(node *TreeNode, num int)
+	res := 0
+	dfs = func(node *TreeNode, num int) {
+		if node.Left == nil && node.Right == nil {
+			res += num*10 + node.Val
+			return
+		}
+		if node.Left != nil {
+			dfs(node.Left, num*10+node.Val)
+		}
+		if node.Right != nil {
+			dfs(node.Right, num*10+node.Val)
+		}
+	}
+	dfs(root, 0)
+	return res
+}
