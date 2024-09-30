@@ -414,3 +414,16 @@ func (m MyImplOne) sumNumbers(root *TreeNode) int {
 	dfs(root, 0)
 	return res
 }
+
+func (m MyImplOne) reverseList(head *ListNode) *ListNode {
+	var dfs func(pre, node *ListNode) *ListNode
+	dfs = func(pre, node *ListNode) *ListNode {
+		if node == nil {
+			return pre
+		}
+		res := dfs(node, node.Next)
+		node.Next = pre
+		return res
+	}
+	return dfs(nil, head)
+}
