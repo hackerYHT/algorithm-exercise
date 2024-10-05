@@ -77,3 +77,27 @@ func threeSum(nums []int) [][]int {
 	}
 	return res
 }
+
+func (m MyImplTwo) numIslands(grid [][]byte) int {
+	var dfs func(grid [][]byte, row, column int)
+	dfs = func(grid [][]byte, row, column int) {
+		if row < 0 || row >= len(grid) || column < 0 || column >= len(grid[row]) || grid[row][column] == '0' {
+			return
+		}
+		grid[row][column] = '0'
+		dfs(grid, row+1, column)
+		dfs(grid, row, column+1)
+		dfs(grid, row-1, column)
+		dfs(grid, row, column-1)
+	}
+	res := 0
+	for i := 0; i < len(grid); i++ {
+		for j := 0; j < len(grid[i]); j++ {
+			if grid[i][j] == '1' {
+				res++
+				dfs(grid, i, j)
+			}
+		}
+	}
+	return res
+}
