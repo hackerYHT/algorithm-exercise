@@ -101,3 +101,34 @@ func (m MyImplTwo) numIslands(grid [][]byte) int {
 	}
 	return res
 }
+func (m MyImplTwo) reverseKGroup(head *ListNode, k int) *ListNode {
+	var reverse func(cur, pre, end *ListNode) *ListNode
+	reverse = func(cur, pre, end *ListNode) *ListNode {
+		if cur == end || cur == nil {
+			return pre
+		}
+		tmp := reverse(cur.Next, cur, end)
+		cur.Next = pre
+		return tmp
+	}
+	pivot := &ListNode{
+		Val:  -1,
+		Next: head,
+	}
+	start, end := pivot, pivot.Next
+	for i := 0; i < k; i++ {
+		end = end.Next
+	}
+	for {
+		h := reverse(start.Next, end, end)
+		start.Next = h
+		for i := 0; i < k; i++ {
+			if end == nil {
+				return pivot.Next
+			}
+			start = start.Next
+			end = end.Next
+		}
+	}
+	return pivot.Next
+}

@@ -16,6 +16,11 @@ var myimplOne = MyImplOne{
 	Name:      "test",
 }
 
+var myimplyTwo = MyImplTwo{
+	Algorithm: nil,
+	Name:      "test",
+}
+
 func TestPermute(t *testing.T) {
 	str := "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"
 	res := myimpl.permute([]int{1, 2, 3})
@@ -242,4 +247,13 @@ func TestWidthOfBinaryTree(t *testing.T) {
 	root := arrayToBST([]interface{}{1, 3, 2, 5, 3, nil, 9})
 	res := myimplOne.widthOfBinaryTree(root)
 	fmt.Printf("res: %v", res)
+}
+
+func TestReverseKGroup(t *testing.T) {
+	head := intArr2ListNode([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
+	res := myimplyTwo.reverseKGroup(head, 2)
+	for res != nil {
+		fmt.Printf("%v\n", res.Val)
+		res = res.Next
+	}
 }
