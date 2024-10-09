@@ -132,3 +132,6 @@ func (m MyImplTwo) reverseKGroup(head *ListNode, k int) *ListNode {
 	}
 	return pivot.Next
 }
+func (m MyImplTwo) search(nums []int, target int) int {
+
+}
