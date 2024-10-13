@@ -155,3 +155,7 @@ func (m MyImplTwo) search(nums []int, target int) int {
 	}
 	return -1
 }
+
+func (m MyImplTwo) trap(height []int) int {
+
+}
