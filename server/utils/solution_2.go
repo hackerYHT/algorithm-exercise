@@ -180,3 +180,6 @@ func (m MyImplTwo) trap(height []int) int {
 	}
 	return res
 }
+func (m MyImplTwo) spiralOrder(matrix [][]int) []int {
+
+}
