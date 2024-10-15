@@ -257,3 +257,8 @@ func TestReverseKGroup(t *testing.T) {
 		res = res.Next
 	}
 }
+
+func TestTrap(t *testing.T) {
+	res := myimplyTwo.trap([]int{4, 2, 0, 3, 2, 5})
+	fmt.Printf("%v\n", res)
+}

@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"math"
 	"sort"
 )
 
@@ -157,5 +158,25 @@ func (m MyImplTwo) search(nums []int, target int) int {
 }
 
 func (m MyImplTwo) trap(height []int) int {
-
+	if len(height) < 3 {
+		return 0
+	}
+	dp_l := make([]int, len(height))
+	res := 0
+	dp_l[0], dp_l[1] = 0, height[0]
+	for i := 2; i < len(dp_l); i++ {
+		dp_l[i] = int(math.Max(float64(dp_l[i-1]), float64(height[i-1])))
+	}
+	dp_r := make([]int, len(height))
+	dp_r[len(dp_r)-1], dp_r[len(dp_r)-2] = 0, height[len(height)-1]
+	for i := len(height) - 3; i >= 0; i-- {
+		dp_r[i] = int(math.Max(float64(dp_r[i+1]), float64(height[i+1])))
+	}
+	for i := 1; i < len(height); i++ {
+		min := int(math.Min(float64(dp_r[i]), float64(dp_l[i])))
+		if dp_l[i] > height[i] && dp_r[i] > height[i] {
+			res += min - height[i]
+		}
+	}
+	return res
 }
