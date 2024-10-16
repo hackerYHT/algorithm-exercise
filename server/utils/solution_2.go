@@ -215,3 +215,6 @@ func (m MyImplTwo) spiralOrder(matrix [][]int) []int {
 	}
 	return res
 }
+func (m MyImplTwo) longestPalindrome(s string) string {
+
+}
