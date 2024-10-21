@@ -216,5 +216,24 @@ func (m MyImplTwo) spiralOrder(matrix [][]int) []int {
 	return res
 }
 func (m MyImplTwo) longestPalindrome(s string) string {
-
+	dp := make([][]bool, len(s))
+	for i := 0; i < len(dp); i++ {
+		dp[i] = make([]bool, len(s))
+	}
+	res, max := "", -1
+	for j := 0; j < len(s); j++ {
+		for i := j; i >= 0; i-- {
+			if j-i < 2 && s[i] == s[j] {
+				dp[i][j] = true
+			}
+			if i+1 < len(s) && j-1 >= 0 && dp[i+1][j-1] && s[i] == s[j] {
+				dp[i][j] = true
+			}
+			if dp[i][j] && j-i+1 > max {
+				max = j - i + 1
+				res = s[i : j+1]
+			}
+		}
+	}
+	return res
 }

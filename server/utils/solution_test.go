@@ -262,3 +262,8 @@ func TestTrap(t *testing.T) {
 	res := myimplyTwo.trap([]int{4, 2, 0, 3, 2, 5})
 	fmt.Printf("%v\n", res)
 }
+
+func TestLongestPalindrome(t *testing.T) {
+	res := myimplyTwo.longestPalindrome("babad")
+	fmt.Printf("%v\n", res)
+}
