@@ -259,3 +259,21 @@ func (m MyImplTwo) lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	}
 	return dfs(root)
 }
+
+func (m MyImplTwo) getIntersectionNode(headA, headB *ListNode) *ListNode {
+	A, B := headA, headB
+	for A != nil || B != nil {
+		if A == nil {
+			A = headB
+		}
+		if B == nil {
+			B = headA
+		}
+		if A == B {
+			return A
+		}
+		A = A.Next
+		B = B.Next
+	}
+	return nil
+}
