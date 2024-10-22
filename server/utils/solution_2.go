@@ -277,3 +277,15 @@ func (m MyImplTwo) getIntersectionNode(headA, headB *ListNode) *ListNode {
 	}
 	return nil
 }
+func (m MyImplTwo) maxSubArray(nums []int) int {
+	dp := make([]int, len(nums)+1)
+	dp[0] = 0
+	res := math.MinInt
+	for i := 1; i < len(dp); i++ {
+		dp[i] = int(math.Max(float64(dp[i-1]+nums[i-1]), float64(nums[i-1])))
+		if res < dp[i] {
+			res = dp[i]
+		}
+	}
+	return res
+}
