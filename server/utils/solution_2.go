@@ -237,3 +237,25 @@ func (m MyImplTwo) longestPalindrome(s string) string {
 	}
 	return res
 }
+func (m MyImplTwo) lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	var dfs func(node *TreeNode) *TreeNode
+	dfs = func(node *TreeNode) *TreeNode {
+		if node == nil {
+			return nil
+		}
+		if node == p || node == q {
+			return node
+		}
+		l := dfs(node.Left)
+		r := dfs(node.Right)
+		if l != nil && r != nil {
+			return node
+		}
+		if l != nil {
+			return l
+		} else {
+			return r
+		}
+	}
+	return dfs(root)
+}
