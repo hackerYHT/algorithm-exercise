@@ -267,3 +267,7 @@ func TestLongestPalindrome(t *testing.T) {
 	res := myimplyTwo.longestPalindrome("babad")
 	fmt.Printf("%v\n", res)
 }
+
+func TestNextPermutation2(t *testing.T) {
+	myimplyTwo.nextPermutation([]int{1, 3, 2})
+}

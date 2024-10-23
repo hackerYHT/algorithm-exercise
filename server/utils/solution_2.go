@@ -289,3 +289,24 @@ func (m MyImplTwo) maxSubArray(nums []int) int {
 	}
 	return res
 }
+func (m MyImplTwo) nextPermutation(nums []int) {
+	sortArr := func(arr []int, l, r int) {
+		for l <= r {
+			nums[l], nums[r] = nums[r], nums[l]
+			l++
+			r--
+		}
+	}
+	for i := len(nums) - 2; i >= 0; i-- {
+		if nums[i] < nums[i+1] {
+			j := len(nums) - 1
+			for nums[j] <= nums[i] {
+				j--
+			}
+			nums[i], nums[j] = nums[j], nums[i]
+			sortArr(nums, i+1, len(nums)-1)
+			return
+		}
+	}
+	sort.Ints(nums)
+}
