@@ -330,3 +330,28 @@ func (m MyImplTwo) lengthOfLIS(nums []int) int {
 	}
 	return res
 }
+func (m MyImplTwo) rightSideView(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	q := make([]*TreeNode, 0)
+	q = append(q, root)
+	res := make([]int, 0)
+	for len(q) != 0 {
+		size := len(q)
+		val := -1
+		for i := 0; i < size; i++ {
+			node := q[0]
+			q = q[1:]
+			if node.Left != nil {
+				q = append(q, node.Left)
+			}
+			if node.Right != nil {
+				q = append(q, node.Right)
+			}
+			val = node.Val
+		}
+		res = append(res, val)
+	}
+	return res
+}
