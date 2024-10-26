@@ -310,3 +310,23 @@ func (m MyImplTwo) nextPermutation(nums []int) {
 	}
 	sort.Ints(nums)
 }
+
+func (m MyImplTwo) lengthOfLIS(nums []int) int {
+	dp := make([]int, len(nums))
+	res := 1
+	dp[0] = 1
+	for i := 0; i < len(dp); i++ {
+		dp[i] = 1
+	}
+	for i := 1; i < len(dp); i++ {
+		for j := i - 1; j >= 0; j-- {
+			if nums[i] > nums[j] && dp[i] < dp[j]+1 {
+				dp[i] = dp[j] + 1
+			}
+		}
+		if dp[i] > res {
+			res = dp[i]
+		}
+	}
+	return res
+}
