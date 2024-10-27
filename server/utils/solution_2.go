@@ -355,3 +355,48 @@ func (m MyImplTwo) rightSideView(root *TreeNode) []int {
 	}
 	return res
 }
+
+func (m MyImplTwo) reorderList(head *ListNode) {
+	fast, slow := head, head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+	headA := head
+	headB := slow.Next
+	slow.Next = nil
+	var reverse func(pre, cur *ListNode) *ListNode
+	reverse = func(pre, cur *ListNode) *ListNode {
+		if cur == nil {
+			return pre
+		}
+		tmp := reverse(cur, cur.Next)
+		cur.Next = pre
+		return tmp
+	}
+	headB = reverse(nil, headB)
+	A, B := headA, headB
+	pivot := &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+	flag := true
+	cur := pivot
+	for A != nil && B != nil {
+		if flag {
+			cur.Next = A
+			A = A.Next
+		} else {
+			cur.Next = B
+			B = B.Next
+		}
+		cur = cur.Next
+		flag = !flag
+	}
+	if A != nil {
+		cur.Next = A
+	}
+	if B != nil {
+		cur.Next = B
+	}
+}
