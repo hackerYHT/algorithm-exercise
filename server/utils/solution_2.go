@@ -400,3 +400,30 @@ func (m MyImplTwo) reorderList(head *ListNode) {
 		cur.Next = B
 	}
 }
+
+func (m MyImplTwo) isValid(s string) bool {
+	stack := make([]byte, 0)
+	for i := 0; i < len(s); i++ {
+		if s[i] == '(' {
+			stack = append(stack, ')')
+		} else if s[i] == '{' {
+			stack = append(stack, '}')
+		} else if s[i] == '[' {
+			stack = append(stack, ']')
+		} else {
+			if len(stack) == 0 {
+				return false
+			}
+			c := stack[len(stack)-1]
+			if c != s[i] {
+				return false
+			}
+			stack = stack[:len(stack)-1]
+		}
+	}
+	if len(stack) != 0 {
+		return false
+	} else {
+		return true
+	}
+}
