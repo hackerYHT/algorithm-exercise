@@ -427,3 +427,7 @@ func (m MyImplTwo) isValid(s string) bool {
 		return true
 	}
 }
+
+func (im MyImplTwo) merge(nums1 []int, m int, nums2 []int, n int) {
+
+}
