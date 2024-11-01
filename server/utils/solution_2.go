@@ -429,5 +429,16 @@ func (m MyImplTwo) isValid(s string) bool {
 }
 
 func (im MyImplTwo) merge(nums1 []int, m int, nums2 []int, n int) {
-
+	a, b := m-1, n-1
+	idx := len(nums1) - 1
+	for b >= 0 {
+		if a >= 0 && nums1[a] >= nums2[b] {
+			nums1[idx] = nums1[a]
+			a--
+		} else {
+			nums1[idx] = nums2[b]
+			b--
+		}
+		idx--
+	}
 }
