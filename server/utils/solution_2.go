@@ -442,3 +442,25 @@ func (im MyImplTwo) merge(nums1 []int, m int, nums2 []int, n int) {
 		idx--
 	}
 }
+
+func (m MyImplTwo) reverseBetween(head *ListNode, left int, right int) *ListNode {
+	pivot := &ListNode{
+		Val:  -1,
+		Next: head,
+	}
+	pre, cur, tar := pivot, pivot.Next, pivot.Next
+	for i := 0; i < right; i++ {
+		if i < left-1 {
+			pre = pre.Next
+			cur = cur.Next
+		}
+		tar = tar.Next
+	}
+	for cur.Next != tar {
+		tmp := cur.Next
+		cur.Next = tmp.Next
+		tmp.Next = pre.Next
+		pre.Next = tmp
+	}
+	return pivot.Next
+}
