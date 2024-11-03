@@ -464,3 +464,27 @@ func (m MyImplTwo) reverseBetween(head *ListNode, left int, right int) *ListNode
 	}
 	return pivot.Next
 }
+
+func (m MyImplTwo) mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	pivot := &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+	A, B, cur := list1, list2, pivot
+	for A != nil && B != nil {
+		if A.Val <= B.Val {
+			cur.Next = A
+			A = A.Next
+		} else {
+			cur.Next = B
+			B = B.Next
+		}
+		cur = cur.Next
+	}
+	if A != nil {
+		cur.Next = A
+	} else {
+		cur.Next = B
+	}
+	return pivot.Next
+}
