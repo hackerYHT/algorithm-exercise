@@ -488,3 +488,18 @@ func (m MyImplTwo) mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	}
 	return pivot.Next
 }
+
+func (m MyImplTwo) hasCycle(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return false
+	}
+	slow, fast := head, head.Next
+	for fast != nil && fast.Next != nil {
+		if fast == slow {
+			return true
+		}
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	return false
+}
