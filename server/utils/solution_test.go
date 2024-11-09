@@ -271,3 +271,8 @@ func TestLongestPalindrome(t *testing.T) {
 func TestNextPermutation2(t *testing.T) {
 	myimplyTwo.nextPermutation([]int{1, 3, 2})
 }
+
+func TestMerge_1(t *testing.T) {
+	res := myimplyTwo.merge_1([][]int{{1, 4}, {1, 5}})
+	fmt.Printf("%v\n", res)
+}

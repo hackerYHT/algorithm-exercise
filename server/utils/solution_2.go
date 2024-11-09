@@ -524,3 +524,28 @@ func (m MyImplTwo) minDistance(word1 string, word2 string) int {
 	}
 	return dp[len(dp)-1][len(dp[0])-1]
 }
+func (m MyImplTwo) merge_1(intervals [][]int) [][]int {
+	res := make([][]int, 0)
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+	ans := make([]int, 0)
+	for i := 0; i < len(intervals); i++ {
+		if len(ans) == 0 {
+			ans = append(ans, intervals[i][0])
+			ans = append(ans, intervals[i][1])
+		}
+		if ans[1] >= intervals[i][0] {
+			ans[1] = int(math.Max(float64(intervals[i][1]), float64(ans[1])))
+		} else {
+			tmp := make([]int, 2)
+			copy(tmp, ans)
+			res = append(res, tmp)
+			ans[0], ans[1] = intervals[i][0], intervals[i][1]
+		}
+		if i == len(intervals)-1 {
+			res = append(res, ans)
+		}
+	}
+	return res
+}
