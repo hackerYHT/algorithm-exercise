@@ -549,3 +549,26 @@ func (m MyImplTwo) merge_1(intervals [][]int) [][]int {
 	}
 	return res
 }
+
+func (m MyImplTwo) maxiMalSquare(matrix [][]byte) int {
+	dp := make([][]int, len(matrix))
+	res := 0
+	for i := 0; i < len(dp); i++ {
+		dp[i] = make([]int, len(matrix[i]))
+		dp[i][0] = int(matrix[i][0] - '0')
+	}
+	for i := 0; i < len(dp[0]); i++ {
+		dp[0][i] = int(matrix[0][i] - '0')
+	}
+	for i := 1; i < len(dp); i++ {
+		for j := 1; j < len(dp[i]); j++ {
+			if matrix[i][j] == '0' {
+				dp[i][j] = 0
+			} else {
+				dp[i][j] = int(math.Min(float64(dp[i-1][j-1]), math.Min(float64(dp[i-1][j]), float64(dp[i][j-1])))) + 1
+			}
+			res = int(math.Max(float64(res), float64(dp[i][j])))
+		}
+	}
+	return res * res
+}

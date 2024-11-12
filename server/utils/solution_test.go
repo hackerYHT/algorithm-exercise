@@ -276,3 +276,7 @@ func TestMerge_1(t *testing.T) {
 	res := myimplyTwo.merge_1([][]int{{1, 4}, {1, 5}})
 	fmt.Printf("%v\n", res)
 }
+func TestMaxiMalSquare(t *testing.T) {
+	res := myimplyTwo.maxiMalSquare([][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}})
+	fmt.Printf("%v\n", res)
+}
