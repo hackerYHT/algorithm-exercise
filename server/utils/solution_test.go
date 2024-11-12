@@ -280,3 +280,7 @@ func TestMaxiMalSquare(t *testing.T) {
 	res := myimplyTwo.maxiMalSquare([][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}})
 	fmt.Printf("%v\n", res)
 }
+func TestSortList_1(t *testing.T) {
+	res := myimplyTwo.sortList(intArr2ListNode([]int{4, 2, 1, 3}))
+	fmt.Printf("%v\n", res)
+}

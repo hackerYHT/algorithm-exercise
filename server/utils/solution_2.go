@@ -574,3 +574,44 @@ func (m MyImplTwo) maxiMalSquare(matrix [][]byte) int {
 	}
 	return res * res
 }
+
+func (m MyImplTwo) sortList(head *ListNode) *ListNode {
+	var dfs func(node *ListNode) *ListNode
+	dfs = func(node *ListNode) *ListNode {
+		if node == nil || node.Next == nil {
+			return node
+		}
+		pivot := &ListNode{
+			Val:  -1,
+			Next: node,
+		}
+		slow, fast := pivot, pivot.Next
+		for fast != nil && fast.Next != nil {
+			slow = slow.Next
+			fast = fast.Next.Next
+		}
+		mid := slow.Next
+		slow.Next = nil
+		h1 := dfs(pivot.Next)
+		h2 := dfs(mid)
+		pivot.Next = nil
+		cur := pivot
+		for h1 != nil && h2 != nil {
+			if h1.Val < h2.Val {
+				cur.Next = h1
+				h1 = h1.Next
+			} else {
+				cur.Next = h2
+				h2 = h2.Next
+			}
+			cur = cur.Next
+		}
+		if h1 != nil {
+			cur.Next = h1
+		} else {
+			cur.Next = h2
+		}
+		return pivot.Next
+	}
+	return dfs(head)
+}
