@@ -556,9 +556,11 @@ func (m MyImplTwo) maxiMalSquare(matrix [][]byte) int {
 	for i := 0; i < len(dp); i++ {
 		dp[i] = make([]int, len(matrix[i]))
 		dp[i][0] = int(matrix[i][0] - '0')
+		res = int(math.Max(float64(res), float64(dp[i][0])))
 	}
 	for i := 0; i < len(dp[0]); i++ {
 		dp[0][i] = int(matrix[0][i] - '0')
+		res = int(math.Max(float64(res), float64(dp[0][i])))
 	}
 	for i := 1; i < len(dp); i++ {
 		for j := 1; j < len(dp[i]); j++ {
