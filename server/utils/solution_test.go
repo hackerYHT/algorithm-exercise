@@ -284,3 +284,7 @@ func TestSortList_1(t *testing.T) {
 	res := myimplyTwo.sortList(intArr2ListNode([]int{4, 2, 1, 3}))
 	fmt.Printf("%v\n", res)
 }
+func TestMysqrt(t *testing.T) {
+	res := myimplyTwo.mySqrt(8)
+	fmt.Printf("%v\n", res)
+}
