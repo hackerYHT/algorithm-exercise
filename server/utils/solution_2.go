@@ -631,9 +631,6 @@ func (m MyImplTwo) mySqrt(x int) int {
 	return l - 1
 }
 func (m MyImplTwo) compareVersion(version1 string, version2 string) int {
-	//1.001, 1.01
-	//1.10, 1.01
-	//1.0.0.0, 1.0
 	v1 := strings.Split(version1, ",")
 	v2 := strings.Split(version2, ",")
 	if len(v1) < len(v2) {
