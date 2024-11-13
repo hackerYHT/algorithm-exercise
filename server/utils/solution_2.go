@@ -3,6 +3,8 @@ package utils
 import (
 	"math"
 	"sort"
+	"strconv"
+	"strings"
 )
 
 type MyImplTwo struct {
@@ -628,4 +630,44 @@ func (m MyImplTwo) mySqrt(x int) int {
 		}
 	}
 	return l - 1
+}
+func (m MyImplTwo) compareVersion(version1 string, version2 string) int {
+	v1 := strings.Split(version1, ",")
+	v2 := strings.Split(version2, ",")
+	if len(v1) < len(v2) {
+		cnt := len(v2) - len(v1)
+		for i := 0; i < cnt; i++ {
+			v1 = append(v1, "0")
+		}
+	}
+	if len(v2) < len(v1) {
+		cnt := len(v1) - len(v2)
+		for i := 0; i < cnt; i++ {
+			v2 = append(v2, "0")
+		}
+	}
+	for i := 0; i < len(v1); i++ {
+		a, b := 0, 0
+		// 去掉先导0
+		for j := 0; j < len(v1[i])-1; j++ {
+			if v1[i][j] != '0' {
+				a, _ = strconv.Atoi(v1[i][j:])
+				break
+			}
+		}
+		for j := 0; j < len(v2[i])-1; j++ {
+			if v2[i][j] != '0' {
+				b, _ = strconv.Atoi(v2[i][j:])
+				break
+			}
+		}
+		if a < b {
+			return -1
+		} else if a > b {
+			return 1
+		} else {
+			return 0
+		}
+	}
+	return 0
 }
