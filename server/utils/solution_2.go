@@ -694,3 +694,23 @@ func sumNumbers(root *TreeNode) int {
 	dfs(root, 0)
 	return res
 }
+
+func (m MyImplTwo) isSymmetric(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	var dfs func(l, r *TreeNode) bool
+	dfs = func(l, r *TreeNode) bool {
+		if l == nil && r == nil {
+			return true
+		}
+		if l == nil || r == nil {
+			return false
+		}
+		if l.Val != r.Val {
+			return false
+		}
+		return dfs(l.Left, r.Right) && dfs(l.Right, r.Left)
+	}
+	return dfs(root.Left, root.Right)
+}
