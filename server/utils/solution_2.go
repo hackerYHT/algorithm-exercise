@@ -617,6 +617,9 @@ func (m MyImplTwo) sortList(head *ListNode) *ListNode {
 	return dfs(head)
 }
 func (m MyImplTwo) mySqrt(x int) int {
+	if x == 1 {
+		return 1
+	}
 	l, r := 0, x/2
 	for l <= r {
 		mid := (l + r) / 2
