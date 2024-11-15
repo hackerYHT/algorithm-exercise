@@ -3,6 +3,7 @@ package utils
 import (
 	"math"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -634,8 +635,8 @@ func (m MyImplTwo) mySqrt(x int) int {
 	return l - 1
 }
 func (m MyImplTwo) compareVersion(version1 string, version2 string) int {
-	v1 := strings.Split(version1, ",")
-	v2 := strings.Split(version2, ",")
+	v1 := strings.Split(version1, ".")
+	v2 := strings.Split(version2, ".")
 	if len(v1) < len(v2) {
 		cnt := len(v2) - len(v1)
 		for i := 0; i < cnt; i++ {
@@ -661,6 +662,15 @@ func (m MyImplTwo) compareVersion(version1 string, version2 string) int {
 				v2[i] = v2[i][j:]
 				break
 			}
+		}
+		a, _ := strconv.Atoi(v1[i])
+		b, _ := strconv.Atoi(v2[i])
+		print(a)
+		print(b)
+		if a < b {
+			return -1
+		} else if a > b {
+			return 1
 		}
 	}
 	return 0

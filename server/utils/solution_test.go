@@ -288,3 +288,7 @@ func TestMysqrt(t *testing.T) {
 	res := myimplyTwo.mySqrt(8)
 	fmt.Printf("%v\n", res)
 }
+func TestCompareVersion(t *testing.T) {
+	res := myimplyTwo.compareVersion("1.2", "1.10")
+	fmt.Printf("%v\n", res)
+}
