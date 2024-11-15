@@ -675,3 +675,22 @@ func (m MyImplTwo) compareVersion(version1 string, version2 string) int {
 	}
 	return 0
 }
+
+func sumNumbers(root *TreeNode) int {
+	res := 0
+	var dfs func(node *TreeNode, d int)
+	dfs = func(node *TreeNode, d int) {
+		if node.Left == nil && node.Right == nil {
+			res += d*10 + node.Val
+			return
+		}
+		if node.Left != nil {
+			dfs(node.Left, d*10+node.Val)
+		}
+		if node.Right != nil {
+			dfs(node.Right, d*10+node.Val)
+		}
+	}
+	dfs(root, 0)
+	return res
+}
