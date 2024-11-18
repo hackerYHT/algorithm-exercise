@@ -676,6 +676,21 @@ func (m MyImplTwo) compareVersion(version1 string, version2 string) int {
 	return 0
 }
 
+func (m MyImplTwo) lengthOfLongestSubstring(s string) int {
+	l, r := 0, 0
+	res := 0
+	catchMap := make(map[byte]int, 0)
+	for r <= len(s) {
+		value, ok := catchMap[s[r]]
+		if ok {
+			l = value + 1
+		}
+		catchMap[s[r]] = r
+		res = int(math.Max(float64(res), float64(r-l+1)))
+	}
+	return res
+}
+
 func sumNumbers(root *TreeNode) int {
 	res := 0
 	var dfs func(node *TreeNode, d int)
