@@ -680,13 +680,14 @@ func (m MyImplTwo) lengthOfLongestSubstring(s string) int {
 	l, r := 0, 0
 	res := 0
 	catchMap := make(map[byte]int, 0)
-	for r <= len(s) {
+	for r < len(s) {
 		value, ok := catchMap[s[r]]
-		if ok {
+		if ok && value >= l {
 			l = value + 1
 		}
 		catchMap[s[r]] = r
 		res = int(math.Max(float64(res), float64(r-l+1)))
+		r++
 	}
 	return res
 }
