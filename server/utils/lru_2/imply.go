@@ -4,19 +4,19 @@ import "container/list"
 
 type LRUCache struct {
 	capacity int
-	list     *list.List
+	lru_list *list.List
 	hmap     map[int]*list.Element
 }
 
 type Entry struct {
-	key   int
-	value int
+	Key   int
+	Value int
 }
 
 func Constructor(capacity int) LRUCache {
 	return LRUCache{
 		capacity: capacity,
-		list:     &list.List{},
+		lru_list: list.New(),
 		hmap:     make(map[int]*list.Element, 0),
 	}
 }
@@ -24,8 +24,8 @@ func Constructor(capacity int) LRUCache {
 func (this *LRUCache) Get(key int) int {
 	node, ok := this.hmap[key]
 	if ok {
-		this.list.MoveToFront(node)
-		return node.Value.(*Entry).value
+		this.lru_list.MoveToFront(node)
+		return node.Value.(*Entry).Value
 	}
 	return -1
 }
@@ -33,19 +33,16 @@ func (this *LRUCache) Get(key int) int {
 func (this *LRUCache) Put(key int, value int) {
 	node, ok := this.hmap[key]
 	if ok {
-		node.Value.(*Entry).value = value
-		this.list.PushFront(node)
+		node.Value.(*Entry).Value = value
+		this.lru_list.MoveToFront(node)
 	} else {
-		if this.capacity >= this.list.Len() {
-			this.list.Remove(this.list.Back())
-			delete(this.hmap, key)
-			this.capacity--
-		}
-		this.hmap[key] = this.list.PushFront(&Entry{
-			key:   key,
-			value: value,
+		this.hmap[key] = this.lru_list.PushFront(&Entry{
+			Key:   key,
+			Value: value,
 		})
-		this.capacity++
+		if this.lru_list.Len() > this.capacity {
+			delete(this.hmap, this.lru_list.Remove(this.lru_list.Back()).(*Entry).Key)
+		}
 	}
 
 }
