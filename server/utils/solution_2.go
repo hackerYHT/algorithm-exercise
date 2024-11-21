@@ -753,19 +753,18 @@ func (m MyImplTwo) buildTree(preorder []int, inorder []int) *TreeNode {
 }
 
 func (m MyImplTwo) smallestDifference(a []int, b []int) int {
-	res := 0
+	res := math.MaxInt
 	sort.Ints(a)
 	sort.Ints(b)
-	for i := 0; i < len(a); {
-		for j := 0; j < len(b); {
-			res = int(math.Min(float64(res), math.Abs(float64(a[i]-b[i]))))
-			if a[i] < b[j] {
-				i++
-			} else if a[i] > b[j] {
-				j++
-			} else {
-				return 0
-			}
+	i, j := 0, 0
+	for i < len(a) && j < len(b) {
+		res = int(math.Min(float64(res), math.Abs(float64(a[i]-b[j]))))
+		if a[i] < b[j] {
+			i++
+		} else if a[i] > b[j] {
+			j++
+		} else {
+			return 0
 		}
 	}
 	return res
