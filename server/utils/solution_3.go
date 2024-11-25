@@ -23,3 +23,17 @@ func (m MyImplThree) lengthOfLIS(nums []int) int {
 	}
 	return res
 }
+func (m MyImplThree) getIntersectionNode(headA, headB *ListNode) *ListNode {
+	A, B := headA, headB
+	for A != B {
+		if A == nil {
+			A = headB
+		}
+		if B == nil {
+			B = headA
+		}
+		A = A.Next
+		B = B.Next
+	}
+	return A
+}
