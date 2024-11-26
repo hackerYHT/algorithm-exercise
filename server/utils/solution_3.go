@@ -57,7 +57,7 @@ func (im MyImplThree) numWays(n, m int) int {
 func (m MyImplThree) findKthLargest(nums []int, k int) int {
 	var heapify func(arr []int, x, len int)
 	heapify = func(arr []int, x, len int) {
-		if x > len {
+		if x >= len {
 			return
 		}
 		l, r := x*2+1, x*2+2
@@ -75,14 +75,13 @@ func (m MyImplThree) findKthLargest(nums []int, k int) int {
 	}
 	buildHeap := func(arr []int) {
 		for i := (len(arr) - 2) / 2; i >= 0; i-- {
-			heapify(arr, i, len(arr)-1)
+			heapify(arr, i, len(arr))
 		}
 	}
 	buildHeap(nums)
-	res := 0
 	for i := 0; i < k; i++ {
 		heapify(nums, 0, len(nums)-i)
-		nums[0], nums[len(nums)-i] = nums[len(nums)-i], nums[0]
+		nums[0], nums[len(nums)-i-1] = nums[len(nums)-i-1], nums[0]
 	}
-	return res
+	return nums[len(nums)-k]
 }
