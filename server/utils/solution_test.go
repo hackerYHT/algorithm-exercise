@@ -21,6 +21,11 @@ var myimplyTwo = MyImplTwo{
 	Name:      "test",
 }
 
+var myimplyThree = MyImplThree{
+	Algorithm: nil,
+	Name:      "test",
+}
+
 func TestPermute(t *testing.T) {
 	str := "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"
 	res := myimpl.permute([]int{1, 2, 3})
@@ -291,4 +296,9 @@ func TestMysqrt(t *testing.T) {
 func TestCompareVersion(t *testing.T) {
 	res := myimplyTwo.compareVersion("1.2", "1.10")
 	fmt.Printf("%v\n", res)
+}
+func TestDeleteNode(t *testing.T) {
+	root := arrayToBST([]interface{}{nil, 1, 2})
+	res := myimplyThree.deleteNode(root, 1)
+	fmt.Printf("res: %v", res)
 }

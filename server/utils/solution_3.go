@@ -117,17 +117,17 @@ func (m MyImplThree) deleteNode(root *TreeNode, key int) *TreeNode {
 		}
 		if node.Left != nil && node.Right != nil {
 			cur := node.Right
-			for cur.Left == nil {
+			for cur.Left != nil {
 				cur = cur.Left
 			}
 			cur.Left = node.Left
 			return node.Right
 		}
 		if node.Left != nil {
-			return node.Right
+			return node.Left
 		}
 		if node.Right != nil {
-			return node.Left
+			return node.Right
 		}
 		return nil
 	}
