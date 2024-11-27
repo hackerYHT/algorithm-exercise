@@ -110,3 +110,38 @@ func (m MyImplThree) findKthLargest(nums []int, k int) int {
 	}
 	return nums[len(nums)-k]
 }
+func (m MyImplThree) deleteNode(root *TreeNode, key int) *TreeNode {
+	updateNode := func(node *TreeNode) *TreeNode {
+		if node.Left == nil && node.Right == nil {
+			return nil
+		}
+		if node.Left != nil && node.Right != nil {
+			cur := node.Right
+			for cur.Left == nil {
+				cur = cur.Left
+			}
+			cur.Left = node.Left
+			return node.Right
+		}
+		if node.Left != nil {
+			return node.Right
+		}
+		if node.Right != nil {
+			return node.Left
+		}
+		return nil
+	}
+	var dfs func(node *TreeNode) *TreeNode
+	dfs = func(node *TreeNode) *TreeNode {
+		if node == nil {
+			return nil
+		}
+		if node.Val == key {
+			return updateNode(node)
+		}
+		node.Left = dfs(node.Left)
+		node.Right = dfs(node.Right)
+		return node
+	}
+	return dfs(root)
+}
