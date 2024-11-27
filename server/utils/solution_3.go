@@ -145,3 +145,6 @@ func (m MyImplThree) deleteNode(root *TreeNode, key int) *TreeNode {
 	}
 	return dfs(root)
 }
+func (m MyImplThree) maxPathSum(root *TreeNode) int {
+
+}
