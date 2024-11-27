@@ -23,6 +23,31 @@ func (m MyImplThree) lengthOfLIS(nums []int) int {
 	}
 	return res
 }
+
+func (m MyImplThree) lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	var dfs func(node *TreeNode) *TreeNode
+	dfs = func(node *TreeNode) *TreeNode {
+		if node == nil {
+			return nil
+		}
+		if node.Val == p.Val || node.Val == q.Val {
+			return node
+		}
+		left := dfs(node.Left)
+		right := dfs(node.Right)
+		if left != nil && right != nil {
+			return node
+		}
+		if left != nil {
+			return left
+		}
+		if right != nil {
+			return right
+		}
+		return nil
+	}
+	return dfs(root)
+}
 func (m MyImplThree) getIntersectionNode(headA, headB *ListNode) *ListNode {
 	A, B := headA, headB
 	for A != B {
