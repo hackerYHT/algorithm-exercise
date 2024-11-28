@@ -176,3 +176,7 @@ func (m MyImplThree) maxSubArray(nums []int) int {
 	}
 	return res
 }
+
+func (m MyImplThree) search(nums []int, target int) int {
+
+}
