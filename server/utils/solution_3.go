@@ -146,5 +146,16 @@ func (m MyImplThree) deleteNode(root *TreeNode, key int) *TreeNode {
 	return dfs(root)
 }
 func (m MyImplThree) maxPathSum(root *TreeNode) int {
-
+	res := 0
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		leftMax := dfs(node.Left)
+		rightMax := dfs(node.Right)
+		res = int(math.Max(float64(res), float64(leftMax+node.Val+rightMax)))
+		return node.Val + int(math.Max(float64(leftMax), float64(rightMax)))
+	}
+	return dfs(root)
 }
