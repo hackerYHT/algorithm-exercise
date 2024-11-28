@@ -145,19 +145,24 @@ func (m MyImplThree) deleteNode(root *TreeNode, key int) *TreeNode {
 	}
 	return dfs(root)
 }
+
 func (m MyImplThree) maxPathSum(root *TreeNode) int {
-	res := 0
+	res := math.MinInt
+	//返回经过root的单边分支最大和， 即Math.max(root, root+left, root+right)
 	var dfs func(node *TreeNode) int
 	dfs = func(node *TreeNode) int {
 		if node == nil {
 			return 0
 		}
-		leftMax := dfs(node.Left)
-		rightMax := dfs(node.Right)
-		res = int(math.Max(float64(res), float64(leftMax+node.Val+rightMax)))
+		leftMax := int(math.Max(float64(dfs(node.Left)), 0))
+		rightMax := int(math.Max(float64(dfs(node.Right)), 0))
+		if res < node.Val+leftMax+rightMax {
+			res = node.Val + leftMax + rightMax
+		}
 		return node.Val + int(math.Max(float64(leftMax), float64(rightMax)))
 	}
-	return dfs(root)
+	dfs(root)
+	return res
 }
 func (m MyImplThree) maxSubArray(nums []int) int {
 	dp := make([]int, len(nums))
