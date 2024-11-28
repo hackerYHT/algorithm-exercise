@@ -166,7 +166,7 @@ func (m MyImplThree) maxPathSum(root *TreeNode) int {
 }
 func (m MyImplThree) maxSubArray(nums []int) int {
 	dp := make([]int, len(nums))
-	res := 0
+	res := nums[0]
 	dp[0] = nums[0]
 	for i := 1; i < len(dp); i++ {
 		dp[i] = int(math.Max(float64(dp[i-1]+nums[i]), float64(nums[i])))
