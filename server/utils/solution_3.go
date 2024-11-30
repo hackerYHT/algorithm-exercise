@@ -177,6 +177,48 @@ func (m MyImplThree) maxSubArray(nums []int) int {
 	return res
 }
 
-func (m MyImplThree) search(nums []int, target int) int {
-
+func (m MyImplThree) canFinish(numCourses int, prerequisites [][]int) bool {
+	//统计图节点的入度
+	degreeArr := make([]int, numCourses)
+	//采用map表示领结矩阵（无向图）
+	graphMap := make(map[int][]int)
+	//初始化数据结构
+	for i := 0; i < len(prerequisites); i++ {
+		nextCourseArr, ok := graphMap[prerequisites[i][1]]
+		if ok {
+			//切片扩容触发深拷贝，不会同时修改map的值
+			graphMap[prerequisites[i][1]] = append(nextCourseArr, prerequisites[i][0])
+		} else {
+			graphMap[prerequisites[i][1]] = []int{prerequisites[i][0]}
+		}
+		degreeArr[prerequisites[i][0]]++
+	}
+	//遍历数据结构，处理入度，从入度==0的图节点开始
+	q := make([]int, 0)
+	for i := 0; i < len(degreeArr); i++ {
+		if degreeArr[i] == 0 {
+			q = append(q, i)
+		}
+	}
+	count := 0
+	for len(q) != 0 {
+		size := len(q)
+		count += size
+		for i := 0; i < size; i++ {
+			nextCourseArr, ok := graphMap[q[0]]
+			q = q[1:]
+			if ok {
+				for j := 0; j < len(nextCourseArr); j++ {
+					degreeArr[nextCourseArr[j]]--
+					if degreeArr[nextCourseArr[j]] == 0 {
+						q = append(q, nextCourseArr[j])
+					}
+				}
+			}
+		}
+	}
+	if count != numCourses {
+		return false
+	}
+	return true
 }

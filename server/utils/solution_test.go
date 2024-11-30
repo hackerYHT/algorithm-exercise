@@ -302,3 +302,8 @@ func TestDeleteNode(t *testing.T) {
 	res := myimplyThree.deleteNode(root, 1)
 	fmt.Printf("res: %v", res)
 }
+
+func TestCanFinish(t *testing.T) {
+	res := myimplyThree.canFinish(5, [][]int{{1, 4}, {2, 4}, {3, 1}, {3, 2}})
+	fmt.Printf("res: %v", res)
+}
