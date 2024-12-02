@@ -226,11 +226,11 @@ func (m MyImplThree) canFinish(numCourses int, prerequisites [][]int) bool {
 	return true
 }
 func (m MyImplThree) reverseWords(s string) string {
-	strArr := strings.Split(s, " ")
+	strArr := strings.Fields(s)
 	sb := strings.Builder{}
-	for i := len(strArr); i >= 0; i++ {
+	for i := len(strArr) - 1; i >= 0; i-- {
 		sb.WriteString(strArr[i])
-		if i != len(strArr)-1 {
+		if i != 0 {
 			sb.WriteString(" ")
 		}
 	}
