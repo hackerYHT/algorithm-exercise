@@ -1,6 +1,9 @@
 package utils
 
-import "math"
+import (
+	"math"
+	"strings"
+)
 
 type MyImplThree struct {
 	Algorithm
@@ -223,5 +226,13 @@ func (m MyImplThree) canFinish(numCourses int, prerequisites [][]int) bool {
 	return true
 }
 func (m MyImplThree) reverseWords(s string) string {
-
+	strArr := strings.Split(s, " ")
+	sb := strings.Builder{}
+	for i := len(strArr); i >= 0; i++ {
+		sb.WriteString(strArr[i])
+		if i != len(strArr)-1 {
+			sb.WriteString(" ")
+		}
+	}
+	return sb.String()
 }
