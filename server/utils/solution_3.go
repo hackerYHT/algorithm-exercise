@@ -236,3 +236,7 @@ func (m MyImplThree) reverseWords(s string) string {
 	}
 	return sb.String()
 }
+
+func (m MyImplThree) subarraySum(nums []int, k int) int {
+
+}
