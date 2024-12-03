@@ -238,5 +238,44 @@ func (m MyImplThree) reverseWords(s string) string {
 }
 
 func (m MyImplThree) subarraySum(nums []int, k int) int {
-
+	dp := make([]int, len(nums))
+	res := 0
+	if nums[0] == k {
+		dp[0]++
+		res++
+	}
+	for i := 1; i < len(dp); i++ {
+		tmp := nums[i]
+		for j := i - 1; j >= 0; j-- {
+			tmp += nums[j]
+			if tmp == k {
+				dp[i]++
+			}
+		}
+		res += dp[i]
+	}
+	return res
+}
+func (m MyImplThree) generateParenthesis(n int) []string {
+	var dfs func(ans []byte, l, r int)
+	res := make([]string, 0)
+	dfs = func(ans []byte, l, r int) {
+		if l == 0 && r == 0 {
+			tmp := make([]byte, len(ans))
+			copy(tmp, ans)
+			res = append(res, string(tmp))
+		}
+		if l > 0 {
+			ans = append(ans, '(')
+			dfs(ans, l-1, r)
+			ans = ans[:len(ans)-1]
+		}
+		if r > l && r > 0 {
+			ans = append(ans, ')')
+			dfs(ans, l, r-1)
+			ans = ans[:len(ans)-1]
+		}
+	}
+	dfs(make([]byte, 0), n, n)
+	return res
 }
