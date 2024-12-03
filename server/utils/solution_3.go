@@ -245,8 +245,8 @@ func (m MyImplThree) subarraySum(nums []int, k int) int {
 		res++
 	}
 	for i := 1; i < len(dp); i++ {
-		tmp := nums[i]
-		for j := i - 1; j >= 0; j-- {
+		tmp := 0
+		for j := i; j >= 0; j-- {
 			tmp += nums[j]
 			if tmp == k {
 				dp[i]++
