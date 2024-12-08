@@ -307,3 +307,18 @@ func TestCanFinish(t *testing.T) {
 	res := myimplyThree.canFinish(5, [][]int{{1, 4}, {2, 4}, {3, 1}, {3, 2}})
 	fmt.Printf("res: %v", res)
 }
+
+func TestReverseBetween_1(t *testing.T) {
+	node := &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+	head := node.ArrayToLinkedList([]int{1, 2, 3, 4, 5})
+	res := myimplyThree.reverseBetween(head, 2, 4)
+	//head := node.ArrayToLinkedList([]int{5})
+	//res := myimpl.reverseBetween(head, 1, 1)
+	for res != nil {
+		fmt.Printf("%v ", res.Val)
+		res = res.Next
+	}
+}

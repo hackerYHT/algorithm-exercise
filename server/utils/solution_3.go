@@ -324,5 +324,60 @@ func (m MyImplThree) rotate(matrix [][]int) {
 		}
 	}
 }
-func (m MyImplThree) longestValidParentheses(s string) int {
+
+//func (m MyImplThree) longestValidParentheses(s string) int {
+//}
+
+func (m MyImplThree) reverseKGroup(head *ListNode, k int) *ListNode {
+	var reverseList func(pre, cur, tar *ListNode) *ListNode
+	reverseList = func(pre, cur, tar *ListNode) *ListNode {
+		if cur == nil || cur == tar {
+			return cur
+		}
+		tmp := reverseList(cur, cur.Next, tar)
+		cur.Next = pre
+		return tmp
+	}
+	pivot := &ListNode{
+		Val:  -1,
+		Next: head,
+	}
+	start, end := head, head
+	for i := 0; i < k; i++ {
+		end = end.Next
+	}
+	for {
+		reverseList(start, end, end.Next)
+		for i := 0; i < k; i++ {
+			end = end.Next
+		}
+	}
+	return pivot.Next
+}
+
+func (m MyImplThree) reverseBetween(head *ListNode, left int, right int) *ListNode {
+	var dfs func(cur, pre, tar *ListNode) *ListNode
+	dfs = func(cur, pre, tar *ListNode) *ListNode {
+		if cur == nil || cur == tar {
+			return pre
+		}
+		tmp := dfs(cur.Next, cur, tar)
+		cur.Next = pre
+		return tmp
+	}
+	pivot := &ListNode{
+		Val:  -1,
+		Next: head,
+	}
+	pre, cur, tar := pivot, pivot.Next, pivot.Next
+	for i := 0; i < right; i++ {
+		if i < left-1 {
+			pre = pre.Next
+			cur = cur.Next
+		}
+		tar = tar.Next
+	}
+	v := dfs(cur, tar, tar)
+	pre.Next = v
+	return pivot.Next
 }
