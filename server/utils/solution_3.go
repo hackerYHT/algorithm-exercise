@@ -324,3 +324,5 @@ func (m MyImplThree) rotate(matrix [][]int) {
 		}
 	}
 }
+func (m MyImplThree) longestValidParentheses(s string) int {
+}
