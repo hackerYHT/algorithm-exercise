@@ -356,6 +356,7 @@ func (m MyImplThree) reverseKGroup(head *ListNode, k int) *ListNode {
 }
 
 func (m MyImplThree) reverseBetween(head *ListNode, left int, right int) *ListNode {
+	//新方法，递归，翻转链表2
 	var dfs func(cur, pre, tar *ListNode) *ListNode
 	dfs = func(cur, pre, tar *ListNode) *ListNode {
 		if cur == nil || cur == tar {
