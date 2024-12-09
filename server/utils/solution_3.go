@@ -325,8 +325,26 @@ func (m MyImplThree) rotate(matrix [][]int) {
 	}
 }
 
-//func (m MyImplThree) longestValidParentheses(s string) int {
-//}
+func (m MyImplThree) longestValidParentheses(s string) int {
+	stack := make([]int, 0)
+	stack = append(stack, -1)
+	res := 0
+	for i := 0; i < len(s); i++ {
+		if s[i] == '(' {
+			stack = append(stack, i)
+		} else {
+			stack = stack[:len(stack)-1]
+			if len(stack) == 0 {
+				stack = append(stack, i)
+			} else {
+				if res < i-stack[len(stack)-1] {
+					res = i - stack[len(stack)-1]
+				}
+			}
+		}
+	}
+	return res
+}
 
 func (m MyImplThree) reverseKGroup(head *ListNode, k int) *ListNode {
 	var reverseList func(pre, cur, tar *ListNode) *ListNode
