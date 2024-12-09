@@ -400,3 +400,7 @@ func (m MyImplThree) reverseBetween(head *ListNode, left int, right int) *ListNo
 	pre.Next = v
 	return pivot.Next
 }
+
+func myAtoi(s string) int {
+
+}
