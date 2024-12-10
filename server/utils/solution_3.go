@@ -428,3 +428,6 @@ func (m MyImplThree) myAtoi(s string) int {
 	}
 	return sign * abs
 }
+func (m MyImplThree) threeSum(nums []int) [][]int {
+
+}
