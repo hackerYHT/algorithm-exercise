@@ -2,6 +2,7 @@ package utils
 
 import (
 	"math"
+	"sort"
 	"strings"
 )
 
@@ -429,5 +430,40 @@ func (m MyImplThree) myAtoi(s string) int {
 	return sign * abs
 }
 func (m MyImplThree) threeSum(nums []int) [][]int {
-
+	res := make([][]int, 0)
+	sort.Ints(nums)
+	for i := 0; i < len(nums); {
+		l, r := i+1, len(nums)-1
+		if nums[i] > 0 {
+			break
+		}
+		for l < r {
+			if nums[l]+nums[r] < -nums[i] {
+				l++
+				for l < r && nums[l] == nums[l-1] {
+					l++
+				}
+			} else if nums[l]+nums[r] > -nums[i] {
+				r--
+				for l < r && nums[r] == nums[r+1] {
+					r--
+				}
+			} else {
+				res = append(res, []int{nums[i], nums[l], nums[r]})
+				l++
+				for l < r && nums[l] == nums[l-1] {
+					l++
+				}
+				r--
+				for l < r && nums[r] == nums[r+1] {
+					r--
+				}
+			}
+		}
+		i++
+		for i < len(nums) && nums[i] == nums[i-1] {
+			i++
+		}
+	}
+	return res
 }
