@@ -467,3 +467,7 @@ func (m MyImplThree) threeSum(nums []int) [][]int {
 	}
 	return res
 }
+
+func (m MyImplThree) permute(nums []int) [][]int {
+
+}
