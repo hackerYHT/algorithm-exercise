@@ -469,5 +469,25 @@ func (m MyImplThree) threeSum(nums []int) [][]int {
 }
 
 func (m MyImplThree) permute(nums []int) [][]int {
-
+	res := make([][]int, 0)
+	var dfs func(ans []int, visited []bool)
+	dfs = func(ans []int, visited []bool) {
+		if len(ans) == len(nums) {
+			tmp := make([]int, len(ans))
+			copy(tmp, ans)
+			res = append(res, tmp)
+		}
+		for i := 0; i < len(nums); i++ {
+			if visited[i] {
+				continue
+			}
+			ans = append(ans, nums[i])
+			visited[i] = true
+			dfs(ans, visited)
+			visited[i] = false
+			ans = ans[:len(ans)-1]
+		}
+	}
+	dfs(make([]int, 0), make([]bool, len(nums)))
+	return res
 }
