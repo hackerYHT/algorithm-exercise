@@ -504,3 +504,7 @@ func (m MyImplThree) isValidBST(root *TreeNode) bool {
 	}
 	return dfs(root, math.MinInt, math.MaxInt)
 }
+
+func (m MyImplThree) twoSum(nums []int, target int) []int {
+
+}
