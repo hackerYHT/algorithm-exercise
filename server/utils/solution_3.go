@@ -491,3 +491,16 @@ func (m MyImplThree) permute(nums []int) [][]int {
 	dfs(make([]int, 0), make([]bool, len(nums)))
 	return res
 }
+func (m MyImplThree) isValidBST(root *TreeNode) bool {
+	var dfs func(node *TreeNode, minVal, maxVal int) bool
+	dfs = func(node *TreeNode, minVal, maxVal int) bool {
+		if node == nil {
+			return true
+		}
+		if node.Val >= maxVal || node.Val <= minVal {
+			return false
+		}
+		return dfs(node.Left, minVal, node.Val) && dfs(node.Right, node.Val, maxVal)
+	}
+	return dfs(root, math.MinInt, math.MaxInt)
+}
